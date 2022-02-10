@@ -2,11 +2,18 @@ package Agenda;
 
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.control.ComboBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import org.jfree.fx.FXGraphics2D;
 import org.jfree.fx.ResizableCanvas;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.layout.BorderPane;
+
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -16,7 +23,7 @@ public class AgendaGUI extends Application {
     private ResizableCanvas canvas;
 
     @Override
-    public void start(Stage stage)  {
+    public void start(Stage stage)  throws Exception{
 
         BorderPane mainPane = new BorderPane();
         canvas = new ResizableCanvas(g -> draw(g), mainPane);
@@ -24,11 +31,57 @@ public class AgendaGUI extends Application {
         FXGraphics2D g2d = new FXGraphics2D(canvas.getGraphicsContext2D());
 
 
+        Menu menu = new Menu("Menu");
+
+        // load file (always first on the list)
+        MenuItem loadFile = new MenuItem("Load file");
+        menu.getItems().add(loadFile);
+
+        // save planning menu
+        MenuItem saveEdit = new MenuItem("Save planning");
+        menu.getItems().add(saveEdit);
+
+        // edit menu
+        Menu editMenu = new Menu("Edit");
+        MenuItem editEvent = new MenuItem("Edit event");
+        editMenu.getItems().add(editEvent);
+        menu.getItems().add(editMenu);
+
+        // save event
+        Menu saveMenu = new Menu("Save");
+        MenuItem saveEvent = new MenuItem("Save event");
+        MenuItem saveArtist = new MenuItem("Save artist");
+        saveMenu.getItems().add(saveEvent);
+        saveMenu.getItems().add(saveArtist);
+        menu.getItems().add(saveMenu);
+
+        // delete menu & sub menu
+        Menu deleteMenu = new Menu("Delete");
+        MenuItem deleteEvent = new MenuItem("Delete event");
+        MenuItem deleteArtist = new MenuItem("Delete artist");
+        deleteMenu.getItems().add(deleteEvent);
+        deleteMenu.getItems().add(deleteArtist);
+        menu.getItems().add(deleteMenu);
+
+
+
+        // help menu (always last on the list)
+        MenuItem helpMenu = new MenuItem("Help");
+        menu.getItems().add(helpMenu);
+
+        // all menus together
+        MenuBar menuBar = new MenuBar();
+        menuBar.getMenus().add(menu);
+
+
+        mainPane.setTop(menuBar);
         stage.setScene(new Scene(mainPane, 1920, 1080));
         stage.setTitle("Agenda");
         stage.show();
         draw(g2d);
+
     }
+
 
     public void init() {
     }
