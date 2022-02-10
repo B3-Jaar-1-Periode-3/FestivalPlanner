@@ -1,4 +1,6 @@
 package Agenda;
 
-public class AgendaGUI {
+import javafx.scene.canvas.Canvas;
+
+public class AgendaGUI extends Canvas {
 }
