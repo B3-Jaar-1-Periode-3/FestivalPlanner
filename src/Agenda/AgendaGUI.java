@@ -41,21 +41,11 @@ public class AgendaGUI extends Application {
        // graphics.scale(1, -1);
 
         drawGrit(graphics);
-       // graphics.translate(this.canvas.getWidth()*2,this.canvas.getHeight()*2);
 
-        int x = -920;
-        int y= 290;
-
-        Font font = new Font("Serif", Font.PLAIN, 30);
-        Shape shape = font.createGlyphVector(graphics.getFontRenderContext(), "Main Stage").getOutline();
         drawText(graphics,-920,290,"main stage");
         drawText(graphics,-920,90,"substage 1");
         drawText(graphics,-920,-110,"substage 2");
         drawText(graphics,-920,-310,"Substage 3");
-
-
-
-
 
     }
 
