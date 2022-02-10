@@ -42,6 +42,14 @@ public class AgendaGUI extends Application {
 
     }
 
+    public Stroke drawLine(float width){
+        Stroke s = new BasicStroke(width,
+                BasicStroke.JOIN_ROUND,
+                BasicStroke.CAP_ROUND);
+
+        return s;
+    }
+
     public static void main(String[] args) {
         launch(AgendaGUI.class);
     }
