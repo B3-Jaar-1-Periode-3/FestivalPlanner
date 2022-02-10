@@ -4,10 +4,13 @@ import java.util.ArrayList;
 
 public class Genre {
 
-    ArrayList<String> genre;
+   private ArrayList<String> genre;
 
     public Genre() {
         this.genre = new ArrayList<>();
+    }
+
+    public void addGenre() {
         genre.add("Pop");
         genre.add("Rock");
         genre.add("Rap");
