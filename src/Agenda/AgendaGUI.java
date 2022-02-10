@@ -42,12 +42,12 @@ public class AgendaGUI extends Application {
 
         graphics.setStroke(drawLine(10));
         graphics.drawLine(-760,1080,-760,-1080);
+        graphics.drawLine(-1800,380,1800,380);
+        graphics.drawLine(-1800,180,1800,180);
+        graphics.drawLine(-1800,-20,1800,-20);
+        graphics.drawLine(-1800,-220,1800,-220);
+        graphics.drawLine(-1800,-420,1800,-420);
 
-        graphics.drawLine(-1800,280,1800,280);
-        graphics.drawLine(-1800,80,1800,80);
-        graphics.drawLine(-1800,-120,1800,-120);
-        graphics.drawLine(-1800,-320,1800,-320);
-        
 
 
     }
