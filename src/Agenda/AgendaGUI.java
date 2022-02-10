@@ -37,7 +37,17 @@ public class AgendaGUI extends Application {
         graphics.setTransform(new AffineTransform());
         graphics.setBackground(Color.white);
         graphics.clearRect(0, 0, (int) canvas.getWidth(), (int) canvas.getHeight());
+        graphics.translate(this.canvas.getWidth() / 2, this.canvas.getHeight() / 2);
+        graphics.scale(1, -1);
 
+        graphics.setStroke(drawLine(10));
+        graphics.drawLine(-760,1080,-760,-1080);
+
+        graphics.drawLine(-1800,280,1800,280);
+        graphics.drawLine(-1800,80,1800,80);
+        graphics.drawLine(-1800,-120,1800,-120);
+        graphics.drawLine(-1800,-320,1800,-320);
+        
 
 
     }
