@@ -1,7 +1,8 @@
 package Data;
 
 public class Artist {
-    String name;
+
+    private String name;
 
     public Artist() {
         this.name = name;
@@ -10,4 +11,5 @@ public class Artist {
     public String getName() {
         return name;
     }
+
 }
