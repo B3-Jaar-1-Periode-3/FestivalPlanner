@@ -8,6 +8,7 @@ public class Genre {
 
     public Genre() {
         this.genre = new ArrayList<>();
+        addGenre();
     }
 
     public void addGenre() {
