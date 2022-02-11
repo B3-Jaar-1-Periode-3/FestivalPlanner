@@ -41,28 +41,35 @@ public class AgendaGUI extends Application {
         MenuItem saveEdit = new MenuItem("Save planning");
         menu.getItems().add(saveEdit);
 
-        // edit menu
+        // edit menu & sub menu
         Menu editMenu = new Menu("Edit");
         MenuItem editEvent = new MenuItem("Edit event");
+        MenuItem editArtist = new MenuItem("Edit artist");
+        MenuItem editGenre = new MenuItem("Edit genre");
         editMenu.getItems().add(editEvent);
+        editMenu.getItems().add(editArtist);
+        editMenu.getItems().add(editGenre);
         menu.getItems().add(editMenu);
 
-        // save event
+        // save menu & sub menu
         Menu saveMenu = new Menu("Save");
         MenuItem saveEvent = new MenuItem("Save event");
         MenuItem saveArtist = new MenuItem("Save artist");
+        MenuItem saveGenre = new MenuItem("Save genre");
         saveMenu.getItems().add(saveEvent);
         saveMenu.getItems().add(saveArtist);
+        saveMenu.getItems().add(saveGenre);
         menu.getItems().add(saveMenu);
 
         // delete menu & sub menu
         Menu deleteMenu = new Menu("Delete");
         MenuItem deleteEvent = new MenuItem("Delete event");
         MenuItem deleteArtist = new MenuItem("Delete artist");
+        MenuItem deleteGenre = new MenuItem("Delete genre");
         deleteMenu.getItems().add(deleteEvent);
         deleteMenu.getItems().add(deleteArtist);
+        deleteMenu.getItems().add(deleteGenre);
         menu.getItems().add(deleteMenu);
-
 
 
         // help menu (always last on the list)
@@ -82,7 +89,6 @@ public class AgendaGUI extends Application {
 
     }
 
-
     public void init() {
     }
 
@@ -91,7 +97,7 @@ public class AgendaGUI extends Application {
         graphics.setBackground(Color.white);
         graphics.clearRect(0, 0, (int) canvas.getWidth(), (int) canvas.getHeight());
         graphics.translate(this.canvas.getWidth() / 2, this.canvas.getHeight() / 2);
-       // graphics.scale(1, -1);
+        // graphics.scale(1, -1);
 
         drawGrit(graphics);
 
