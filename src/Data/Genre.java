@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Genre {
 
-   private ArrayList<String> genre;
+    private ArrayList<String> genre;
 
     public Genre() {
         this.genre = new ArrayList<>();

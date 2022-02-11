@@ -1,7 +1,10 @@
 package Data;
 
+import java.util.ArrayList;
+
 public class Artist {
 
+    private ArrayList<Artist> artistList = new ArrayList<>();
     private String name;
 
     public Artist() {
@@ -10,6 +13,10 @@ public class Artist {
 
     public String getName() {
         return name;
+    }
+
+    public ArrayList<Artist> getArtistList() {
+        return artistList;
     }
 
 }
