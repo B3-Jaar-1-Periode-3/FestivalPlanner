@@ -9,4 +9,7 @@ public class Podium implements Serializable {
         this.ID = ID;
     }
 
+    public int getID() {
+        return ID;
+    }
 }

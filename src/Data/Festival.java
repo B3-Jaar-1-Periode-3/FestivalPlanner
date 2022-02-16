@@ -25,4 +25,16 @@ public class Festival implements Serializable {
     public ArrayList<Podium> getPodiumList() {
         return podiumList;
     }
+
+    public void addGenre(String genre) {
+        this.genreList.add(genre);
+    }
+
+    public void addArtist(Artist artist) {
+        this.artistList.add(artist);
+    }
+
+    public void addPodium(Podium podium) {
+        this.podiumList.add(podium);
+    }
 }
