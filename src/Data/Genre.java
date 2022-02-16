@@ -1,8 +1,8 @@
 package Data;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Genre {
+public class Genre implements Serializable {
 
     private ArrayList<String> genre;
 

@@ -1,33 +1,22 @@
 package Data;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Festival {
+public class Festival implements Serializable {
 
     private ArrayList<String> genreList;
     private ArrayList<Artist> artistList;
     private ArrayList<Podium> podiumList;
 
-    public void festival() {
-        this.genreList = new ArrayList<>();
-        this.artistList = new ArrayList<>();
-        this.podiumList = new ArrayList<>();
-    }
-
-    private void addGenre(String genre) {
-        this.genreList.add(genre);
-    }
-
-    public void addArtist(Artist artist) {
-        this.artistList.add(artist);
-    }
-
-    public void addPodium(Podium podium) {
-        this.podiumList.add(podium);
+    public Festival(ArrayList<String> genreList, ArrayList<Artist> artistList, ArrayList<Podium> podiumList) {
+        this.genreList = genreList;
+        this.artistList = artistList;
+        this.podiumList = podiumList;
     }
 
     public ArrayList<String> getGenreList() {
-    return genreList;
-}
+        return genreList;
+    }
 
     public ArrayList<Artist> getArtistList() {
         return artistList;

@@ -1,22 +1,12 @@
 package Data;
+import java.io.Serializable;
 
-import java.util.ArrayList;
+public class Artist implements Serializable {
 
-public class Artist {
-
-    private ArrayList<Artist> artistList = new ArrayList<>();
     private String name;
 
-    public Artist() {
+    public Artist(String name) {
         this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public ArrayList<Artist> getArtistList() {
-        return artistList;
     }
 
 }

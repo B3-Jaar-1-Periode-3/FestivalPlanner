@@ -1,7 +1,8 @@
 package Data;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Event {
+public class Event implements Serializable {
 
     private ArrayList<Artist> artists;
     private Genre genre;
