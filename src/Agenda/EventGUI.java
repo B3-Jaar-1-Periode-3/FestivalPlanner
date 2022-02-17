@@ -23,11 +23,15 @@ public class EventGUI extends Application {
     private ComboBox<String> genreBox;
     private ArrayList<Artist> artistArrayList;
     private ArrayList<Podium> podiumArrayList;
-    private ArrayList<Genre> genreArrayList;
+    private ArrayList<String> genreArrayList;
     private Button save;
 
     @Override
     public void start(Stage stage) throws Exception {
+        this.artistArrayList = Festival.getInstance().getArtistList();
+        this.podiumArrayList = Festival.getInstance().getPodiumList();
+        this.genreArrayList = Festival.getInstance().getGenreList();
+
         artistArrayList = new ArrayList<>();
         mainPane = new BorderPane();
         hBox = new HBox();
@@ -49,10 +53,6 @@ public class EventGUI extends Application {
         popularity.setMinorTickCount(0);
         popularity.setSnapToTicks(true);
 
-        podiumArrayList.add(new Podium(1));
-        artistArrayList.add(new Artist("Agt"));
-        genreArrayList.add(new Genre("Pop"));
-
         save.setPrefSize(75,75);
 
         for (Artist artist : artistArrayList) {
@@ -64,8 +64,8 @@ public class EventGUI extends Application {
             podiaBox.getItems().add(id);
         }
 
-        for (Genre genre : genreArrayList) {
-            genreBox.getItems().add(genre.getGenre());
+        for (String genre : genreArrayList) {
+            genreBox.getItems().add(genre);
         }
 
         save.setOnAction(event -> {
@@ -101,18 +101,6 @@ public class EventGUI extends Application {
         stage.setScene(scene);
         stage.setTitle("Add an Event");
         stage.show();
-    }
-
-    public void setArtistArrayList(ArrayList<Artist> artists) {
-        this.artistArrayList = artists;
-    }
-
-    public void setPodiumArrayList(ArrayList<Podium> podiums) {
-        this.podiumArrayList = podiums;
-    }
-
-    public void setGenreList(ArrayList<Genre> genres) {
-        this.genreArrayList = genres;
     }
 
     public static void main(String[] args) {
