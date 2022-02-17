@@ -1,5 +1,6 @@
 package Data;
 import java.io.Serializable;
+import java.sql.Array;
 import java.util.ArrayList;
 
 public class Festival implements Serializable {
@@ -8,6 +9,14 @@ public class Festival implements Serializable {
     private ArrayList<Artist> artistList;
     private ArrayList<Podium> podiumList;
     private ArrayList<Event> events;
+
+
+    public Festival(){
+        this.genreList = new ArrayList<>();
+        this.artistList = new ArrayList<>();
+        this.podiumList = new ArrayList<>();
+        this.events = new ArrayList<>();
+    }
 
     public Festival(ArrayList<String> genreList, ArrayList<Artist> artistList, ArrayList<Podium> podiumList, ArrayList<Event> events) {
         this.genreList = genreList;

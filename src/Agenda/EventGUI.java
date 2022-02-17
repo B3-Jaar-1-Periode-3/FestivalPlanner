@@ -1,10 +1,9 @@
 package Agenda;
 
-import Data.Artist;
-import Data.Genre;
-import Data.Podium;
+import Data.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -28,7 +27,12 @@ public class EventGUI extends Application {
     private ArrayList<Artist> artistArrayList;
     private ArrayList<Podium> podiumArrayList;
     private ArrayList<Genre> genreArrayList;
+    private Button save;
+    private Festival festival;
 
+    public EventGUI(Festival festival) {
+        this.festival = festival;
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -42,11 +46,15 @@ public class EventGUI extends Application {
         podiaBox = new ComboBox<>();
         podiumArrayList = new ArrayList<>();
         genreArrayList = new ArrayList<>();
-
+        save = new Button("Save");
+        TextField enterBegin = new TextField();
+        TextField enterEnd = new TextField();
 
         podiumArrayList.add(new Podium(1));
         artistArrayList.add(new Artist("Agt"));
         genreArrayList.add(new Genre("Pop"));
+
+        save.setPrefSize(50,50);
 
         for (Artist artist : artistArrayList) {
             artists.getItems().add(artist.getName());
@@ -61,6 +69,10 @@ public class EventGUI extends Application {
             genreBox.getItems().add(genre.getGenre());
         }
 
+        save.setOnAction(event -> {
+            festival.addEvent(new Event(Integer.parseInt(enterBegin.getText()), Integer.parseInt(enterEnd.getText()), genreBox.getValue(), Integer.parseInt(podiaBox.getValue()), artists.getValue()));
+        });
+
         artists.setPrefSize(100,30);
         Label labelArtist = new Label("Artist:");
         labelArtist.setFont(Font.font(15));
@@ -73,11 +85,9 @@ public class EventGUI extends Application {
         Label labelGenre = new Label("Genre:");
         labelGenre.setFont(Font.font(15));
 
-        TextField enterBegin = new TextField();
-        TextField enterEnd = new TextField();
-
-        mainPane.setPrefSize(1000,800);
+        mainPane.setPrefSize(500,400);
         mainPane.setLeft(hBox);
+        mainPane.setBottom(save);
         hBox.setSpacing(20);
         vBoxBoxes.setSpacing(10);
         vBoxLabels.setSpacing(15);

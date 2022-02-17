@@ -11,9 +11,10 @@ public class Event implements Serializable {
     private Podium podium;
     private int ID;
 
-    public Event(int startTime, int endTime, Genre genre) {
+    public Event(int startTime, int endTime, String genre, int id, String artist) {
         this.artists = new ArrayList<>();
-        this.genre = genre;
+        this.artists.add(new Artist(artist));
+        this.genre = new Genre(genre);
         this.startTime = startTime;
         this.endTime = endTime;
         this.podium = new Podium(ID);
