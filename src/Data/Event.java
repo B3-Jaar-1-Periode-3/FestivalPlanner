@@ -10,13 +10,15 @@ public class Event implements Serializable {
     private int endTime;
     private Podium podium;
     private int ID;
+    private int populariteit;
 
-    public Event(int startTime, int endTime) {
+    public Event(int startTime, int endTime, int populariteit) {
         this.artists = new ArrayList<>();
         this.genre = new Genre();
         this.startTime = startTime;
         this.endTime = endTime;
         this.podium = new Podium(ID);
+        this.populariteit = populariteit;
     }
 
     public void addArtists(Artist artist) {
@@ -41,5 +43,9 @@ public class Event implements Serializable {
 
     public Podium getPodium() {
         return podium;
+    }
+
+    public  int getPopulariteit() {
+        return populariteit;
     }
 }
