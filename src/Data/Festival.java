@@ -21,7 +21,7 @@ public class Festival implements Serializable {
         this.eventList = new ArrayList<>();
     }
 
-    public Festival(ArrayList<String> genreList, ArrayList<Artist> artistList, ArrayList<Podium> podiumList, ArrayList<Event> events) {
+    public Festival(ArrayList<String> genreList, ArrayList<Artist> artistList, ArrayList<Podium> podiumList, ArrayList<Event> eventList) {
         this.genreList = genreList;
         this.artistList = artistList;
         this.podiumList = podiumList;
