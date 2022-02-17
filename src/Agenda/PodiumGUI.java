@@ -37,8 +37,11 @@ public class PodiumGUI extends Application {
         stage.setScene(scene);
         stage.show();
 
-        //  addPodium.setOnAction(event ->
+        addPodium.setOnAction(event -> {
+            Festival.getInstance().addPodium(new Podium(Integer.parseInt(input.getText())));
+        });
     }
+
 
         public static void main(String[] args) {
             launch(PodiumGUI.class);
