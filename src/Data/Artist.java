@@ -1,6 +1,8 @@
 package Data;
+import java.io.Serializable;
 
-public class Artist {
+public class Artist implements Serializable {
+
     private String name;
 
     public Artist(String name) {
@@ -9,9 +11,5 @@ public class Artist {
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }
