@@ -38,7 +38,6 @@ public class AgendaGUI extends Application {
         // Single buttons
         Button help = new Button("Help");
 
-
         // File menu and submenu's
         Menu file = new Menu("File");
         Menu fileMenu = new Menu("File");
@@ -81,8 +80,7 @@ public class AgendaGUI extends Application {
         deleteMenu.getItems().add(deleteGenre);
         delete.getItems().add(deleteMenu);
 
-
-        // all menus together
+        // all menu bars together
         MenuBar fileMenuBar = new MenuBar();
         MenuBar editMenuBar = new MenuBar();
         MenuBar saveMenuBar = new MenuBar();
@@ -93,9 +91,10 @@ public class AgendaGUI extends Application {
         saveMenuBar.getMenus().add(saveMenu);
         deleteMenuBar.getMenus().add(deleteMenu);
 
+
         HBox menus = new HBox(fileMenuBar, editMenuBar, saveMenuBar, deleteMenuBar, help);
         mainPane.setTop(menus);
-        mainPane.setPrefSize(800,1000);
+        menus.setPrefSize(300,500);
         stage.setScene(new Scene(mainPane, 1920, 1080));
         stage.setTitle("Agenda");
         stage.show();
