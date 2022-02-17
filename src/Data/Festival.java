@@ -7,13 +7,13 @@ public class Festival implements Serializable {
     private ArrayList<String> genreList;
     private ArrayList<Artist> artistList;
     private ArrayList<Podium> podiumList;
-    private ArrayList<Event> events;
+    private ArrayList<Event> eventList;
 
-    public Festival(ArrayList<String> genreList, ArrayList<Artist> artistList, ArrayList<Podium> podiumList, ArrayList<Event> events) {
+    public Festival(ArrayList<String> genreList, ArrayList<Artist> artistList, ArrayList<Podium> podiumList, ArrayList<Event> eventList) {
         this.genreList = genreList;
         this.artistList = artistList;
         this.podiumList = podiumList;
-        this.events = events;
+        this.eventList = eventList;
     }
 
     public ArrayList<String> getGenreList() {
@@ -28,9 +28,10 @@ public class Festival implements Serializable {
         return podiumList;
     }
 
-    public ArrayList<Event> getEvents() {
-        return events;
+    public ArrayList<Event> getEventList() {
+        return eventList;
     }
+
 
     public void addGenre(String genre) {
         this.genreList.add(genre);
@@ -45,6 +46,6 @@ public class Festival implements Serializable {
     }
 
     public void addEvent(Event event) {
-        this.events.add(event);
+        this.eventList.add(event);
     }
 }
