@@ -40,11 +40,10 @@ public class AgendaGUI extends Application {
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(canvas);
         scrollPane.setPannable(true);
+
         // Single buttons
         Button help = new Button("Help");
 
-
-        Menu menu = new Menu("Menu");
 
         // File menu and submenu's
         Menu file = new Menu("File");
@@ -99,11 +98,9 @@ public class AgendaGUI extends Application {
         saveMenuBar.getMenus().add(saveMenu);
         deleteMenuBar.getMenus().add(deleteMenu);
 
-        mainPane.setTop(menuBar);
         mainPane.setCenter(scrollPane);
         HBox menus = new HBox(fileMenuBar, editMenuBar, saveMenuBar, deleteMenuBar, help);
         mainPane.setTop(menus);
-        menus.setPrefSize(300,500);
         stage.setScene(new Scene(mainPane, 1920, 1080));
         stage.setTitle("Agenda");
         stage.show();
