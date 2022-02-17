@@ -2,27 +2,17 @@ package Agenda;
 
 
 import javafx.application.Application;
-import javafx.scene.*;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.jfree.fx.FXGraphics2D;
 import org.jfree.fx.ResizableCanvas;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.control.Button;
 
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Line2D;
 
 public class AgendaGUI extends Application {
 
@@ -33,8 +23,7 @@ public class AgendaGUI extends Application {
 
 
     @Override
-    public void start(Stage stage) throws Exception {
-
+    public void start(Stage stage){
         BorderPane mainPane = new BorderPane();
         canvas = new ResizableCanvas(g -> draw(g), mainPane);
 
@@ -44,20 +33,12 @@ public class AgendaGUI extends Application {
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(canvas);
         scrollPane.setPannable(true);
-        // Single buttons
-        Button help = new Button("Help");
 
 
-        Menu menu = new Menu("Menu");
+        // Build & setup AgendaMenuBar scene
+        AgendaMenubar.build();
+        mainPane.setTop(AgendaMenubar.getAgendaMenuBarScene());
 
-        // File menu and submenu's
-        Menu file = new Menu("File");
-        Menu fileMenu = new Menu("File");
-        MenuItem loadFile = new MenuItem("Load file");
-        MenuItem savePlanning = new MenuItem("Save planning");
-        fileMenu.getItems().add(loadFile);
-        fileMenu.getItems().add(savePlanning);
-        file.getItems().add(fileMenu);
 
         // edit menu & sub menu's
         Menu edit = new Menu("Edit");
