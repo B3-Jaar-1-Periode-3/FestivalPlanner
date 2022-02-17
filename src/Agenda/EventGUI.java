@@ -1,6 +1,7 @@
 package Agenda;
 
 import Data.Artist;
+import Data.Podium;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
@@ -20,6 +21,7 @@ public class EventGUI extends Application {
     private HBox hBox;
     private ComboBox<String> artists;
     private ArrayList<Artist> artistArrayList;
+    private ArrayList<Podium> podiumArrayList;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -46,11 +48,16 @@ public class EventGUI extends Application {
         Scene scene = new Scene(mainPane);
 
         stage.setScene(scene);
+        stage.setTitle("Add an Event");
         stage.show();
     }
 
     public void setArtistArrayList(ArrayList<Artist> artists) {
         this.artistArrayList = artists;
+    }
+
+    public void setPodiumArrayList(ArrayList<Podium> podiums) {
+        this.podiumArrayList = podiums;
     }
 
     public static void main(String[] args) {
