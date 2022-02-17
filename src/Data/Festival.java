@@ -1,9 +1,12 @@
 package Data;
+import com.sun.org.apache.xerces.internal.util.FeatureState;
+
 import java.io.Serializable;
 import java.sql.Array;
 import java.util.ArrayList;
 
 public class Festival implements Serializable {
+    private static Festival festival;
 
     private ArrayList<String> genreList;
     private ArrayList<Artist> artistList;
@@ -55,5 +58,12 @@ public class Festival implements Serializable {
 
     public void addEvent(Event event) {
         this.events.add(event);
+    }
+
+    public static Festival getInstance() {
+        if (festival == null) {
+            festival = new Festival();
+        }
+        return festival;
     }
 }

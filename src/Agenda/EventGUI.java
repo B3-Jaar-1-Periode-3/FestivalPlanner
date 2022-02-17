@@ -28,11 +28,6 @@ public class EventGUI extends Application {
     private ArrayList<Podium> podiumArrayList;
     private ArrayList<Genre> genreArrayList;
     private Button save;
-    private Festival festival;
-
-    public EventGUI(Festival festival) {
-        this.festival = festival;
-    }
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -70,7 +65,7 @@ public class EventGUI extends Application {
         }
 
         save.setOnAction(event -> {
-            festival.addEvent(new Event(Integer.parseInt(enterBegin.getText()), Integer.parseInt(enterEnd.getText()), genreBox.getValue(), Integer.parseInt(podiaBox.getValue()), artists.getValue()));
+            Festival.getInstance().addEvent(new Event(Integer.parseInt(enterBegin.getText()), Integer.parseInt(enterEnd.getText()), genreBox.getValue(), Integer.parseInt(podiaBox.getValue()), artists.getValue()));
         });
 
         artists.setPrefSize(100,30);
