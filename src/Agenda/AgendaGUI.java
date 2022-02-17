@@ -27,6 +27,10 @@ import java.awt.geom.Line2D;
 public class AgendaGUI extends Application {
 
     private ResizableCanvas canvas;
+    private double screenWidth = 1920;
+    private double screenHeigth = 5000;
+
+
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -100,11 +104,10 @@ public class AgendaGUI extends Application {
         saveMenuBar.getMenus().add(saveMenu);
         deleteMenuBar.getMenus().add(deleteMenu);
 
-        mainPane.setTop(menuBar);
         mainPane.setCenter(scrollPane);
         HBox menus = new HBox(fileMenuBar, editMenuBar, saveMenuBar, deleteMenuBar, help);
         mainPane.setTop(menus);
-        mainPane.setPrefSize(800,1000);
+        mainPane.setPrefSize(800, 1000);
         stage.setScene(new Scene(mainPane, 1920, 1080));
         stage.setTitle("Agenda");
         stage.show();
@@ -116,8 +119,9 @@ public class AgendaGUI extends Application {
     }
 
     public void draw(FXGraphics2D graphics) {
-        canvas.setHeight(3000.0);
-        canvas.setWidth(2000.0);
+
+        canvas.setWidth(screenWidth);
+        canvas.setHeight(screenHeigth);
 
         graphics.setTransform(new AffineTransform());
         graphics.setBackground(Color.white);
@@ -126,6 +130,8 @@ public class AgendaGUI extends Application {
         drawGrit(graphics);
         drawText(graphics);
         drawTime(graphics);
+        drawHourLine(graphics);
+        drawRectangle(graphics);
         System.out.println("with :" + canvas.getWidth());
         System.out.println("hitht: " + canvas.getHeight());
 
@@ -146,13 +152,13 @@ public class AgendaGUI extends Application {
         graphics.setStroke(drawLine(5));
         int x = 250;
         int y1 = 0;
-        int y2 = 3000;
+        int y2 = 5000;
         for (int lines = 0; lines < 4; lines++) {
             graphics.drawLine(x, y1, x, y2);
-            x += 455;
+            x += (screenWidth-250)/4;
         }
 
-        graphics.drawLine(0, 80, 1920, 80);
+     //   graphics.drawLine(0, 80, 1920, 80);
     }
 
     /**
@@ -162,10 +168,10 @@ public class AgendaGUI extends Application {
      */
     public void drawText(FXGraphics2D graphics2D) {
         graphics2D.setFont(new Font("Purisa", Font.PLAIN, 32));
-        graphics2D.drawString("Main Stage", 400, 50);
-        graphics2D.drawString("substage 1", 855, 50);
-        graphics2D.drawString("substage 2", 1310, 50);
-        graphics2D.drawString("substage 3", 1765, 50);
+        graphics2D.drawString("Main Stage", (int)((screenWidth-250)/4), 50);
+        graphics2D.drawString("substage 1", (int)((screenWidth-250)/4)*2, 50);
+        graphics2D.drawString("substage 2", (int)((screenWidth-250)/4)*3, 50);
+        graphics2D.drawString("substage 3", (int)((screenWidth-250)/4)*4, 50);
 
     }
 
@@ -198,9 +204,23 @@ public class AgendaGUI extends Application {
         graphics2D.drawString(name, x, -y);
     }
 
+    public void drawHourLine(FXGraphics2D graphics2D) {
+        int y = 80;
+        for (int time = 0; time < 25; time++) {
+            graphics2D.setStroke(drawLine(1));
+            graphics2D.drawLine(0, y, (int)screenWidth, y);
+            y += 200;
+
+        }
+    }
+
+    public void drawRectangle(FXGraphics2D graphics2D){
+        graphics2D.drawRect(500,200,100,100);
+    }
+
+
     public static void main(String[] args) {
         launch(AgendaGUI.class);
     }
-
 
 }
