@@ -1,7 +1,8 @@
 package Data;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Event {
+public class Event implements Serializable {
 
     private ArrayList<Artist> artists;
     private Genre genre;
@@ -9,13 +10,16 @@ public class Event {
     private int endTime;
     private Podium podium;
     private int ID;
+    private double popularity;
 
-    public Event(int startTime, int endTime) {
+    public Event(int startTime, int endTime, String genre, int id, String artist, double popularity) {
         this.artists = new ArrayList<>();
-        this.genre = new Genre();
+        this.artists.add(new Artist(artist));
+        this.genre = new Genre(genre);
         this.startTime = startTime;
         this.endTime = endTime;
         this.podium = new Podium(ID);
+        this.popularity = popularity;
     }
 
     public void addArtists(Artist artist) {
@@ -40,5 +44,9 @@ public class Event {
 
     public Podium getPodium() {
         return podium;
+    }
+
+    public  double getPopularity() {
+        return popularity;
     }
 }

@@ -1,6 +1,7 @@
 package Data;
+import java.io.Serializable;
 
-public class Podium {
+public class Podium implements Serializable {
 
     private int ID;
 
@@ -8,4 +9,7 @@ public class Podium {
         this.ID = ID;
     }
 
+    public int getID() {
+        return ID;
+    }
 }
