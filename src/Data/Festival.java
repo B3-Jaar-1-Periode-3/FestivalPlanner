@@ -1,8 +1,6 @@
 package Data;
-import com.sun.org.apache.xerces.internal.util.FeatureState;
 
 import java.io.Serializable;
-import java.sql.Array;
 import java.util.ArrayList;
 
 public class Festival implements Serializable {

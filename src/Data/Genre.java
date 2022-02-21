@@ -1,6 +1,6 @@
 package Data;
+
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Genre implements Serializable {
 

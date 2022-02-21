@@ -1,17 +1,12 @@
 package Agenda;
 
-
-import Data.Event;
-import Data.Festival;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.jfree.fx.FXGraphics2D;
 import org.jfree.fx.ResizableCanvas;
-import javafx.scene.layout.BorderPane;
-
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;

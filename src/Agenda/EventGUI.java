@@ -1,7 +1,9 @@
 package Agenda;
 
-import Data.*;
-import javafx.application.Application;
+import Data.Artist;
+import Data.Event;
+import Data.Festival;
+import Data.Podium;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
