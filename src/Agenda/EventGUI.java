@@ -1,9 +1,6 @@
 package Agenda;
 
-import Data.Artist;
-import Data.Event;
-import Data.Festival;
-import Data.Podium;
+import Data.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
@@ -20,12 +17,12 @@ public class EventGUI extends Stage {
     private VBox vBoxLabels;
     private VBox vBoxBoxes;
     private HBox hBox;
-    private ComboBox<String> artists;
-    private ComboBox<String> podiaBox;
-    private ComboBox<String> genreBox;
+    private ComboBox<Artist> artists;
+    private ComboBox<Podium> podiaBox;
+    private ComboBox<Genre> genreBox;
     private ArrayList<Artist> artistArrayList;
     private ArrayList<Podium> podiumArrayList;
-    private ArrayList<String> genreArrayList;
+    private ArrayList<Genre> genreArrayList;
     private Button save;
 
     public EventGUI() {
@@ -57,20 +54,19 @@ public class EventGUI extends Stage {
         save.setPrefSize(75, 75);
 
         for (Artist artist : artistArrayList) {
-            artists.getItems().add(artist.getName());
+            artists.getItems().add(artist);
         }
 
         for (Podium podium : podiumArrayList) {
-            String id = String.valueOf(podium.getID());
-            podiaBox.getItems().add(id);
+            podiaBox.getItems().add(podium);
         }
 
-        for (String genre : genreArrayList) {
+        for (Genre genre : genreArrayList) {
             genreBox.getItems().add(genre);
         }
 
         save.setOnAction(event -> {
-            Festival.getInstance().addEvent(new Event(Integer.parseInt(enterBegin.getText()), Integer.parseInt(enterEnd.getText()), genreBox.getValue(), Integer.parseInt(podiaBox.getValue()), artists.getValue(), popularity.getValue()));
+            Festival.getInstance().addEvent(new Event(Integer.parseInt(enterBegin.getText()), Integer.parseInt(enterEnd.getText()), genreBox.getValue(), podiaBox.getValue(), artists.getValue(), popularity.getValue()));
         });
 
         artists.setPrefSize(100, 30);

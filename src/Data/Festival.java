@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Festival implements Serializable {
     private static Festival festival;
 
-    private ArrayList<String> genreList;
+    private ArrayList<Genre> genreList;
     private ArrayList<Artist> artistList;
     private ArrayList<Podium> podiumList;
     private ArrayList<Event> eventList;
@@ -19,14 +19,14 @@ public class Festival implements Serializable {
         this.eventList = new ArrayList<>();
     }
 
-    public Festival(ArrayList<String> genreList, ArrayList<Artist> artistList, ArrayList<Podium> podiumList, ArrayList<Event> eventList) {
+    public Festival(ArrayList<Genre> genreList, ArrayList<Artist> artistList, ArrayList<Podium> podiumList, ArrayList<Event> eventList) {
         this.genreList = genreList;
         this.artistList = artistList;
         this.podiumList = podiumList;
         this.eventList = eventList;
     }
 
-    public ArrayList<String> getGenreList() {
+    public ArrayList<Genre> getGenreList() {
         return genreList;
     }
 
@@ -43,7 +43,7 @@ public class Festival implements Serializable {
     }
 
 
-    public void addGenre(String genre) {
+    public void addGenre(Genre genre) {
         this.genreList.add(genre);
     }
 
