@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 
-public class EventGUI extends Application {
+public class EventGUI extends Stage {
     private BorderPane mainPane;
     private VBox vBoxLabels;
     private VBox vBoxBoxes;
@@ -26,8 +26,7 @@ public class EventGUI extends Application {
     private ArrayList<String> genreArrayList;
     private Button save;
 
-    @Override
-    public void start(Stage stage) throws Exception {
+    public EventGUI() {
         this.artistArrayList = Festival.getInstance().getArtistList();
         this.podiumArrayList = Festival.getInstance().getPodiumList();
         this.genreArrayList = Festival.getInstance().getGenreList();
@@ -45,7 +44,7 @@ public class EventGUI extends Application {
         save = new Button("Save");
         TextField enterBegin = new TextField();
         TextField enterEnd = new TextField();
-        Slider popularity = new Slider(1,10, 1);
+        Slider popularity = new Slider(1, 10, 1);
 
         popularity.setShowTickLabels(true);
         popularity.setShowTickMarks(true);
@@ -53,7 +52,7 @@ public class EventGUI extends Application {
         popularity.setMinorTickCount(0);
         popularity.setSnapToTicks(true);
 
-        save.setPrefSize(75,75);
+        save.setPrefSize(75, 75);
 
         for (Artist artist : artistArrayList) {
             artists.getItems().add(artist.getName());
@@ -72,7 +71,7 @@ public class EventGUI extends Application {
             Festival.getInstance().addEvent(new Event(Integer.parseInt(enterBegin.getText()), Integer.parseInt(enterEnd.getText()), genreBox.getValue(), Integer.parseInt(podiaBox.getValue()), artists.getValue(), popularity.getValue()));
         });
 
-        artists.setPrefSize(100,30);
+        artists.setPrefSize(100, 30);
         Label labelArtist = new Label("Artist:");
         labelArtist.setFont(Font.font(15));
         Label labelPodium = new Label("Podium:");
@@ -86,7 +85,7 @@ public class EventGUI extends Application {
         Label labelPopularity = new Label("Popularity: ");
         labelPopularity.setFont(Font.font(15));
 
-        mainPane.setPrefSize(500,400);
+        mainPane.setPrefSize(500, 400);
         mainPane.setLeft(hBox);
         mainPane.setBottom(save);
         hBox.setSpacing(20);
@@ -97,13 +96,7 @@ public class EventGUI extends Application {
         vBoxBoxes.getChildren().addAll(artists, podiaBox, enterBegin, enterEnd, genreBox, popularity);
 
         Scene scene = new Scene(mainPane);
-
-        stage.setScene(scene);
-        stage.setTitle("Add an Event");
-        stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(EventGUI.class);
+        setTitle("Event");
+        setScene(scene);
     }
 }

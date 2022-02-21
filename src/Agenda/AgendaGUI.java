@@ -1,6 +1,8 @@
 package Agenda;
 
 
+import Data.Event;
+import Data.Festival;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -20,8 +22,6 @@ public class AgendaGUI extends Application {
     private double screenWidth = 1920;
     private double screenHeigth = 5000;
 
-
-
     @Override
     public void start(Stage stage){
         BorderPane mainPane = new BorderPane();
@@ -29,71 +29,70 @@ public class AgendaGUI extends Application {
 
         FXGraphics2D g2d = new FXGraphics2D(canvas.getGraphicsContext2D());
 
-        //making a scrol pane
+        //making a scroll pane
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(canvas);
         scrollPane.setPannable(true);
 
 
         // Build & setup AgendaMenuBar scene
-        AgendaMenubar.build();
+        AgendaMenubar.build(stage);
         mainPane.setTop(AgendaMenubar.getAgendaMenuBarScene());
 
 
-        // edit menu & sub menu's
-        Menu edit = new Menu("Edit");
-        Menu editMenu = new Menu("Edit");
-        MenuItem editEvent = new MenuItem("Edit event");
-        MenuItem editArtist = new MenuItem("Edit artist");
-        MenuItem editGenre = new MenuItem("Edit genre");
-        editMenu.getItems().add(editEvent);
-        editMenu.getItems().add(editArtist);
-        editMenu.getItems().add(editGenre);
-        edit.getItems().add(editMenu);
-
-        // save menu & sub menu's
-        Menu save = new Menu("Save");
-        Menu saveMenu = new Menu("Save");
-        MenuItem saveEvent = new MenuItem("Save event");
-        MenuItem saveArtist = new MenuItem("Save artist");
-        MenuItem saveGenre = new MenuItem("Save genre");
-        saveMenu.getItems().add(saveEvent);
-        saveMenu.getItems().add(saveArtist);
-        saveMenu.getItems().add(saveGenre);
-        save.getItems().add(saveMenu);
-
-        // delete menu & sub menu's
-        Menu delete = new Menu("Delete");
-        Menu deleteMenu = new Menu("Delete");
-        MenuItem deleteEvent = new MenuItem("Delete event");
-        MenuItem deleteArtist = new MenuItem("Delete artist");
-        MenuItem deleteGenre = new MenuItem("Delete genre");
-        deleteMenu.getItems().add(deleteEvent);
-        deleteMenu.getItems().add(deleteArtist);
-        deleteMenu.getItems().add(deleteGenre);
-        delete.getItems().add(deleteMenu);
-
-
-        // all menus together
-        MenuBar fileMenuBar = new MenuBar();
-        MenuBar editMenuBar = new MenuBar();
-        MenuBar saveMenuBar = new MenuBar();
-        MenuBar deleteMenuBar = new MenuBar();
-
-        fileMenuBar.getMenus().add(fileMenu);
-        editMenuBar.getMenus().add(editMenu);
-        saveMenuBar.getMenus().add(saveMenu);
-        deleteMenuBar.getMenus().add(deleteMenu);
+//        // edit menu & sub menu's
+//        Menu edit = new Menu("Edit");
+//        Menu editMenu = new Menu("Edit");
+//        MenuItem editEvent = new MenuItem("Edit event");
+//        MenuItem editArtist = new MenuItem("Edit artist");
+//        MenuItem editGenre = new MenuItem("Edit genre");
+//        editMenu.getItems().add(editEvent);
+//        editMenu.getItems().add(editArtist);
+//        editMenu.getItems().add(editGenre);
+//        edit.getItems().add(editMenu);
+//
+//        // save menu & sub menu's
+//        Menu save = new Menu("Save");
+//        Menu saveMenu = new Menu("Save");
+//        MenuItem saveEvent = new MenuItem("Save event");
+//        MenuItem saveArtist = new MenuItem("Save artist");
+//        MenuItem saveGenre = new MenuItem("Save genre");
+//        saveMenu.getItems().add(saveEvent);
+//        saveMenu.getItems().add(saveArtist);
+//        saveMenu.getItems().add(saveGenre);
+//        save.getItems().add(saveMenu);
+//
+//        // delete menu & sub menu's
+//        Menu delete = new Menu("Delete");
+//        Menu deleteMenu = new Menu("Delete");
+//        MenuItem deleteEvent = new MenuItem("Delete event");
+//        MenuItem deleteArtist = new MenuItem("Delete artist");
+//        MenuItem deleteGenre = new MenuItem("Delete genre");
+//        deleteMenu.getItems().add(deleteEvent);
+//        deleteMenu.getItems().add(deleteArtist);
+//        deleteMenu.getItems().add(deleteGenre);
+//        delete.getItems().add(deleteMenu);
+//
+//
+//        // all menus together
+//        MenuBar fileMenuBar = new MenuBar();
+//        MenuBar editMenuBar = new MenuBar();
+//        MenuBar saveMenuBar = new MenuBar();
+//        MenuBar deleteMenuBar = new MenuBar();
+//
+//        fileMenuBar.getMenus().add(fileMenu);
+//        editMenuBar.getMenus().add(editMenu);
+//        saveMenuBar.getMenus().add(saveMenu);
+//        deleteMenuBar.getMenus().add(deleteMenu);
 
         mainPane.setCenter(scrollPane);
-        HBox menus = new HBox(fileMenuBar, editMenuBar, saveMenuBar, deleteMenuBar, help);
-        mainPane.setTop(menus);
-        mainPane.setPrefSize(800, 1000);
+//        HBox menus = new HBox(fileMenuBar, editMenuBar, saveMenuBar, deleteMenuBar, help);
+//        mainPane.setTop(menus);
+//        mainPane.setPrefSize(800, 1000);
         stage.setScene(new Scene(mainPane, 1920, 1080));
         stage.setTitle("Agenda");
         stage.show();
         draw(g2d);
-
     }
 
     public void init() {
@@ -112,33 +111,32 @@ public class AgendaGUI extends Application {
         drawText(graphics);
         drawTime(graphics);
         drawHourLine(graphics);
-        drawRectangle(graphics);
-        System.out.println("with :" + canvas.getWidth());
-        System.out.println("hitht: " + canvas.getHeight());
-
-
+//        for (Event event : Festival.getInstance().getEventList()) {
+//            drawRectangle();
+//        }
+        //drawRectangle(graphics);
+        System.out.println("width :" + canvas.getWidth());
+        System.out.println("height: " + canvas.getHeight());
     }
 
     public Stroke drawLine(float width) {
         Stroke s = new BasicStroke(width,
                 BasicStroke.JOIN_ROUND,
                 BasicStroke.CAP_ROUND);
-
         return s;
     }
 
     // this makes the grid of the planner
     public void drawGrit(FXGraphics2D graphics) {
 
-        graphics.setStroke(drawLine(5));
-        int x = 250;
+        graphics.setStroke(drawLine(3));
+        int x = 150;
         int y1 = 0;
-        int y2 = 5000;
+        int y2 = (int)this.canvas.getHeight();
         for (int lines = 0; lines < 4; lines++) {
             graphics.drawLine(x, y1, x, y2);
-            x += (screenWidth-250)/4;
+            x += (screenWidth-150)/4;
         }
-
      //   graphics.drawLine(0, 80, 1920, 80);
     }
 
@@ -149,15 +147,14 @@ public class AgendaGUI extends Application {
      */
     public void drawText(FXGraphics2D graphics2D) {
         graphics2D.setFont(new Font("Purisa", Font.PLAIN, 32));
-        graphics2D.drawString("Main Stage", (int)((screenWidth-250)/4), 50);
-        graphics2D.drawString("substage 1", (int)((screenWidth-250)/4)*2, 50);
-        graphics2D.drawString("substage 2", (int)((screenWidth-250)/4)*3, 50);
-        graphics2D.drawString("substage 3", (int)((screenWidth-250)/4)*4, 50);
-
+        graphics2D.drawString("Main Stage", (int)((screenWidth-150)/4) - 150, 50);
+        graphics2D.drawString("Substage 1", (int)(((screenWidth-150)/4)*2) - 150, 50);
+        graphics2D.drawString("Substage 2", (int)(((screenWidth-150)/4)*3) - 150, 50);
+        graphics2D.drawString("Substage 3", (int)(((screenWidth-150)/4)*4) - 150, 50);
     }
 
     /**
-     * tekend de uuren.
+     * tekent de uren.
      *
      * @param graphics2D
      */
@@ -167,7 +164,6 @@ public class AgendaGUI extends Application {
         for (int time = 0; time < 25; time++) {
             if (time < 10) {
                 graphics2D.drawString("0" + time + ".00", x, y);
-
             } else if (time == 24) {
                 graphics2D.drawString("00.00", x, y);
             } else {
@@ -180,7 +176,6 @@ public class AgendaGUI extends Application {
         }
     }
 
-
     public void drawText(FXGraphics2D graphics2D, int x, int y, String name) {
         graphics2D.drawString(name, x, -y);
     }
@@ -191,17 +186,14 @@ public class AgendaGUI extends Application {
             graphics2D.setStroke(drawLine(1));
             graphics2D.drawLine(0, y, (int)screenWidth, y);
             y += 200;
-
         }
     }
 
-    public void drawRectangle(FXGraphics2D graphics2D){
-        graphics2D.drawRect(500,200,100,100);
+    public void drawRectangle(FXGraphics2D graphics2D, int width, int height){
+        graphics2D.drawRect(500,200,width,height);
     }
-
 
     public static void main(String[] args) {
         launch(AgendaGUI.class);
     }
-
 }

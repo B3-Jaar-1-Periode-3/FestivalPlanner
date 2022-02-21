@@ -1,20 +1,25 @@
 package Agenda;
 
+import Data.Event;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuBar;
 import javafx.scene.layout.*;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 
 public class AgendaMenubar {
     private static HBox agendaMenuBarScene;
 
-    public static void build(){
+    public static void build(Stage stage){
         // Single buttons
-        Button help = new Button("Help");
+        Menu help = new Menu("Help");
+        MenuItem helpButton = new MenuItem("Help");
+        help.getItems().add(helpButton);
 
-        // File menu and submenu's
+        // File menu & submenu's
         Menu file = new Menu("File");
         Menu fileMenu = new Menu("File");
         MenuItem loadFile = new MenuItem("Load file");
@@ -33,6 +38,10 @@ public class AgendaMenubar {
         editMenu.getItems().add(editArtist);
         editMenu.getItems().add(editGenre);
         edit.getItems().add(editMenu);
+
+        editEvent.setOnAction(event -> {
+            new EventGUI().show();
+        });
 
         // save menu & sub menu's
         Menu save = new Menu("Save");
@@ -61,16 +70,16 @@ public class AgendaMenubar {
         javafx.scene.control.MenuBar editMenuBar = new javafx.scene.control.MenuBar();
         javafx.scene.control.MenuBar saveMenuBar = new javafx.scene.control.MenuBar();
         javafx.scene.control.MenuBar deleteMenuBar = new javafx.scene.control.MenuBar();
+        MenuBar helpMenuBar = new MenuBar();
 
         fileMenuBar.getMenus().add(fileMenu);
         editMenuBar.getMenus().add(editMenu);
         saveMenuBar.getMenus().add(saveMenu);
         deleteMenuBar.getMenus().add(deleteMenu);
+        helpMenuBar.getMenus().add(help);
 
-
-        HBox menus = new HBox(fileMenuBar, editMenuBar, saveMenuBar, deleteMenuBar, help);
+        HBox menus = new HBox(fileMenuBar, editMenuBar, saveMenuBar, deleteMenuBar, helpMenuBar);
 //        mainPane.setTop(menus);
-
 
         agendaMenuBarScene = new HBox(menus);
 
