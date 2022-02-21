@@ -19,8 +19,8 @@ import java.awt.geom.AffineTransform;
 public class AgendaGUI extends Application {
 
     private ResizableCanvas canvas;
-    private double screenWidth = 1920;
-    private double screenHeigth = 5000;
+    private final double screenWidth = 1920;
+    private final double screenHeigth = 5000;
 
     @Override
     public void start(Stage stage){
@@ -34,61 +34,11 @@ public class AgendaGUI extends Application {
         scrollPane.setContent(canvas);
         scrollPane.setPannable(true);
 
-
         // Build & setup AgendaMenuBar scene
         AgendaMenubar.build(stage);
         mainPane.setTop(AgendaMenubar.getAgendaMenuBarScene());
 
-
-//        // edit menu & sub menu's
-//        Menu edit = new Menu("Edit");
-//        Menu editMenu = new Menu("Edit");
-//        MenuItem editEvent = new MenuItem("Edit event");
-//        MenuItem editArtist = new MenuItem("Edit artist");
-//        MenuItem editGenre = new MenuItem("Edit genre");
-//        editMenu.getItems().add(editEvent);
-//        editMenu.getItems().add(editArtist);
-//        editMenu.getItems().add(editGenre);
-//        edit.getItems().add(editMenu);
-//
-//        // save menu & sub menu's
-//        Menu save = new Menu("Save");
-//        Menu saveMenu = new Menu("Save");
-//        MenuItem saveEvent = new MenuItem("Save event");
-//        MenuItem saveArtist = new MenuItem("Save artist");
-//        MenuItem saveGenre = new MenuItem("Save genre");
-//        saveMenu.getItems().add(saveEvent);
-//        saveMenu.getItems().add(saveArtist);
-//        saveMenu.getItems().add(saveGenre);
-//        save.getItems().add(saveMenu);
-//
-//        // delete menu & sub menu's
-//        Menu delete = new Menu("Delete");
-//        Menu deleteMenu = new Menu("Delete");
-//        MenuItem deleteEvent = new MenuItem("Delete event");
-//        MenuItem deleteArtist = new MenuItem("Delete artist");
-//        MenuItem deleteGenre = new MenuItem("Delete genre");
-//        deleteMenu.getItems().add(deleteEvent);
-//        deleteMenu.getItems().add(deleteArtist);
-//        deleteMenu.getItems().add(deleteGenre);
-//        delete.getItems().add(deleteMenu);
-//
-//
-//        // all menus together
-//        MenuBar fileMenuBar = new MenuBar();
-//        MenuBar editMenuBar = new MenuBar();
-//        MenuBar saveMenuBar = new MenuBar();
-//        MenuBar deleteMenuBar = new MenuBar();
-//
-//        fileMenuBar.getMenus().add(fileMenu);
-//        editMenuBar.getMenus().add(editMenu);
-//        saveMenuBar.getMenus().add(saveMenu);
-//        deleteMenuBar.getMenus().add(deleteMenu);
-
         mainPane.setCenter(scrollPane);
-//        HBox menus = new HBox(fileMenuBar, editMenuBar, saveMenuBar, deleteMenuBar, help);
-//        mainPane.setTop(menus);
-//        mainPane.setPrefSize(800, 1000);
         stage.setScene(new Scene(mainPane, 1920, 1080));
         stage.setTitle("Agenda");
         stage.show();
@@ -111,12 +61,6 @@ public class AgendaGUI extends Application {
         drawText(graphics);
         drawTime(graphics);
         drawHourLine(graphics);
-//        for (Event event : Festival.getInstance().getEventList()) {
-//            drawRectangle();
-//        }
-        //drawRectangle(graphics);
-        System.out.println("width :" + canvas.getWidth());
-        System.out.println("height: " + canvas.getHeight());
     }
 
     public Stroke drawLine(float width) {

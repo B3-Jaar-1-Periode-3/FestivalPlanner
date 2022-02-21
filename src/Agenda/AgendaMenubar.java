@@ -1,12 +1,9 @@
 package Agenda;
 
-import Data.Event;
-import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.*;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 
@@ -19,57 +16,86 @@ public class AgendaMenubar {
         MenuItem helpButton = new MenuItem("Help");
         help.getItems().add(helpButton);
 
+        helpButton.setOnAction(event -> {
+
+        });
+
         // File menu & submenu's
-        Menu file = new Menu("File");
         Menu fileMenu = new Menu("File");
         MenuItem loadFile = new MenuItem("Load file");
         MenuItem savePlanning = new MenuItem("Save planning");
-        fileMenu.getItems().add(loadFile);
-        fileMenu.getItems().add(savePlanning);
-        file.getItems().add(fileMenu);
+        fileMenu.getItems().addAll(loadFile, savePlanning);
+
+        loadFile.setOnAction(event -> {
+
+        });
+
+        savePlanning.setOnAction(event -> {
+
+        });
 
         // edit menu & sub menu's
-        Menu edit = new Menu("Edit");
         Menu editMenu = new Menu("Edit");
         MenuItem editEvent = new MenuItem("Edit event");
         MenuItem editArtist = new MenuItem("Edit artist");
         MenuItem editGenre = new MenuItem("Edit genre");
-        editMenu.getItems().add(editEvent);
-        editMenu.getItems().add(editArtist);
-        editMenu.getItems().add(editGenre);
-        edit.getItems().add(editMenu);
+        editMenu.getItems().addAll(editEvent, editArtist, editGenre);
 
         editEvent.setOnAction(event -> {
             new EventGUI().show();
         });
 
+        editArtist.setOnAction(event -> {
+
+        });
+
+        editGenre.setOnAction(event -> {
+
+        });
+
         // save menu & sub menu's
-        Menu save = new Menu("Save");
         Menu saveMenu = new Menu("Save");
         MenuItem saveEvent = new MenuItem("Save event");
         MenuItem saveArtist = new MenuItem("Save artist");
         MenuItem saveGenre = new MenuItem("Save genre");
-        saveMenu.getItems().add(saveEvent);
-        saveMenu.getItems().add(saveArtist);
-        saveMenu.getItems().add(saveGenre);
-        save.getItems().add(saveMenu);
+        saveMenu.getItems().addAll(saveEvent, saveArtist, saveGenre);
+
+        saveEvent.setOnAction(event -> {
+
+        });
+
+        saveArtist.setOnAction(event -> {
+
+        });
+
+        saveGenre.setOnAction(event -> {
+
+        });
 
         // delete menu & sub menu's
-        Menu delete = new Menu("Delete");
         Menu deleteMenu = new Menu("Delete");
         MenuItem deleteEvent = new MenuItem("Delete event");
         MenuItem deleteArtist = new MenuItem("Delete artist");
         MenuItem deleteGenre = new MenuItem("Delete genre");
-        deleteMenu.getItems().add(deleteEvent);
-        deleteMenu.getItems().add(deleteArtist);
-        deleteMenu.getItems().add(deleteGenre);
-        delete.getItems().add(deleteMenu);
+        deleteMenu.getItems().addAll(deleteEvent, deleteArtist, deleteGenre);
+
+        deleteEvent.setOnAction(event -> {
+
+        });
+
+        deleteArtist.setOnAction(event -> {
+
+        });
+
+        deleteGenre.setOnAction(event -> {
+
+        });
 
         // all menu bars together
-        javafx.scene.control.MenuBar fileMenuBar = new javafx.scene.control.MenuBar();
-        javafx.scene.control.MenuBar editMenuBar = new javafx.scene.control.MenuBar();
-        javafx.scene.control.MenuBar saveMenuBar = new javafx.scene.control.MenuBar();
-        javafx.scene.control.MenuBar deleteMenuBar = new javafx.scene.control.MenuBar();
+        MenuBar fileMenuBar = new MenuBar();
+        MenuBar editMenuBar = new MenuBar();
+        MenuBar saveMenuBar = new MenuBar();
+        MenuBar deleteMenuBar = new MenuBar();
         MenuBar helpMenuBar = new MenuBar();
 
         fileMenuBar.getMenus().add(fileMenu);
@@ -79,10 +105,7 @@ public class AgendaMenubar {
         helpMenuBar.getMenus().add(help);
 
         HBox menus = new HBox(fileMenuBar, editMenuBar, saveMenuBar, deleteMenuBar, helpMenuBar);
-//        mainPane.setTop(menus);
-
         agendaMenuBarScene = new HBox(menus);
-
     }
 
     public static HBox getAgendaMenuBarScene(){return agendaMenuBarScene;}
