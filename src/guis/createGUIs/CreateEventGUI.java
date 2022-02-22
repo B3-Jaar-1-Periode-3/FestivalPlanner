@@ -16,39 +16,27 @@ import java.util.ArrayList;
 
 
 public class CreateEventGUI extends Stage {
-    private BorderPane mainPane;
-    private VBox vBoxLabels;
-    private VBox vBoxBoxes;
-    private HBox hBox;
-    private ComboBox<Artist> artists;
-    private ComboBox<Podium> podiaBox;
-    private ComboBox<Genre> genreBox;
-    private ArrayList<Artist> artistArrayList;
-    private ArrayList<Podium> podiumArrayList;
-    private ArrayList<Genre> genreArrayList;
-    private Button save;
-    private ListView<Artist> artistsListView;
-    private Button add;
 
     public CreateEventGUI() {
-        this.artistArrayList = Festival.getInstance().getArtistList();
-        this.podiumArrayList = Festival.getInstance().getPodiumList();
-        this.genreArrayList = Festival.getInstance().getGenreList();
+        ArrayList<Artist> artistList = Festival.getInstance().getArtistList();
+        ArrayList<Podium> podiumList = Festival.getInstance().getPodiumList();
+        ArrayList<Genre> genreList = Festival.getInstance().getGenreList();
 
-        artistArrayList = new ArrayList<>();
-        artistsListView = new ListView<>();
-        mainPane = new BorderPane();
-        hBox = new HBox();
-        vBoxLabels = new VBox();
-        vBoxBoxes = new VBox();
-        genreBox = new ComboBox<>();
-        artists = new ComboBox<>();
-        podiaBox = new ComboBox<>();
-        podiumArrayList = new ArrayList<>();
-        genreArrayList = new ArrayList<>();
-        save = new Button("Save");
-        add = new Button("Add");
+        //Creates window content
+        BorderPane mainPane = new BorderPane();
+        HBox hBox = new HBox();
+        VBox vBoxLabels = new VBox();
+        VBox vBoxBoxes = new VBox();
 
+        //Creates ComboBoxes
+        ComboBox<Genre> genreBox = new ComboBox<>();
+        ComboBox<Artist> artists = new ComboBox<>();
+        ComboBox<Podium> podiaBox = new ComboBox<>();
+
+        //Creates Input buttons and fields
+        Button save = new Button("Save");
+        Button add = new Button("Add");
+        ListView<Artist> artistsListView = new ListView<>();
         TextField enterBegin = new TextField();
         TextField enterEnd = new TextField();
         Slider popularity = new Slider(1, 10, 1);
@@ -61,15 +49,16 @@ public class CreateEventGUI extends Stage {
 
         save.setMinWidth(100);
 
-        for (Artist artist : Festival.getInstance().getArtistList()) {
+        //Input saved data into lists
+        for (Artist artist : artistList) {
             artists.getItems().add(artist);
         }
 
-        for (Podium podium : Festival.getInstance().getPodiumList()) {
+        for (Podium podium : podiumList) {
             podiaBox.getItems().add(podium);
         }
 
-        for (Genre genre : Festival.getInstance().getGenreList()) {
+        for (Genre genre : genreList) {
             genreBox.getItems().add(genre);
         }
 

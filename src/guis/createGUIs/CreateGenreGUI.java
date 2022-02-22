@@ -13,21 +13,15 @@ import javafx.stage.Stage;
 
 public class CreateGenreGUI extends Stage {
 
-    private BorderPane mainPane;
-    private HBox hBox;
-    private VBox vBoxLabels;
-    private VBox vBoxFields;
-    private TextField genreField;
-
     public CreateGenreGUI() {
-        mainPane = new BorderPane();
-        hBox = new HBox();
-        vBoxFields = new VBox();
-        vBoxLabels = new VBox();
+        BorderPane mainPane = new BorderPane();
+        HBox hBox = new HBox();
+        VBox vBoxFields = new VBox();
+        VBox vBoxLabels = new VBox();
 
         mainPane.setPrefSize(400,100);
         Label genre = new Label("Genre: ");
-        genreField = new TextField();
+        TextField genreField = new TextField();
         Button save = new Button("Save");
         save.setPrefSize(400,50);
 
@@ -36,8 +30,7 @@ public class CreateGenreGUI extends Stage {
             close();
         });
 
-
-        hBox.getChildren().addAll(vBoxLabels,vBoxFields);
+        hBox.getChildren().addAll(vBoxLabels, vBoxFields);
         vBoxLabels.getChildren().add(genre);
         vBoxFields.getChildren().add(genreField);
 
