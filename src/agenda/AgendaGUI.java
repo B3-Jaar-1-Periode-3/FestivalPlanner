@@ -15,21 +15,20 @@ public class AgendaGUI extends Application {
 
     private ResizableCanvas canvas;
     private final double screenWidth = 1920;
-    private final double screenHeigth = 2600;
+    private final double screenHeight = 2600;
 
     @Override
     public void start(Stage stage) {
         BorderPane mainPane = new BorderPane();
         canvas = new ResizableCanvas(g -> draw(g), mainPane);
-
         FXGraphics2D g2d = new FXGraphics2D(canvas.getGraphicsContext2D());
 
-        //making a scroll pane
+        //Creates a scroll pane
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(canvas);
         scrollPane.setPannable(true);
 
-        // Build & setup AgendaMenuBar scene
+        //Build & setup AgendaMenuBar scene
         AgendaMenubar.build(stage);
         mainPane.setTop(AgendaMenubar.getAgendaMenuBarScene());
 
@@ -40,13 +39,9 @@ public class AgendaGUI extends Application {
         draw(g2d);
     }
 
-    public void init() {
-    }
-
-    public void draw(FXGraphics2D graphics) {
-
-        canvas.setWidth(screenWidth);
-        canvas.setHeight(screenHeigth);
+    private void draw(FXGraphics2D graphics) {
+        canvas.setWidth(this.screenWidth);
+        canvas.setHeight(this.screenHeight);
 
         graphics.setTransform(new AffineTransform());
         graphics.setBackground(Color.white);
@@ -58,15 +53,15 @@ public class AgendaGUI extends Application {
         drawHourLine(graphics);
     }
 
-    public Stroke drawLine(float width) {
-        Stroke s = new BasicStroke(width,
-                BasicStroke.JOIN_ROUND,
-                BasicStroke.CAP_ROUND);
-        return s;
+    private Stroke drawLine(float width) {
+        Stroke stroke = new BasicStroke(width,
+                BasicStroke.CAP_ROUND,
+                BasicStroke.JOIN_ROUND);
+        return stroke;
     }
 
-    // this makes the grid of the planner
-    public void drawGrit(FXGraphics2D graphics) {
+    //Draws the grid
+    private void drawGrit(FXGraphics2D graphics) {
         graphics.setStroke(drawLine(3));
         int x = 150;
         int y1 = 0;
@@ -78,12 +73,8 @@ public class AgendaGUI extends Application {
      //   graphics.drawLine(0, 80, 1920, 80);
     }
 
-    /**
-     * deze zet de naam van het podium
-     *
-     * @param graphics2D
-     */
-    public void drawText(FXGraphics2D graphics2D) {
+    //Draws names of Podiums
+    private void drawText(FXGraphics2D graphics2D) {
         graphics2D.setFont(new Font("Purisa", Font.PLAIN, 20));
         graphics2D.drawString("Main Stage", (int)((screenWidth-150)/4) - 150, 50);
         graphics2D.drawString("Substage 1", (int)(((screenWidth-150)/4)*2) - 150, 50);
@@ -91,12 +82,8 @@ public class AgendaGUI extends Application {
         graphics2D.drawString("Substage 3", (int)(((screenWidth-150)/4)*4) - 150, 50);
     }
 
-    /**
-     * tekent de uren.
-     *
-     * @param graphics2D
-     */
-    public void drawTime(FXGraphics2D graphics2D) {
+    //Draws the time
+    private void drawTime(FXGraphics2D graphics2D) {
         int x = 50;
         int y = 110;
         for (int time = 0; time < 25; time++) {
@@ -118,7 +105,7 @@ public class AgendaGUI extends Application {
         graphics2D.drawString(name, x, -y);
     }
 
-    public void drawHourLine(FXGraphics2D graphics2D) {
+    private void drawHourLine(FXGraphics2D graphics2D) {
         int y = 80;
         for (int time = 0; time < 25; time++) {
             graphics2D.setStroke(drawLine(1));
@@ -131,7 +118,4 @@ public class AgendaGUI extends Application {
         graphics2D.drawRect(500,200,width,height);
     }
 
-    public static void main(String[] args) {
-        launch(AgendaGUI.class);
-    }
 }
