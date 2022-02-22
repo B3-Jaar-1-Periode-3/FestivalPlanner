@@ -7,7 +7,7 @@ public class FileHandler {
 
     public static void saveToFile(Festival data){
 
-        try (FileOutputStream fileOutput = new FileOutputStream("Save")) {
+        try (FileOutputStream fileOutput = new FileOutputStream("Save")) { //Creates path for saving
             ObjectOutputStream output = new ObjectOutputStream(fileOutput);
             output.writeObject(data);
             output.close();
@@ -20,7 +20,7 @@ public class FileHandler {
     public static void readFromFile(){
 
         Festival data = null;
-        try(FileInputStream fileInput = new FileInputStream("Save")){
+        try(FileInputStream fileInput = new FileInputStream("Save")){ //Selects path for loading
             ObjectInputStream input = new ObjectInputStream(fileInput);
             data = (Festival) input.readObject();
             input.close();
@@ -33,6 +33,11 @@ public class FileHandler {
         }
 
         assert data != null;
+
+        Festival.getInstance().clearAll(); //Deletes all current Festival info
+        Festival.getInstance().setFestival(data); //Writes read data to Festival
+
+        //Read and print data into console
         System.out.println(data.getArtistList());
         System.out.println(data.getGenreList());
         System.out.println(data.getPodiumList());
