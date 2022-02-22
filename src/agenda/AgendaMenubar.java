@@ -1,5 +1,11 @@
-package Agenda;
+package agenda;
 
+import guis.createGUIs.CreateGenreGUI;
+import guis.editGUIs.EditArtistGUI;
+import guis.editGUIs.EditEventGUI;
+import guis.createGUIs.CreateArtistGUI;
+import guis.createGUIs.CreateEventGUI;
+import guis.editGUIs.EditGenreGUI;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -36,59 +42,40 @@ public class AgendaMenubar {
 
         // edit menu & sub menu's
         Menu editMenu = new Menu("Edit");
-        MenuItem editEvent = new MenuItem("Edit event");
-        MenuItem editArtist = new MenuItem("Edit artist");
-        MenuItem editGenre = new MenuItem("Edit genre");
+        MenuItem editEvent = new MenuItem("Event");
+        MenuItem editArtist = new MenuItem("Artist");
+        MenuItem editGenre = new MenuItem("Genre");
         editMenu.getItems().addAll(editEvent, editArtist, editGenre);
 
         editEvent.setOnAction(event -> {
-            new EventGUI().show();
+            new EditEventGUI().show();
         });
 
         editArtist.setOnAction(event -> {
-
+            new EditArtistGUI().show();
         });
 
         editGenre.setOnAction(event -> {
-
+            new EditGenreGUI().show();
         });
 
         // save menu & sub menu's
-        Menu saveMenu = new Menu("Save");
-        MenuItem saveEvent = new MenuItem("Save event");
-        MenuItem saveArtist = new MenuItem("Save artist");
-        MenuItem saveGenre = new MenuItem("Save genre");
+        Menu saveMenu = new Menu("Create");
+        MenuItem saveEvent = new MenuItem("Event");
+        MenuItem saveArtist = new MenuItem("Artist");
+        MenuItem saveGenre = new MenuItem("Genre");
         saveMenu.getItems().addAll(saveEvent, saveArtist, saveGenre);
 
         saveEvent.setOnAction(event -> {
-
+            new CreateEventGUI().show();
         });
 
         saveArtist.setOnAction(event -> {
-
+            new CreateArtistGUI().show();
         });
 
         saveGenre.setOnAction(event -> {
-
-        });
-
-        // delete menu & sub menu's
-        Menu deleteMenu = new Menu("Delete");
-        MenuItem deleteEvent = new MenuItem("Delete event");
-        MenuItem deleteArtist = new MenuItem("Delete artist");
-        MenuItem deleteGenre = new MenuItem("Delete genre");
-        deleteMenu.getItems().addAll(deleteEvent, deleteArtist, deleteGenre);
-
-        deleteEvent.setOnAction(event -> {
-
-        });
-
-        deleteArtist.setOnAction(event -> {
-
-        });
-
-        deleteGenre.setOnAction(event -> {
-
+            new CreateGenreGUI().show();
         });
 
         // all menu bars together
@@ -101,10 +88,9 @@ public class AgendaMenubar {
         fileMenuBar.getMenus().add(fileMenu);
         editMenuBar.getMenus().add(editMenu);
         saveMenuBar.getMenus().add(saveMenu);
-        deleteMenuBar.getMenus().add(deleteMenu);
         helpMenuBar.getMenus().add(help);
 
-        HBox menus = new HBox(fileMenuBar, editMenuBar, saveMenuBar, deleteMenuBar, helpMenuBar);
+        HBox menus = new HBox(fileMenuBar, editMenuBar, saveMenuBar, helpMenuBar);
         agendaMenuBarScene = new HBox(menus);
     }
 

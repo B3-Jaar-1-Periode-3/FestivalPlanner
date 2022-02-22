@@ -1,4 +1,4 @@
-package Agenda;
+package agenda;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -35,7 +35,7 @@ public class AgendaGUI extends Application {
 
         mainPane.setCenter(scrollPane);
         stage.setScene(new Scene(mainPane, 1920, 1080));
-        stage.setTitle("Agenda");
+        stage.setTitle("agenda");
         stage.show();
         draw(g2d);
     }
@@ -67,7 +67,6 @@ public class AgendaGUI extends Application {
 
     // this makes the grid of the planner
     public void drawGrit(FXGraphics2D graphics) {
-
         graphics.setStroke(drawLine(3));
         int x = 150;
         int y1 = 0;

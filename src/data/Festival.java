@@ -1,4 +1,4 @@
-package Data;
+package data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,11 +11,14 @@ public class Festival implements Serializable {
     private ArrayList<Podium> podiumList;
     private ArrayList<Event> eventList;
 
-
     public Festival(){
         this.genreList = new ArrayList<>();
         this.artistList = new ArrayList<>();
         this.podiumList = new ArrayList<>();
+        podiumList.add(new Podium(1));
+        podiumList.add(new Podium(2));
+        podiumList.add(new Podium(3));
+        podiumList.add(new Podium(4));
         this.eventList = new ArrayList<>();
     }
 

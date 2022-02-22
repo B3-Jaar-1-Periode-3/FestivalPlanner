@@ -1,6 +1,6 @@
-package Agenda;
+package guis.createGUIs;
 
-import Data.*;
+import data.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
@@ -9,10 +9,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 
-public class EventGUI extends Stage {
+public class CreateEventGUI extends Stage {
     private BorderPane mainPane;
     private VBox vBoxLabels;
     private VBox vBoxBoxes;
@@ -24,13 +27,16 @@ public class EventGUI extends Stage {
     private ArrayList<Podium> podiumArrayList;
     private ArrayList<Genre> genreArrayList;
     private Button save;
+    private ListView<Artist> artistsListView;
+    private Button add;
 
-    public EventGUI() {
+    public CreateEventGUI() {
         this.artistArrayList = Festival.getInstance().getArtistList();
         this.podiumArrayList = Festival.getInstance().getPodiumList();
         this.genreArrayList = Festival.getInstance().getGenreList();
 
         artistArrayList = new ArrayList<>();
+        artistsListView = new ListView<>();
         mainPane = new BorderPane();
         hBox = new HBox();
         vBoxLabels = new VBox();
@@ -41,6 +47,8 @@ public class EventGUI extends Stage {
         podiumArrayList = new ArrayList<>();
         genreArrayList = new ArrayList<>();
         save = new Button("Save");
+        add = new Button("Add");
+
         TextField enterBegin = new TextField();
         TextField enterEnd = new TextField();
         Slider popularity = new Slider(1, 10, 1);
@@ -51,25 +59,41 @@ public class EventGUI extends Stage {
         popularity.setMinorTickCount(0);
         popularity.setSnapToTicks(true);
 
-        save.setPrefSize(75, 75);
+        save.setMinWidth(100);
 
-        for (Artist artist : artistArrayList) {
+        for (Artist artist : Festival.getInstance().getArtistList()) {
             artists.getItems().add(artist);
         }
 
-        for (Podium podium : podiumArrayList) {
+        for (Podium podium : Festival.getInstance().getPodiumList()) {
             podiaBox.getItems().add(podium);
         }
 
-        for (Genre genre : genreArrayList) {
+        for (Genre genre : Festival.getInstance().getGenreList()) {
             genreBox.getItems().add(genre);
         }
 
-        save.setOnAction(event -> {
-            Festival.getInstance().addEvent(new Event(Integer.parseInt(enterBegin.getText()), Integer.parseInt(enterEnd.getText()), genreBox.getValue(), podiaBox.getValue(), artists.getValue(), popularity.getValue()));
+        add.setOnAction(event -> {
+            if (!artists.getSelectionModel().isEmpty() && !artistsListView.getItems().contains(artists.getValue())) {
+                artistsListView.getItems().add(artists.getValue());
+            }
         });
 
-        artists.setPrefSize(100, 30);
+        save.setOnAction(event -> {
+            LocalTime beginTime;
+            LocalTime endTime;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("H:mm");
+            try {
+                beginTime = LocalTime.parse(enterBegin.getText(), formatter);
+                endTime = LocalTime.parse(enterEnd.getText(), formatter);
+            } catch (DateTimeParseException e) {
+                new Alert(Alert.AlertType.ERROR, "Please use format: 1:59").show();
+                return;
+            }
+            Festival.getInstance().addEvent(new Event(beginTime, endTime, genreBox.getValue(), podiaBox.getValue(), new ArrayList<Artist>(artistsListView.getItems()), popularity.getValue()));
+            close();
+        });
+
         Label labelArtist = new Label("Artist:");
         labelArtist.setFont(Font.font(15));
         Label labelPodium = new Label("Podium:");
@@ -85,12 +109,11 @@ public class EventGUI extends Stage {
 
         mainPane.setPrefSize(500, 400);
         mainPane.setLeft(hBox);
-        mainPane.setBottom(save);
-        hBox.setSpacing(20);
+        mainPane.setRight(artistsListView);
         vBoxBoxes.setSpacing(10);
         vBoxLabels.setSpacing(15);
-        hBox.getChildren().addAll(vBoxLabels, vBoxBoxes);
-        vBoxLabels.getChildren().addAll(labelArtist, labelPodium, labelBegin, labelEnd, labelGenre, labelPopularity);
+        hBox.getChildren().addAll(vBoxLabels, vBoxBoxes, add);
+        vBoxLabels.getChildren().addAll(labelArtist, labelPodium, labelBegin, labelEnd, labelGenre, labelPopularity, save);
         vBoxBoxes.getChildren().addAll(artists, podiaBox, enterBegin, enterEnd, genreBox, popularity);
 
         Scene scene = new Scene(mainPane);

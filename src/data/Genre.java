@@ -1,4 +1,4 @@
-package Data;
+package data;
 
 import java.io.Serializable;
 
@@ -12,5 +12,14 @@ public class Genre implements Serializable {
 
     public String getGenre() {
         return this.genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    @Override
+    public String toString() {
+        return genre;
     }
 }
