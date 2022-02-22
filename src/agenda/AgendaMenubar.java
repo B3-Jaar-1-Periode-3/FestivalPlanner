@@ -1,5 +1,6 @@
 package agenda;
 
+import data.Festival;
 import guis.createGUIs.CreateGenreGUI;
 import guis.editGUIs.EditArtistGUI;
 import guis.editGUIs.EditEventGUI;
@@ -12,11 +13,10 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-
 public class AgendaMenubar {
     private static HBox agendaMenuBarScene;
 
-    public static void build(Stage stage){
+    public static void build(Stage stage) {
         // Single buttons
         Menu help = new Menu("Help");
         MenuItem helpButton = new MenuItem("Help");
@@ -33,11 +33,11 @@ public class AgendaMenubar {
         fileMenu.getItems().addAll(loadFile, savePlanning);
 
         loadFile.setOnAction(event -> {
-
+            io.FileHandler.readFromFile();
         });
 
         savePlanning.setOnAction(event -> {
-
+            io.FileHandler.saveToFile(Festival.getInstance());
         });
 
         // edit menu & sub menu's
@@ -94,6 +94,8 @@ public class AgendaMenubar {
         agendaMenuBarScene = new HBox(menus);
     }
 
-    public static HBox getAgendaMenuBarScene(){return agendaMenuBarScene;}
+    public static HBox getAgendaMenuBarScene() {
+        return agendaMenuBarScene;
+    }
 
 }
