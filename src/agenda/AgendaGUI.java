@@ -35,7 +35,7 @@ public class AgendaGUI extends Application {
 
         mainPane.setCenter(scrollPane);
         stage.setScene(new Scene(mainPane, 1920, 1080));
-        stage.setTitle("agenda");
+        stage.setTitle("Agenda");
         stage.show();
         draw(g2d);
     }
