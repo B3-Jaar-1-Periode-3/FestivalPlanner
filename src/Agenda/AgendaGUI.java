@@ -15,7 +15,7 @@ public class AgendaGUI extends Application {
 
     private ResizableCanvas canvas;
     private final double screenWidth = 1920;
-    private final double screenHeigth = 5000;
+    private final double screenHeigth = 3850;
 
     @Override
     public void start(Stage stage){
@@ -108,7 +108,7 @@ public class AgendaGUI extends Application {
             } else {
                 graphics2D.drawString(time + ".00", x, y);
             }
-            y += 200;
+            y += 150;
 
             graphics2D.setStroke(drawLine(5));
             graphics2D.drawLine(-1800, -420, 1800, -420);
@@ -124,7 +124,7 @@ public class AgendaGUI extends Application {
         for (int time = 0; time < 25; time++) {
             graphics2D.setStroke(drawLine(1));
             graphics2D.drawLine(0, y, (int)screenWidth, y);
-            y += 200;
+            y += 150;
         }
     }
 
