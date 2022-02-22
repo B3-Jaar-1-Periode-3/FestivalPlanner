@@ -33,6 +33,22 @@ public class CreateEventGUI extends Stage {
         ComboBox<Artist> artists = new ComboBox<>();
         ComboBox<Podium> podiaBox = new ComboBox<>();
 
+        //Creates Labels
+        Label labelArtist = new Label("Artist:");
+        labelArtist.setFont(Font.font(15));
+        Label labelPodium = new Label("Podium:");
+        labelPodium.setFont(Font.font(15));
+        Label labelBegin = new Label("Begin Time:");
+        labelBegin.setFont(Font.font(15));
+        Label labelEnd = new Label("End Time:");
+        labelEnd.setFont(Font.font(15));
+        Label labelGenre = new Label("Genre:");
+        labelGenre.setFont(Font.font(15));
+        Label labelPopularity = new Label("Popularity: ");
+        labelPopularity.setFont(Font.font(15));
+        Label labelOutput = new Label("");
+        labelOutput.setFont(Font.font(15));
+
         //Creates Input buttons and fields
         Button save = new Button("Save");
         Button add = new Button("Add");
@@ -79,22 +95,17 @@ public class CreateEventGUI extends Stage {
                 new Alert(Alert.AlertType.ERROR, "Please use format: 1:59").show();
                 return;
             }
-            Festival.getInstance().addEvent(new Event(beginTime, endTime, genreBox.getValue(), podiaBox.getValue(), new ArrayList<Artist>(artistsListView.getItems()), popularity.getValue()));
-            close();
-        });
 
-        Label labelArtist = new Label("Artist:");
-        labelArtist.setFont(Font.font(15));
-        Label labelPodium = new Label("Podium:");
-        labelPodium.setFont(Font.font(15));
-        Label labelBegin = new Label("Begin Time:");
-        labelBegin.setFont(Font.font(15));
-        Label labelEnd = new Label("End Time:");
-        labelEnd.setFont(Font.font(15));
-        Label labelGenre = new Label("Genre:");
-        labelGenre.setFont(Font.font(15));
-        Label labelPopularity = new Label("Popularity: ");
-        labelPopularity.setFont(Font.font(15));
+            if (!beginTime.toString().isEmpty() &&
+                !endTime.toString().isEmpty() &&
+                !genreBox.getValue().toString().isEmpty() &&
+                !artistsListView.getItems().isEmpty()) { //Checks if any input is empty
+                Festival.getInstance().addEvent(new Event(beginTime, endTime, genreBox.getValue(), podiaBox.getValue(), new ArrayList<Artist>(artistsListView.getItems()), popularity.getValue()));
+                labelOutput.setText("Event saved!");
+            } else {
+                labelOutput.setText("Please fill in all fields");
+            }
+        });
 
         mainPane.setPrefSize(500, 400);
         mainPane.setLeft(hBox);
@@ -102,7 +113,7 @@ public class CreateEventGUI extends Stage {
         vBoxBoxes.setSpacing(10);
         vBoxLabels.setSpacing(15);
         hBox.getChildren().addAll(vBoxLabels, vBoxBoxes, add);
-        vBoxLabels.getChildren().addAll(labelArtist, labelPodium, labelBegin, labelEnd, labelGenre, labelPopularity, save);
+        vBoxLabels.getChildren().addAll(labelArtist, labelPodium, labelBegin, labelEnd, labelGenre, labelPopularity, labelOutput, save);
         vBoxBoxes.getChildren().addAll(artists, podiaBox, enterBegin, enterEnd, genreBox, popularity);
 
         Scene scene = new Scene(mainPane);

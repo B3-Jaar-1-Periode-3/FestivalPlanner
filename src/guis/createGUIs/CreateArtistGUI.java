@@ -16,20 +16,37 @@ public class CreateArtistGUI extends Stage {
     private TextField artistNameField;
 
     public CreateArtistGUI() {
-        //Create window content
+        //Creates window content
         BorderPane mainPane = new BorderPane();
         HBox hBox = new HBox(20);
         VBox vBoxFields = new VBox();
         VBox vBoxLabels = new VBox();
 
+        //Creates Input and Labels
         mainPane.setPrefSize(400,100);
         Label artistName = new Label("Name:");
         this.artistNameField = new TextField();
         Button save = new Button("Save");
         save.setPrefSize(400,50);
+        Label output = new Label("");
 
-        save.setOnAction(event -> {
-            Festival.getInstance().addArtist(new Artist(this.artistNameField.getText()));
+        artistNameField.setOnAction(actionEvent -> { //Saves and clears input when pressing enter
+            String input = artistNameField.getText();
+            if (!input.isEmpty()) { //Checks if input contains something before saving
+                Festival.getInstance().addArtist(new Artist(input));
+                artistNameField.clear();
+                output.setText("Saved " + input);
+            } else {
+                output.setText("No input");
+            }
+
+        });
+
+        save.setOnAction(event -> { //Saves and closes window
+            String input = artistNameField.getText();
+            if (!input.isEmpty()) { //Checks if input contains something before saving
+                Festival.getInstance().addArtist(new Artist(input));
+            }
             close();
         });
 
