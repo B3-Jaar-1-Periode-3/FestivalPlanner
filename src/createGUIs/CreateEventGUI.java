@@ -1,4 +1,4 @@
-package saveGUIs;
+package createGUIs;
 
 import Data.*;
 import javafx.scene.Scene;
@@ -15,7 +15,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 
-public class SaveEventGUI extends Stage {
+public class CreateEventGUI extends Stage {
     private BorderPane mainPane;
     private VBox vBoxLabels;
     private VBox vBoxBoxes;
@@ -30,7 +30,7 @@ public class SaveEventGUI extends Stage {
     private ListView<Artist> artistsListView;
     private Button add;
 
-    public SaveEventGUI() {
+    public CreateEventGUI() {
         this.artistArrayList = Festival.getInstance().getArtistList();
         this.podiumArrayList = Festival.getInstance().getPodiumList();
         this.genreArrayList = Festival.getInstance().getGenreList();

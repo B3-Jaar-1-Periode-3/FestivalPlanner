@@ -1,58 +1,53 @@
-package saveGUIs;
+package createGUIs;
 
-import Data.Artist;
 import Data.Festival;
+import Data.Genre;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import javax.xml.soap.Text;
+public class CreateGenreGUI extends Stage {
 
-
-public class SaveArtistGUI extends Stage {
     private BorderPane mainPane;
     private HBox hBox;
     private VBox vBoxLabels;
     private VBox vBoxFields;
-    private TextField artistNameField;
+    private TextField genreField;
 
-    public SaveArtistGUI() {
+    public CreateGenreGUI() {
         mainPane = new BorderPane();
-        hBox = new HBox(20);
+        hBox = new HBox();
         vBoxFields = new VBox();
         vBoxLabels = new VBox();
 
         mainPane.setPrefSize(400,100);
-        Label artistName = new Label("Name:");
-        artistNameField = new TextField();
+        Label genre = new Label("Genre: ");
+        genreField = new TextField();
         Button save = new Button("Save");
         save.setPrefSize(400,50);
 
         save.setOnAction(event -> {
-            Festival.getInstance().addArtist(new Artist(artistNameField.getText()));
+            Festival.getInstance().addGenre(new Genre(genreField.getText()));
             close();
         });
 
-        vBoxLabels.getChildren().addAll(artistName);
-        vBoxFields.getChildren().addAll(artistNameField);
 
         hBox.getChildren().addAll(vBoxLabels,vBoxFields);
+        vBoxLabels.getChildren().add(genre);
+        vBoxFields.getChildren().add(genreField);
 
         mainPane.setTop(hBox);
         mainPane.setBottom(save);
 
         Scene scene = new Scene(mainPane);
 
-        setTitle("Save Artist");
+        setTitle("Create Genre");
         setScene(scene);
-    }
-
-    public void setTextField(String name) {
-        artistNameField.setText(name);
     }
 }
