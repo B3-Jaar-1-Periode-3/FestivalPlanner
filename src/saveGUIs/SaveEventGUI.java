@@ -80,6 +80,7 @@ public class SaveEventGUI extends Stage {
                 return;
             }
             Festival.getInstance().addEvent(new Event(beginTime, endTime, genreBox.getValue(), podiaBox.getValue(), artists.getValue(), popularity.getValue()));
+            close();
         });
 
         artists.setPrefSize(100, 30);

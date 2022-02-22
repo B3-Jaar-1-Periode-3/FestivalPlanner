@@ -1,4 +1,4 @@
-package saveGUIs;
+package editGUIs;
 
 import Data.Artist;
 import Data.Festival;
@@ -11,31 +11,30 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import javax.xml.soap.Text;
-
-
-public class SaveArtistGUI extends Stage {
+public class EditArtistPopUp extends Stage {
     private BorderPane mainPane;
     private HBox hBox;
     private VBox vBoxLabels;
     private VBox vBoxFields;
     private TextField artistNameField;
 
-    public SaveArtistGUI() {
+
+    public EditArtistPopUp(Artist artist) {
         mainPane = new BorderPane();
         hBox = new HBox(20);
         vBoxFields = new VBox();
         vBoxLabels = new VBox();
 
-        mainPane.setPrefSize(400,100);
+        mainPane.setPrefSize(200,200);
         Label artistName = new Label("Name:");
-        artistNameField = new TextField();
+        artistNameField = new TextField(artist.getName());
         Button save = new Button("Save");
-        save.setPrefSize(400,50);
+        save.setPrefSize(50,50);
 
         save.setOnAction(event -> {
-            Festival.getInstance().addArtist(new Artist(artistNameField.getText()));
+            artist.setName(artistNameField.getText());
             close();
+            new EditArtistGUI().show();
         });
 
         vBoxLabels.getChildren().addAll(artistName);
@@ -48,11 +47,7 @@ public class SaveArtistGUI extends Stage {
 
         Scene scene = new Scene(mainPane);
 
-        setTitle("Save Artist");
+        setTitle("Edit Artist");
         setScene(scene);
-    }
-
-    public void setTextField(String name) {
-        artistNameField.setText(name);
     }
 }
