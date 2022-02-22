@@ -100,8 +100,12 @@ public class CreateEventGUI extends Stage {
                 !endTime.toString().isEmpty() &&
                 !genreBox.getValue().toString().isEmpty() &&
                 !artistsListView.getItems().isEmpty()) { //Checks if any input is empty
-                Festival.getInstance().addEvent(new Event(beginTime, endTime, genreBox.getValue(), podiaBox.getValue(), new ArrayList<Artist>(artistsListView.getItems()), popularity.getValue()));
-                labelOutput.setText("Event saved!");
+                if (endTime.isAfter(beginTime) && beginTime.equals(endTime)) {
+                    Festival.getInstance().addEvent(new Event(beginTime, endTime, genreBox.getValue(), podiaBox.getValue(), new ArrayList<Artist>(artistsListView.getItems()), popularity.getValue()));
+                    labelOutput.setText("Event saved!");
+                } else {
+                    labelOutput.setText("End time is before begin time");
+                }
             } else {
                 labelOutput.setText("Please fill in all fields");
             }
