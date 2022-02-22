@@ -11,7 +11,6 @@ public class Event implements Serializable {
     private LocalTime startTime;
     private LocalTime endTime;
     private Podium podium;
-    private int ID;
     private double popularity;
 
     public Event(LocalTime startTime, LocalTime endTime, Genre genre, Podium podium, Artist artist, double popularity) {
@@ -49,5 +48,34 @@ public class Event implements Serializable {
 
     public  double getPopularity() {
         return popularity;
+    }
+
+    public void setArtists(ArrayList<Artist> artists) {
+        this.artists = artists;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public void setPodium(Podium podium) {
+        this.podium = podium;
+    }
+
+    public void setPopularity(double popularity) {
+        this.popularity = popularity;
+    }
+
+    @Override
+    public String toString() {
+        return this.artists + " " + this.genre + " " + this.podium + " " + this.popularity + " " + this.startTime + " " + this.endTime;
     }
 }

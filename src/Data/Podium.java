@@ -3,13 +3,18 @@ import java.io.Serializable;
 
 public class Podium implements Serializable {
 
-    private int ID;
+    private int id;
 
     public Podium(int ID) {
-        this.ID = ID;
+        this.id = ID;
     }
 
     public int getID() {
-        return ID;
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(id);
     }
 }

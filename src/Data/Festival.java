@@ -14,8 +14,12 @@ public class Festival implements Serializable {
 
     public Festival(){
         this.genreList = new ArrayList<>();
+        genreList.add(new Genre("Rock"));
         this.artistList = new ArrayList<>();
+        artistList.add(new Artist("Merijn"));
+        artistList.add(new Artist("Wouter"));
         this.podiumList = new ArrayList<>();
+        podiumList.add(new Podium(1));
         this.eventList = new ArrayList<>();
     }
 

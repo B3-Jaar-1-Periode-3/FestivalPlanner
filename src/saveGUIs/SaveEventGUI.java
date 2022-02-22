@@ -27,6 +27,8 @@ public class SaveEventGUI extends Stage {
     private ArrayList<Podium> podiumArrayList;
     private ArrayList<Genre> genreArrayList;
     private Button save;
+    private ListView<Artist> artistsListView;
+    private Button add;
 
     public SaveEventGUI() {
         this.artistArrayList = Festival.getInstance().getArtistList();
@@ -34,6 +36,7 @@ public class SaveEventGUI extends Stage {
         this.genreArrayList = Festival.getInstance().getGenreList();
 
         artistArrayList = new ArrayList<>();
+        artistsListView = new ListView<>();
         mainPane = new BorderPane();
         hBox = new HBox();
         vBoxLabels = new VBox();
@@ -44,6 +47,8 @@ public class SaveEventGUI extends Stage {
         podiumArrayList = new ArrayList<>();
         genreArrayList = new ArrayList<>();
         save = new Button("Save");
+        add = new Button("Add");
+
         TextField enterBegin = new TextField();
         TextField enterEnd = new TextField();
         Slider popularity = new Slider(1, 10, 1);
@@ -56,21 +61,27 @@ public class SaveEventGUI extends Stage {
 
         save.setPrefSize(75, 75);
 
-        for (Artist artist : artistArrayList) {
+        for (Artist artist : Festival.getInstance().getArtistList()) {
             artists.getItems().add(artist);
         }
 
-        for (Podium podium : podiumArrayList) {
+        for (Podium podium : Festival.getInstance().getPodiumList()) {
             podiaBox.getItems().add(podium);
         }
 
-        for (Genre genre : genreArrayList) {
+        for (Genre genre : Festival.getInstance().getGenreList()) {
             genreBox.getItems().add(genre);
         }
 
+        add.setOnAction(event -> {
+            if (!artists.getSelectionModel().isEmpty() && !artistsListView.getItems().contains(artists.getValue())) {
+                artistsListView.getItems().add(artists.getValue());
+            }
+        });
+
         save.setOnAction(event -> {
-            LocalTime beginTime = null;
-            LocalTime endTime = null;
+            LocalTime beginTime;
+            LocalTime endTime;
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("H:mm");
             try {
                 beginTime = LocalTime.parse(enterBegin.getText(), formatter);
@@ -83,7 +94,6 @@ public class SaveEventGUI extends Stage {
             close();
         });
 
-        artists.setPrefSize(100, 30);
         Label labelArtist = new Label("Artist:");
         labelArtist.setFont(Font.font(15));
         Label labelPodium = new Label("Podium:");
@@ -100,10 +110,10 @@ public class SaveEventGUI extends Stage {
         mainPane.setPrefSize(500, 400);
         mainPane.setLeft(hBox);
         mainPane.setBottom(save);
-        hBox.setSpacing(20);
+        mainPane.setRight(artistsListView);
         vBoxBoxes.setSpacing(10);
         vBoxLabels.setSpacing(15);
-        hBox.getChildren().addAll(vBoxLabels, vBoxBoxes);
+        hBox.getChildren().addAll(vBoxLabels, vBoxBoxes, add);
         vBoxLabels.getChildren().addAll(labelArtist, labelPodium, labelBegin, labelEnd, labelGenre, labelPopularity);
         vBoxBoxes.getChildren().addAll(artists, podiaBox, enterBegin, enterEnd, genreBox, popularity);
 

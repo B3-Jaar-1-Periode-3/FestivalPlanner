@@ -1,6 +1,7 @@
 package Agenda;
 
 import editGUIs.EditArtistGUI;
+import editGUIs.EditEventGUI;
 import saveGUIs.SaveArtistGUI;
 import saveGUIs.SaveEventGUI;
 import javafx.scene.control.Menu;
@@ -45,7 +46,7 @@ public class AgendaMenubar {
         editMenu.getItems().addAll(editEvent, editArtist, editGenre);
 
         editEvent.setOnAction(event -> {
-
+            new EditEventGUI().show();
         });
 
         editArtist.setOnAction(event -> {

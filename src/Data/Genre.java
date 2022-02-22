@@ -13,4 +13,9 @@ public class Genre implements Serializable {
     public String getGenre() {
         return this.genre;
     }
+
+    @Override
+    public String toString() {
+        return genre;
+    }
 }
