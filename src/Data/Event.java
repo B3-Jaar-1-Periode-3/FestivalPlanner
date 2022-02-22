@@ -1,6 +1,7 @@
 package Data;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Event implements Serializable {
 
@@ -10,13 +11,15 @@ public class Event implements Serializable {
     private int endTime;
     private Podium podium;
     private int ID;
+    private double popularity;
 
-    public Event(int startTime, int endTime) {
-        this.artists = new ArrayList<>();
-        this.genre = new Genre();
+    public Event(int startTime, int endTime, Genre genre, Podium podium, Artist artist, double popularity) {
+        this.artists = new ArrayList<>(Arrays.asList(artist));
+        this.genre = genre;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.podium = new Podium(ID);
+        this.podium = podium;
+        this.popularity = popularity;
     }
 
     public void addArtists(Artist artist) {
@@ -41,5 +44,9 @@ public class Event implements Serializable {
 
     public Podium getPodium() {
         return podium;
+    }
+
+    public  double getPopularity() {
+        return popularity;
     }
 }
