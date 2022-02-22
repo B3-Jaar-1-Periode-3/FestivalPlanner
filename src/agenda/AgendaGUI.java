@@ -13,9 +13,9 @@ import java.awt.geom.AffineTransform;
 
 public class AgendaGUI extends Application {
 
-    private ResizableCanvas canvas;
     private final double screenWidth = 1920;
     private final double screenHeight = 2600;
+    private ResizableCanvas canvas;
 
     @Override
     public void start(Stage stage) {
@@ -47,7 +47,7 @@ public class AgendaGUI extends Application {
         graphics.setBackground(Color.white);
         graphics.clearRect(0, 0, (int) canvas.getWidth(), (int) canvas.getHeight());
 
-        drawGrit(graphics);
+        drawGrid(graphics);
         drawText(graphics);
         drawTime(graphics);
         drawHourLine(graphics);
@@ -61,25 +61,25 @@ public class AgendaGUI extends Application {
     }
 
     //Draws the grid
-    private void drawGrit(FXGraphics2D graphics) {
+    private void drawGrid(FXGraphics2D graphics) {
         graphics.setStroke(drawLine(3));
         int x = 150;
         int y1 = 0;
-        int y2 = (int)this.canvas.getHeight();
+        int y2 = (int) this.canvas.getHeight();
         for (int lines = 0; lines < 4; lines++) {
             graphics.drawLine(x, y1, x, y2);
-            x += (screenWidth-150)/4;
+            x += (screenWidth - 150) / 4;
         }
-     //   graphics.drawLine(0, 80, 1920, 80);
+        //   graphics.drawLine(0, 80, 1920, 80);
     }
 
     //Draws names of Podiums
     private void drawText(FXGraphics2D graphics2D) {
         graphics2D.setFont(new Font("Purisa", Font.PLAIN, 20));
-        graphics2D.drawString("Main Stage", (int)((screenWidth-150)/4) - 150, 50);
-        graphics2D.drawString("Substage 1", (int)(((screenWidth-150)/4)*2) - 150, 50);
-        graphics2D.drawString("Substage 2", (int)(((screenWidth-150)/4)*3) - 150, 50);
-        graphics2D.drawString("Substage 3", (int)(((screenWidth-150)/4)*4) - 150, 50);
+        graphics2D.drawString("Main Stage", (int) ((screenWidth - 150) / 4) - 150, 50);
+        graphics2D.drawString("Substage 1", (int) (((screenWidth - 150) / 4) * 2) - 150, 50);
+        graphics2D.drawString("Substage 2", (int) (((screenWidth - 150) / 4) * 3) - 150, 50);
+        graphics2D.drawString("Substage 3", (int) (((screenWidth - 150) / 4) * 4) - 150, 50);
     }
 
     //Draws the time
@@ -109,13 +109,13 @@ public class AgendaGUI extends Application {
         int y = 80;
         for (int time = 0; time < 25; time++) {
             graphics2D.setStroke(drawLine(1));
-            graphics2D.drawLine(0, y, (int)screenWidth, y);
+            graphics2D.drawLine(0, y, (int) screenWidth, y);
             y += 100;
         }
     }
 
-    public void drawRectangle(FXGraphics2D graphics2D, int width, int height){
-        graphics2D.drawRect(500,200,width,height);
+    public void drawRectangle(FXGraphics2D graphics2D, int width, int height) {
+        graphics2D.drawRect(500, 200, width, height);
     }
 
 }

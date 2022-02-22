@@ -62,6 +62,21 @@ public class Festival implements Serializable {
         this.eventList.add(event);
     }
 
+    public void setFestival(Festival input) { //Set all info of Festival instance
+        this.genreList.addAll(input.getGenreList());
+        this.artistList.addAll(input.getArtistList());
+        this.podiumList.addAll(input.getPodiumList());
+        this.eventList.addAll(input.getEventList());
+    }
+
+    public void clearAll(){ //Deletes all info of Festival instance
+        this.genreList.clear();
+        this.artistList.clear();
+        this.podiumList.clear();
+        this.eventList.clear();
+    }
+
+
     public static Festival getInstance() {
         if (festival == null) {
             festival = new Festival();
