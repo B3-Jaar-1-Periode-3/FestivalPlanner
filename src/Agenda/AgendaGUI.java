@@ -18,7 +18,7 @@ public class AgendaGUI extends Application {
     private final double screenHeigth = 3850;
 
     @Override
-    public void start(Stage stage){
+    public void start(Stage stage) {
         BorderPane mainPane = new BorderPane();
         canvas = new ResizableCanvas(g -> draw(g), mainPane);
 
