@@ -1,4 +1,4 @@
-package editGUIs;
+package guis.editGUIs;
 
 import Data.*;
 import javafx.scene.Scene;
@@ -13,8 +13,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class EditEventPopUp extends Stage {
     private BorderPane mainPane;
@@ -60,7 +58,7 @@ public class EditEventPopUp extends Stage {
         popularitySlider.setMinorTickCount(0);
         popularitySlider.setSnapToTicks(true);
 
-        save.setPrefSize(75, 75);
+        save.setMinWidth(100);
 
         for (Artist artistFromList : Festival.getInstance().getArtistList()) {
             artists.getItems().add(artistFromList);
@@ -103,6 +101,7 @@ public class EditEventPopUp extends Stage {
             event.setGenre(genreBox.getValue());
             event.setPodium(podiaBox.getValue());
             event.setPopularity(popularitySlider.getValue());
+            event.setArtists(new ArrayList<>(artistsListView.getItems()));
             close();
             new EditEventGUI().show();
         });
@@ -123,12 +122,11 @@ public class EditEventPopUp extends Stage {
 
         mainPane.setPrefSize(500, 400);
         mainPane.setLeft(hBox);
-        mainPane.setBottom(save);
         mainPane.setRight(artistsListView);
         vBoxBoxes.setSpacing(10);
         vBoxLabels.setSpacing(15);
         hBox.getChildren().addAll(vBoxLabels, vBoxBoxes, add);
-        vBoxLabels.getChildren().addAll(labelArtist, labelPodium, labelBegin, labelEnd, labelGenre, labelPopularity);
+        vBoxLabels.getChildren().addAll(labelArtist, labelPodium, labelBegin, labelEnd, labelGenre, labelPopularity, save);
         vBoxBoxes.getChildren().addAll(artists, podiaBox, enterBegin, enterEnd, genreBox, popularitySlider);
 
         Scene scene = new Scene(mainPane);

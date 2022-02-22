@@ -13,8 +13,8 @@ public class Event implements Serializable {
     private Podium podium;
     private double popularity;
 
-    public Event(LocalTime startTime, LocalTime endTime, Genre genre, Podium podium, Artist artist, double popularity) {
-        this.artists = new ArrayList<>(Arrays.asList(artist));
+    public Event(LocalTime startTime, LocalTime endTime, Genre genre, Podium podium, ArrayList<Artist> artists, double popularity) {
+        this.artists = artists;
         this.genre = genre;
         this.startTime = startTime;
         this.endTime = endTime;

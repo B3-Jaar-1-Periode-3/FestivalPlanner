@@ -1,4 +1,4 @@
-package editGUIs;
+package guis.editGUIs;
 
 import Data.Event;
 import Data.Festival;
@@ -6,24 +6,30 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-
-import java.time.LocalTime;
 
 public class EditEventGUI extends Stage {
     private ListView<Event> events;
     private BorderPane mainPane;
     private Button editEvent;
+    private HBox hBox;
+    private Button deleteEvent;
 
     public EditEventGUI() {
         events = new ListView<>();
         mainPane = new BorderPane();
+        hBox = new HBox();
         editEvent = new Button("Edit Event");
+        deleteEvent = new Button("Delete Event");
 
-        editEvent.setPrefSize(500,50);
+        editEvent.setPrefSize(250,50);
+        deleteEvent.setPrefSize(250,50);
+
+        hBox.getChildren().addAll(editEvent,deleteEvent);
 
         mainPane.setCenter(events);
-        mainPane.setBottom(editEvent);
+        mainPane.setBottom(hBox);
 
         for (Event event : Festival.getInstance().getEventList()) {
             events.getItems().add(event);
@@ -31,8 +37,14 @@ public class EditEventGUI extends Stage {
 
         editEvent.setOnAction(event -> {
             new EditEventPopUp(events.getSelectionModel().getSelectedItem()).show();
-            System.out.println(events.getSelectionModel().getSelectedItem().toString());
             close();
+        });
+
+        deleteEvent.setOnAction(event -> {
+            if (!events.getSelectionModel().isEmpty()) {
+                Festival.getInstance().getEventList().remove(events.getSelectionModel().getSelectedItem());
+                events.getItems().remove(events.getSelectionModel().getSelectedItem());
+            }
         });
 
         Scene scene = new Scene(mainPane);

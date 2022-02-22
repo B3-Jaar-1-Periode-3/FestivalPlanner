@@ -1,10 +1,11 @@
 package Agenda;
 
-import createGUIs.CreateGenreGUI;
-import editGUIs.EditArtistGUI;
-import editGUIs.EditEventGUI;
-import createGUIs.CreateArtistGUI;
-import createGUIs.CreateEventGUI;
+import guis.createGUIs.CreateGenreGUI;
+import guis.editGUIs.EditArtistGUI;
+import guis.editGUIs.EditEventGUI;
+import guis.createGUIs.CreateArtistGUI;
+import guis.createGUIs.CreateEventGUI;
+import guis.editGUIs.EditGenreGUI;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -55,7 +56,7 @@ public class AgendaMenubar {
         });
 
         editGenre.setOnAction(event -> {
-
+            new EditGenreGUI().show();
         });
 
         // save menu & sub menu's
@@ -77,25 +78,6 @@ public class AgendaMenubar {
             new CreateGenreGUI().show();
         });
 
-        // delete menu & sub menu's
-        Menu deleteMenu = new Menu("Delete");
-        MenuItem deleteEvent = new MenuItem("Delete event");
-        MenuItem deleteArtist = new MenuItem("Delete artist");
-        MenuItem deleteGenre = new MenuItem("Delete genre");
-        deleteMenu.getItems().addAll(deleteEvent, deleteArtist, deleteGenre);
-
-        deleteEvent.setOnAction(event -> {
-
-        });
-
-        deleteArtist.setOnAction(event -> {
-
-        });
-
-        deleteGenre.setOnAction(event -> {
-
-        });
-
         // all menu bars together
         MenuBar fileMenuBar = new MenuBar();
         MenuBar editMenuBar = new MenuBar();
@@ -106,10 +88,9 @@ public class AgendaMenubar {
         fileMenuBar.getMenus().add(fileMenu);
         editMenuBar.getMenus().add(editMenu);
         saveMenuBar.getMenus().add(saveMenu);
-        deleteMenuBar.getMenus().add(deleteMenu);
         helpMenuBar.getMenus().add(help);
 
-        HBox menus = new HBox(fileMenuBar, editMenuBar, saveMenuBar, deleteMenuBar, helpMenuBar);
+        HBox menus = new HBox(fileMenuBar, editMenuBar, saveMenuBar, helpMenuBar);
         agendaMenuBarScene = new HBox(menus);
     }
 

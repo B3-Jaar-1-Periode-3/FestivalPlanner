@@ -1,4 +1,4 @@
-package createGUIs;
+package guis.createGUIs;
 
 import Data.Artist;
 import Data.Festival;

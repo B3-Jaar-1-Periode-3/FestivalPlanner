@@ -1,4 +1,4 @@
-package createGUIs;
+package guis.createGUIs;
 
 import Data.*;
 import javafx.scene.Scene;
@@ -59,7 +59,7 @@ public class CreateEventGUI extends Stage {
         popularity.setMinorTickCount(0);
         popularity.setSnapToTicks(true);
 
-        save.setPrefSize(75, 75);
+        save.setMinWidth(100);
 
         for (Artist artist : Festival.getInstance().getArtistList()) {
             artists.getItems().add(artist);
@@ -90,7 +90,7 @@ public class CreateEventGUI extends Stage {
                 new Alert(Alert.AlertType.ERROR, "Please use format: 1:59").show();
                 return;
             }
-            Festival.getInstance().addEvent(new Event(beginTime, endTime, genreBox.getValue(), podiaBox.getValue(), artists.getValue(), popularity.getValue()));
+            Festival.getInstance().addEvent(new Event(beginTime, endTime, genreBox.getValue(), podiaBox.getValue(), new ArrayList<Artist>(artistsListView.getItems()), popularity.getValue()));
             close();
         });
 
@@ -109,12 +109,11 @@ public class CreateEventGUI extends Stage {
 
         mainPane.setPrefSize(500, 400);
         mainPane.setLeft(hBox);
-        mainPane.setBottom(save);
         mainPane.setRight(artistsListView);
         vBoxBoxes.setSpacing(10);
         vBoxLabels.setSpacing(15);
         hBox.getChildren().addAll(vBoxLabels, vBoxBoxes, add);
-        vBoxLabels.getChildren().addAll(labelArtist, labelPodium, labelBegin, labelEnd, labelGenre, labelPopularity);
+        vBoxLabels.getChildren().addAll(labelArtist, labelPodium, labelBegin, labelEnd, labelGenre, labelPopularity, save);
         vBoxBoxes.getChildren().addAll(artists, podiaBox, enterBegin, enterEnd, genreBox, popularity);
 
         Scene scene = new Scene(mainPane);

@@ -1,7 +1,6 @@
-package editGUIs;
+package guis.editGUIs;
 
 import Data.Artist;
-import Data.Festival;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
