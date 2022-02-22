@@ -1,8 +1,7 @@
-package Data;
+package data;
 import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Event implements Serializable {
 

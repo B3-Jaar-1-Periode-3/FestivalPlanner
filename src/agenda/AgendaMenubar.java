@@ -1,4 +1,4 @@
-package Agenda;
+package agenda;
 
 import guis.createGUIs.CreateGenreGUI;
 import guis.editGUIs.EditArtistGUI;

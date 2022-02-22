@@ -1,6 +1,6 @@
 package guis.editGUIs;
 
-import Data.Genre;
+import data.Genre;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

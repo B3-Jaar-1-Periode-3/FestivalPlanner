@@ -1,8 +1,7 @@
-package Data;
+package data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Festival implements Serializable {
     private static Festival festival;

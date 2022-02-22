@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="FestivalPlanner" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="Agenda.AgendaGUI" />
+    <option name="MAIN_CLASS_NAME" value="agenda.AgendaGUI" />
     <module name="FestivalPlanner" />
     <method v="2">
       <option name="Make" enabled="true" />

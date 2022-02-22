@@ -1,4 +1,4 @@
-package Data;
+package data;
 import java.io.Serializable;
 
 public class Podium implements Serializable {

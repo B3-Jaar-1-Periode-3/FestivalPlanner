@@ -1,6 +1,6 @@
 package guis.editGUIs;
 
-import Data.*;
+import data.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;

@@ -1,4 +1,4 @@
-package Agenda;
+package agenda;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -35,7 +35,7 @@ public class AgendaGUI extends Application {
 
         mainPane.setCenter(scrollPane);
         stage.setScene(new Scene(mainPane, 1920, 1080));
-        stage.setTitle("Agenda");
+        stage.setTitle("agenda");
         stage.show();
         draw(g2d);
     }
