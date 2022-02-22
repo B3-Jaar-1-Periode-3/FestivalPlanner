@@ -67,7 +67,6 @@ public class AgendaGUI extends Application {
 
     // this makes the grid of the planner
     public void drawGrit(FXGraphics2D graphics) {
-
         graphics.setStroke(drawLine(3));
         int x = 150;
         int y1 = 0;
