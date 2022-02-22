@@ -1,5 +1,6 @@
 package Data;
 import java.io.Serializable;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -7,13 +8,13 @@ public class Event implements Serializable {
 
     private ArrayList<Artist> artists;
     private Genre genre;
-    private int startTime;
-    private int endTime;
+    private LocalTime startTime;
+    private LocalTime endTime;
     private Podium podium;
     private int ID;
     private double popularity;
 
-    public Event(int startTime, int endTime, Genre genre, Podium podium, Artist artist, double popularity) {
+    public Event(LocalTime startTime, LocalTime endTime, Genre genre, Podium podium, Artist artist, double popularity) {
         this.artists = new ArrayList<>(Arrays.asList(artist));
         this.genre = genre;
         this.startTime = startTime;
@@ -34,11 +35,11 @@ public class Event implements Serializable {
         return genre;
     }
 
-    public int getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public int getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 

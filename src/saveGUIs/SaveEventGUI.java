@@ -1,4 +1,4 @@
-package Agenda;
+package saveGUIs;
 
 import Data.*;
 import javafx.scene.Scene;
@@ -9,10 +9,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 
-public class EventGUI extends Stage {
+public class SaveEventGUI extends Stage {
     private BorderPane mainPane;
     private VBox vBoxLabels;
     private VBox vBoxBoxes;
@@ -25,7 +28,7 @@ public class EventGUI extends Stage {
     private ArrayList<Genre> genreArrayList;
     private Button save;
 
-    public EventGUI() {
+    public SaveEventGUI() {
         this.artistArrayList = Festival.getInstance().getArtistList();
         this.podiumArrayList = Festival.getInstance().getPodiumList();
         this.genreArrayList = Festival.getInstance().getGenreList();
@@ -66,7 +69,17 @@ public class EventGUI extends Stage {
         }
 
         save.setOnAction(event -> {
-            Festival.getInstance().addEvent(new Event(Integer.parseInt(enterBegin.getText()), Integer.parseInt(enterEnd.getText()), genreBox.getValue(), podiaBox.getValue(), artists.getValue(), popularity.getValue()));
+            LocalTime beginTime = null;
+            LocalTime endTime = null;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("H:mm");
+            try {
+                beginTime = LocalTime.parse(enterBegin.getText(), formatter);
+                endTime = LocalTime.parse(enterEnd.getText(), formatter);
+            } catch (DateTimeParseException e) {
+                new Alert(Alert.AlertType.ERROR, "Please use format: 1:59").show();
+                return;
+            }
+            Festival.getInstance().addEvent(new Event(beginTime, endTime, genreBox.getValue(), podiaBox.getValue(), artists.getValue(), popularity.getValue()));
         });
 
         artists.setPrefSize(100, 30);
