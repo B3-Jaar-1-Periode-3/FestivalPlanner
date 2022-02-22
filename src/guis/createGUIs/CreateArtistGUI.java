@@ -13,33 +13,47 @@ import javafx.stage.Stage;
 
 
 public class CreateArtistGUI extends Stage {
-    private BorderPane mainPane;
-    private HBox hBox;
-    private VBox vBoxLabels;
-    private VBox vBoxFields;
     private TextField artistNameField;
 
     public CreateArtistGUI() {
-        mainPane = new BorderPane();
-        hBox = new HBox(20);
-        vBoxFields = new VBox();
-        vBoxLabels = new VBox();
+        //Creates window content
+        BorderPane mainPane = new BorderPane();
+        HBox hBox = new HBox(20);
+        VBox vBoxFields = new VBox();
+        VBox vBoxLabels = new VBox();
 
+        //Creates Input and Labels
         mainPane.setPrefSize(400,100);
         Label artistName = new Label("Name:");
-        artistNameField = new TextField();
+        this.artistNameField = new TextField();
         Button save = new Button("Save");
         save.setPrefSize(400,50);
+        Label output = new Label("");
 
-        save.setOnAction(event -> {
-            Festival.getInstance().addArtist(new Artist(artistNameField.getText()));
+        artistNameField.setOnAction(actionEvent -> { //Saves and clears input when pressing enter
+            String input = artistNameField.getText();
+            if (!input.isEmpty()) { //Checks if input contains something before saving
+                Festival.getInstance().addArtist(new Artist(input));
+                artistNameField.clear();
+                output.setText("Saved " + input);
+            } else {
+                output.setText("No input");
+            }
+
+        });
+
+        save.setOnAction(event -> { //Saves and closes window
+            String input = artistNameField.getText();
+            if (!input.isEmpty()) { //Checks if input contains something before saving
+                Festival.getInstance().addArtist(new Artist(input));
+            }
             close();
         });
 
         vBoxLabels.getChildren().addAll(artistName);
-        vBoxFields.getChildren().addAll(artistNameField);
+        vBoxFields.getChildren().addAll(this.artistNameField);
 
-        hBox.getChildren().addAll(vBoxLabels,vBoxFields);
+        hBox.getChildren().addAll(vBoxLabels, vBoxFields);
 
         mainPane.setTop(hBox);
         mainPane.setBottom(save);

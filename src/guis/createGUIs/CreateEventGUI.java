@@ -16,39 +16,43 @@ import java.util.ArrayList;
 
 
 public class CreateEventGUI extends Stage {
-    private BorderPane mainPane;
-    private VBox vBoxLabels;
-    private VBox vBoxBoxes;
-    private HBox hBox;
-    private ComboBox<Artist> artists;
-    private ComboBox<Podium> podiaBox;
-    private ComboBox<Genre> genreBox;
-    private ArrayList<Artist> artistArrayList;
-    private ArrayList<Podium> podiumArrayList;
-    private ArrayList<Genre> genreArrayList;
-    private Button save;
-    private ListView<Artist> artistsListView;
-    private Button add;
 
     public CreateEventGUI() {
-        this.artistArrayList = Festival.getInstance().getArtistList();
-        this.podiumArrayList = Festival.getInstance().getPodiumList();
-        this.genreArrayList = Festival.getInstance().getGenreList();
+        ArrayList<Artist> artistList = Festival.getInstance().getArtistList();
+        ArrayList<Podium> podiumList = Festival.getInstance().getPodiumList();
+        ArrayList<Genre> genreList = Festival.getInstance().getGenreList();
 
-        artistArrayList = new ArrayList<>();
-        artistsListView = new ListView<>();
-        mainPane = new BorderPane();
-        hBox = new HBox();
-        vBoxLabels = new VBox();
-        vBoxBoxes = new VBox();
-        genreBox = new ComboBox<>();
-        artists = new ComboBox<>();
-        podiaBox = new ComboBox<>();
-        podiumArrayList = new ArrayList<>();
-        genreArrayList = new ArrayList<>();
-        save = new Button("Save");
-        add = new Button("Add");
+        //Creates window content
+        BorderPane mainPane = new BorderPane();
+        HBox hBox = new HBox();
+        VBox vBoxLabels = new VBox();
+        VBox vBoxBoxes = new VBox();
 
+        //Creates ComboBoxes
+        ComboBox<Genre> genreBox = new ComboBox<>();
+        ComboBox<Artist> artists = new ComboBox<>();
+        ComboBox<Podium> podiaBox = new ComboBox<>();
+
+        //Creates Labels
+        Label labelArtist = new Label("Artist:");
+        labelArtist.setFont(Font.font(15));
+        Label labelPodium = new Label("Podium:");
+        labelPodium.setFont(Font.font(15));
+        Label labelBegin = new Label("Begin Time:");
+        labelBegin.setFont(Font.font(15));
+        Label labelEnd = new Label("End Time:");
+        labelEnd.setFont(Font.font(15));
+        Label labelGenre = new Label("Genre:");
+        labelGenre.setFont(Font.font(15));
+        Label labelPopularity = new Label("Popularity: ");
+        labelPopularity.setFont(Font.font(15));
+        Label labelOutput = new Label("");
+        labelOutput.setFont(Font.font(15));
+
+        //Creates Input buttons and fields
+        Button save = new Button("Save");
+        Button add = new Button("Add");
+        ListView<Artist> artistsListView = new ListView<>();
         TextField enterBegin = new TextField();
         TextField enterEnd = new TextField();
         Slider popularity = new Slider(1, 10, 1);
@@ -61,15 +65,16 @@ public class CreateEventGUI extends Stage {
 
         save.setMinWidth(100);
 
-        for (Artist artist : Festival.getInstance().getArtistList()) {
+        //Input saved data into lists
+        for (Artist artist : artistList) {
             artists.getItems().add(artist);
         }
 
-        for (Podium podium : Festival.getInstance().getPodiumList()) {
+        for (Podium podium : podiumList) {
             podiaBox.getItems().add(podium);
         }
 
-        for (Genre genre : Festival.getInstance().getGenreList()) {
+        for (Genre genre : genreList) {
             genreBox.getItems().add(genre);
         }
 
@@ -90,22 +95,21 @@ public class CreateEventGUI extends Stage {
                 new Alert(Alert.AlertType.ERROR, "Please use format: 1:59").show();
                 return;
             }
-            Festival.getInstance().addEvent(new Event(beginTime, endTime, genreBox.getValue(), podiaBox.getValue(), new ArrayList<Artist>(artistsListView.getItems()), popularity.getValue()));
-            close();
-        });
 
-        Label labelArtist = new Label("Artist:");
-        labelArtist.setFont(Font.font(15));
-        Label labelPodium = new Label("Podium:");
-        labelPodium.setFont(Font.font(15));
-        Label labelBegin = new Label("Begin Time:");
-        labelBegin.setFont(Font.font(15));
-        Label labelEnd = new Label("End Time:");
-        labelEnd.setFont(Font.font(15));
-        Label labelGenre = new Label("Genre:");
-        labelGenre.setFont(Font.font(15));
-        Label labelPopularity = new Label("Popularity: ");
-        labelPopularity.setFont(Font.font(15));
+            if (!beginTime.toString().isEmpty() &&
+                !endTime.toString().isEmpty() &&
+                !genreBox.getValue().toString().isEmpty() &&
+                !artistsListView.getItems().isEmpty()) { //Checks if any input is empty
+                if (endTime.isAfter(beginTime) && beginTime.equals(endTime)) {
+                    Festival.getInstance().addEvent(new Event(beginTime, endTime, genreBox.getValue(), podiaBox.getValue(), new ArrayList<Artist>(artistsListView.getItems()), popularity.getValue()));
+                    labelOutput.setText("Event saved!");
+                } else {
+                    labelOutput.setText("End time is before begin time");
+                }
+            } else {
+                labelOutput.setText("Please fill in all fields");
+            }
+        });
 
         mainPane.setPrefSize(500, 400);
         mainPane.setLeft(hBox);
@@ -113,7 +117,7 @@ public class CreateEventGUI extends Stage {
         vBoxBoxes.setSpacing(10);
         vBoxLabels.setSpacing(15);
         hBox.getChildren().addAll(vBoxLabels, vBoxBoxes, add);
-        vBoxLabels.getChildren().addAll(labelArtist, labelPodium, labelBegin, labelEnd, labelGenre, labelPopularity, save);
+        vBoxLabels.getChildren().addAll(labelArtist, labelPodium, labelBegin, labelEnd, labelGenre, labelPopularity, labelOutput, save);
         vBoxBoxes.getChildren().addAll(artists, podiaBox, enterBegin, enterEnd, genreBox, popularity);
 
         Scene scene = new Scene(mainPane);
