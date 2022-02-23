@@ -28,6 +28,7 @@ public class CreateEventGUI extends Stage {
         HBox hBox = new HBox();
         VBox vBoxLabels = new VBox();
         VBox vBoxBoxes = new VBox();
+        VBox vBoxRight = new VBox();
 
         //Creates ComboBoxes
         ComboBox<Genre> genreBox = new ComboBox<>();
@@ -51,6 +52,7 @@ public class CreateEventGUI extends Stage {
         labelOutput.setFont(Font.font(15));
 
         //Creates Input buttons and fields
+        Button remove = new Button("Remove");
         Button save = new Button("Save");
         Button add = new Button("Add");
         ListView<Artist> artistsListView = new ListView<>();
@@ -65,6 +67,7 @@ public class CreateEventGUI extends Stage {
         popularity.setSnapToTicks(true);
 
         save.setMinWidth(100);
+        remove.setPrefSize(250, 75);
 
         //Input saved data into lists
         for (Artist artist : artistList) {
@@ -120,11 +123,18 @@ public class CreateEventGUI extends Stage {
             }
         });
 
+        remove.setOnAction(event -> {
+            if (!artistsListView.getSelectionModel().isEmpty()) {
+                artistsListView.getItems().remove(artistsListView.getSelectionModel().getSelectedItem());
+            }
+        });
+
         mainPane.setPrefSize(500, 400);
         mainPane.setLeft(hBox);
-        mainPane.setRight(artistsListView);
+        mainPane.setRight(vBoxRight);
         vBoxBoxes.setSpacing(10);
         vBoxLabels.setSpacing(15);
+        vBoxRight.getChildren().addAll(artistsListView, remove);
         hBox.getChildren().addAll(vBoxLabels, vBoxBoxes, add);
         vBoxLabels.getChildren().addAll(labelArtist, labelPodium, labelBegin, labelEnd, labelGenre, labelPopularity, labelOutput, save);
         vBoxBoxes.getChildren().addAll(artists, podiaBox, enterBegin, enterEnd, genreBox, popularity);

@@ -25,7 +25,7 @@ public class Artist implements Serializable {
 
     public boolean isFree(Event event) {
         for (Event eventForArtist : Festival.getInstance().getEventsForArtist(this)) {
-            if (event.getStartTime().isBefore(eventForArtist.getEndTime()) && event.getEndTime().isAfter(eventForArtist.getStartTime())) {
+            if (event.getStartTime().isBefore(eventForArtist.getEndTime()) && event.getEndTime().isAfter(eventForArtist.getStartTime()) && !event.equals(eventForArtist)) {
                return false;
             }
         }

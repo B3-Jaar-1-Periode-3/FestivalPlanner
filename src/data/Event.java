@@ -71,7 +71,7 @@ public class Event implements Serializable {
 
     public boolean isFree(Event event) {
         for (Event eventFromAll : Festival.getInstance().getEventList()) {
-            if (event.getStartTime().isBefore(eventFromAll.getEndTime()) && event.getEndTime().isAfter(eventFromAll.getStartTime()) && event.getPodium().getID() == eventFromAll.getPodium().getID()) {
+            if (event.getStartTime().isBefore(eventFromAll.getEndTime()) && event.getEndTime().isAfter(eventFromAll.getStartTime()) && event.getPodium().getID() == eventFromAll.getPodium().getID() && !event.equals(eventFromAll)) {
                 System.out.println("Podium is overlapping");
                 return false;
             }
