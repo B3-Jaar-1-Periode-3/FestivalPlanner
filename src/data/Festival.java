@@ -1,6 +1,7 @@
 package data;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Festival implements Serializable {
@@ -13,7 +14,10 @@ public class Festival implements Serializable {
 
     public Festival(){
         this.genreList = new ArrayList<>();
+        genreList.add(new Genre("Pop"));
         this.artistList = new ArrayList<>();
+        artistList.add(new Artist("Merijn"));
+        artistList.add(new Artist("Tommy"));
         this.podiumList = new ArrayList<>();
         podiumList.add(new Podium(1));
         podiumList.add(new Podium(2));
@@ -76,6 +80,16 @@ public class Festival implements Serializable {
         this.eventList.clear();
     }
 
+    public ArrayList<Event> getEventsForArtist(Artist artist) {
+        ArrayList<Event> eventsForArtist = new ArrayList<>();
+
+        for (Event event : eventList) {
+            if (event.getArtists().contains(artist)) {
+                eventsForArtist.add(event);
+            }
+        }
+        return eventsForArtist;
+    }
 
     public static Festival getInstance() {
         if (festival == null) {

@@ -103,9 +103,13 @@ public class EditEventPopUp extends Stage {
             event.setPodium(podiaBox.getValue());
             event.setPopularity(popularitySlider.getValue());
             event.setArtists(new ArrayList<>(artistsListView.getItems()));
-            DrawEventBox.drawAllBoxes();
-            close();
-            new EditEventGUI().show();
+            if (event.isFree(event)) {
+                DrawEventBox.drawAllBoxes();
+                close();
+                new EditEventGUI().show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Can not add event, podium/artist is unavailable");
+            }
         });
 
         artists.setPrefSize(100, 30);

@@ -1,5 +1,6 @@
 package data;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Artist implements Serializable {
 
@@ -20,5 +21,14 @@ public class Artist implements Serializable {
     @Override
     public String toString() {
         return this.name;
+    }
+
+    public boolean isFree(Event event) {
+        for (Event eventForArtist : Festival.getInstance().getEventsForArtist(this)) {
+            if (event.getStartTime().isBefore(eventForArtist.getEndTime()) && event.getEndTime().isAfter(eventForArtist.getStartTime())) {
+               return false;
+            }
+        }
+        return true;
     }
 }
