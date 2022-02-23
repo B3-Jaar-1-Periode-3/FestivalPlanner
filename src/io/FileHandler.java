@@ -1,5 +1,6 @@
 package io;
 
+import agenda.DrawEventBox;
 import data.Festival;
 import java.io.*;
 
@@ -36,6 +37,7 @@ public class FileHandler {
 
         Festival.getInstance().clearAll(); //Deletes all current Festival info
         Festival.getInstance().setFestival(data); //Writes read data to Festival
+        DrawEventBox.drawAllBoxes();
 
         //Read and print data into console
         System.out.println(data.getArtistList());

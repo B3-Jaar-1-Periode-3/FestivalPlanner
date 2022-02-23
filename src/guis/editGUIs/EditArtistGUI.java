@@ -1,5 +1,6 @@
 package guis.editGUIs;
 
+import agenda.DrawEventBox;
 import data.Artist;
 import data.Festival;
 import javafx.scene.Scene;
@@ -32,12 +33,14 @@ public class EditArtistGUI extends Stage {
 
         editArtist.setOnAction(event -> {
             new EditArtistPopUp(artists.getSelectionModel().getSelectedItem()).show();
+            DrawEventBox.drawAllBoxes();
             close();
         });
 
         deleteArtist.setOnAction(event -> {
             Festival.getInstance().getArtistList().remove(artists.getSelectionModel().getSelectedItem());
             artists.getItems().remove(artists.getSelectionModel().getSelectedItem());
+            DrawEventBox.drawAllBoxes();
         });
 
         hBox.getChildren().addAll(editArtist, deleteArtist);

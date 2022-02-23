@@ -7,8 +7,10 @@ import org.jfree.fx.ResizableCanvas;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.lang.reflect.Array;
 import java.time.Duration;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 public class DrawEventBox {
 
@@ -39,13 +41,26 @@ public class DrawEventBox {
         graphics.setColor(Color.black);
         graphics.draw(box);
 
-        if (event.getArtists().size() == 1) {
-            graphics.drawString("Artist: " + event.getArtists().get(0).getName(), (int)x, (int)y + 20);
-        } else if (event.getArtists().size() == 2) {
-            graphics.drawString("Artists: " + event.getArtists().get(0).getName() + ", " + event.getArtists().get(1).getName(), (int)x, (int)y + 20);
-        } else {
-            graphics.drawString("Artists: " + event.getArtists().get(0).getName() + ", " + event.getArtists().get(1).getName() + " and more", (int)x, (int)y + 20);
+        ArrayList<Artist> artistList = event.getArtists();
+        int i = 0;
+        for (Artist artist : artistList){
+            i++;
+            if (artistList.size() == 1){
+                graphics.drawString("Artist: ", (int)(x), (int)y + 20);
+                graphics.drawString(artist.getName(), (int)(x), (int)y + 40);
+            } else {
+                graphics.drawString("Artists: ", (int)(x), (int)y + 20);
+                if(i >= 4){
+                    graphics.drawString("...", (int)(x), (int)y + 15 + (20 * i));
+                    break;
+                } else {
+                    graphics.drawString(artist.getName(), (int) (x), (int) y + 20 + (20 * i));
+                }
+            }
         }
-        graphics.drawString("Popularity: " + event.getPopularity(), (int)x, (int)y + 40);
+
+        graphics.drawString("Genre: " + event.getGenre(), (int)(x + podiumWidth / 2), (int)y + 20);
+        graphics.drawString("Popularity: " + event.getPopularity(), (int)(x + podiumWidth / 2), (int)y + 40);
+        graphics.drawString("Time: " + event.getStartTime() + " - " + event.getEndTime(), (int)(x + podiumWidth / 2), (int)y + 60);
     }
 }
