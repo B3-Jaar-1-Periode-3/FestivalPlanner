@@ -15,7 +15,7 @@ public class DrawEventBox {
     public static void drawAllBoxes(){
         Festival festival = Festival.getInstance();
 
-        for (data.Event event : festival.getEventList()){
+        for (data.Event event : festival.getEventList()) {
             addBox(event);
         }
     }
@@ -31,7 +31,7 @@ public class DrawEventBox {
         double x = 150 + (podiumWidth * (podiumID - 1));
         double y = 80 + (100 * startTime.getHour());
         long timeLength = Duration.between(startTime, endTime).toMinutes();
-        double height = (double)(100 * (timeLength / 60));
+        double height = (100 * (timeLength / 60.0));
 
         Rectangle2D box = new Rectangle2D.Double(x,y,podiumWidth,height);
         graphics.setColor(Color.CYAN);
@@ -39,9 +39,9 @@ public class DrawEventBox {
         graphics.setColor(Color.black);
         graphics.draw(box);
 
-        if (event.getArtists().size() == 1){
+        if (event.getArtists().size() == 1) {
             graphics.drawString("Artist: " + event.getArtists().get(0).getName(), (int)x, (int)y + 20);
-        } else if (event.getArtists().size() == 2){
+        } else if (event.getArtists().size() == 2) {
             graphics.drawString("Artists: " + event.getArtists().get(0).getName() + ", " + event.getArtists().get(1).getName(), (int)x, (int)y + 20);
         } else {
             graphics.drawString("Artists: " + event.getArtists().get(0).getName() + ", " + event.getArtists().get(1).getName() + " and more", (int)x, (int)y + 20);

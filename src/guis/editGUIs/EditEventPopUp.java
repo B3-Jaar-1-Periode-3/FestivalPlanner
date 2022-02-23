@@ -1,5 +1,6 @@
 package guis.editGUIs;
 
+import agenda.DrawEventBox;
 import data.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -102,6 +103,7 @@ public class EditEventPopUp extends Stage {
             event.setPodium(podiaBox.getValue());
             event.setPopularity(popularitySlider.getValue());
             event.setArtists(new ArrayList<>(artistsListView.getItems()));
+            DrawEventBox.drawAllBoxes();
             close();
             new EditEventGUI().show();
         });
