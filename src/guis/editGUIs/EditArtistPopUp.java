@@ -24,11 +24,11 @@ public class EditArtistPopUp extends Stage {
         vBoxFields = new VBox();
         vBoxLabels = new VBox();
 
-        mainPane.setPrefSize(200,200);
+        mainPane.setPrefSize(400,100);
         Label artistName = new Label("Name:");
         artistNameField = new TextField(artist.getName());
         Button save = new Button("Save");
-        save.setPrefSize(50,50);
+        save.setPrefSize(400,50);
 
         save.setOnAction(event -> {
             artist.setName(artistNameField.getText());
