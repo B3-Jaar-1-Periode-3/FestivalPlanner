@@ -1,5 +1,6 @@
 package guis.createGUIs;
 
+import agenda.DrawEventBox;
 import data.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -100,8 +101,10 @@ public class CreateEventGUI extends Stage {
                 !endTime.toString().isEmpty() &&
                 !genreBox.getValue().toString().isEmpty() &&
                 !artistsListView.getItems().isEmpty()) { //Checks if any input is empty
-                if (endTime.isAfter(beginTime) && beginTime.equals(endTime)) {
-                    Festival.getInstance().addEvent(new Event(beginTime, endTime, genreBox.getValue(), podiaBox.getValue(), new ArrayList<Artist>(artistsListView.getItems()), popularity.getValue()));
+                if (endTime.isAfter(beginTime) && !beginTime.equals(endTime)) {
+                    Event newEvent = new Event(beginTime, endTime, genreBox.getValue(), podiaBox.getValue(), new ArrayList<Artist>(artistsListView.getItems()), popularity.getValue());
+                    Festival.getInstance().addEvent(newEvent);
+                    DrawEventBox.drawAllBoxes();
                     labelOutput.setText("Event saved!");
                 } else {
                     labelOutput.setText("End time is before begin time");

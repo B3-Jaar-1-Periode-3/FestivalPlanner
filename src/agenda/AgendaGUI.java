@@ -21,7 +21,7 @@ public class AgendaGUI extends Application {
 
     private final double screenWidth = 1920;
     private final double screenHeight = 2600;
-    private ResizableCanvas canvas;
+    public static ResizableCanvas canvas;
 
     @Override
     public void start(Stage stage) {
@@ -43,7 +43,6 @@ public class AgendaGUI extends Application {
         stage.setTitle("Agenda");
         stage.show();
 
-
     }
 
     private void draw(FXGraphics2D graphics) {
@@ -58,9 +57,7 @@ public class AgendaGUI extends Application {
         drawText(graphics);
         drawTime(graphics);
         drawHourLine(graphics);
-
-        addBox(graphics);
-
+        DrawEventBox.drawAllBoxes();
     }
 
     private Stroke drawLine(float width) {
@@ -124,23 +121,7 @@ public class AgendaGUI extends Application {
         }
     }
 
-    public static void addBox(FXGraphics2D graphics) {
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("H:mm");
-
-        int podiumID = 2;
-        LocalTime beginTime = LocalTime.parse("4:00", formatter);
-        LocalTime endTime = LocalTime.parse("7:00", formatter);
-        double podiumWidth = (double)((1920 - 150)/4); //Screen width - time column / amount of podiums
-        double x = 150 + (podiumWidth * (podiumID - 1));
-        double y = 80 + (100 * beginTime.getHour());
-        long timeLength = Duration.between(beginTime, endTime).toMinutes();
-        double height = (double)(100 * (timeLength / 60));
-
-        Rectangle2D box = new Rectangle2D.Double(x,y,podiumWidth,height);
-        graphics.setColor(Color.black);
-        graphics.draw(box);
-        graphics.fill(box);
+    public static ResizableCanvas getCanvas(){
+        return canvas;
     }
-
 }
