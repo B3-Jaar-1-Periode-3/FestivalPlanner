@@ -45,7 +45,7 @@ public class AgendaGUI extends Application {
 
     }
 
-    private void draw(FXGraphics2D graphics) {
+    public void draw(FXGraphics2D graphics) {
         canvas.setWidth(this.screenWidth);
         canvas.setHeight(this.screenHeight);
 
