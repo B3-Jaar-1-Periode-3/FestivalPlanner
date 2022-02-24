@@ -37,6 +37,7 @@ public class EditEventPopUp extends Stage {
         this.podium = event.getPodium();
         this.genre = event.getGenre();
         this.formatter = DateTimeFormatter.ofPattern("H:mm");
+        VBox vBoxRight = new VBox();
 
         artistsListView = new ListView<>();
         mainPane = new BorderPane();
@@ -52,6 +53,7 @@ public class EditEventPopUp extends Stage {
         TextField enterBegin = new TextField();
         TextField enterEnd = new TextField();
         Slider popularitySlider = new Slider(1, 10, 1);
+        Button remove = new Button("Remove");
 
         popularitySlider.setShowTickLabels(true);
         popularitySlider.setShowTickMarks(true);
@@ -60,6 +62,7 @@ public class EditEventPopUp extends Stage {
         popularitySlider.setSnapToTicks(true);
 
         save.setMinWidth(100);
+        remove.setPrefSize(250, 75);
 
         for (Artist artistFromList : Festival.getInstance().getArtistList()) {
             artists.getItems().add(artistFromList);
@@ -103,9 +106,19 @@ public class EditEventPopUp extends Stage {
             event.setPodium(podiaBox.getValue());
             event.setPopularity(popularitySlider.getValue());
             event.setArtists(new ArrayList<>(artistsListView.getItems()));
-            DrawEventBox.drawAllBoxes();
-            close();
-            new EditEventGUI().show();
+            if (event.isFree(event)) {
+                DrawEventBox.drawAllBoxes();
+                close();
+                new EditEventGUI().show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Can not add event, podium/artist is unavailable").show();
+            }
+        });
+
+        remove.setOnAction(event1 -> {
+            if (!artistsListView.getSelectionModel().isEmpty()) {
+                artistsListView.getItems().remove(artistsListView.getSelectionModel().getSelectedItem());
+            }
         });
 
         artists.setPrefSize(100, 30);
@@ -124,9 +137,10 @@ public class EditEventPopUp extends Stage {
 
         mainPane.setPrefSize(500, 400);
         mainPane.setLeft(hBox);
-        mainPane.setRight(artistsListView);
+        mainPane.setRight(vBoxRight);
         vBoxBoxes.setSpacing(10);
         vBoxLabels.setSpacing(15);
+        vBoxRight.getChildren().addAll(artistsListView, remove);
         hBox.getChildren().addAll(vBoxLabels, vBoxBoxes, add);
         vBoxLabels.getChildren().addAll(labelArtist, labelPodium, labelBegin, labelEnd, labelGenre, labelPopularity, save);
         vBoxBoxes.getChildren().addAll(artists, podiaBox, enterBegin, enterEnd, genreBox, popularitySlider);

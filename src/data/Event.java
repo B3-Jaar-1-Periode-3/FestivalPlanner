@@ -21,10 +21,6 @@ public class Event implements Serializable {
         this.popularity = popularity;
     }
 
-    public void addArtists(Artist artist) {
-        this.artists.add(artist);
-    }
-
     public ArrayList<Artist> getArtists() {
         return artists;
     }
@@ -71,6 +67,22 @@ public class Event implements Serializable {
 
     public void setPopularity(double popularity) {
         this.popularity = popularity;
+    }
+
+    public boolean isFree(Event event) {
+        for (Event eventFromAll : Festival.getInstance().getEventList()) {
+            if (event.getStartTime().isBefore(eventFromAll.getEndTime()) && event.getEndTime().isAfter(eventFromAll.getStartTime()) && event.getPodium().getID() == eventFromAll.getPodium().getID() && !event.equals(eventFromAll)) {
+                System.out.println("Podium is overlapping");
+                return false;
+            }
+        }
+        for (Artist artist : event.getArtists()) {
+            if (!artist.isFree(event)) {
+                System.out.println("You fucked up " + artist + " is overlapping");
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
