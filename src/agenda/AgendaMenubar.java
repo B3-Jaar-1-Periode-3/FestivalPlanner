@@ -1,6 +1,7 @@
 package agenda;
 
 import data.Festival;
+import guis.HelpWindowGUI;
 import guis.createGUIs.CreateGenreGUI;
 import guis.editGUIs.EditArtistGUI;
 import guis.editGUIs.EditEventGUI;
@@ -23,7 +24,7 @@ public class AgendaMenubar {
         help.getItems().add(helpButton);
 
         helpButton.setOnAction(event -> {
-
+            new HelpWindowGUI().show();
         });
 
         // File menu & submenu's
