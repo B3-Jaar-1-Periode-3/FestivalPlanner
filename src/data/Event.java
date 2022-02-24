@@ -1,4 +1,6 @@
 package data;
+import javafx.scene.control.Alert;
+
 import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -19,10 +21,6 @@ public class Event implements Serializable {
         this.endTime = endTime;
         this.podium = podium;
         this.popularity = popularity;
-    }
-
-    public void addArtists(Artist artist) {
-        this.artists.add(artist);
     }
 
     public ArrayList<Artist> getArtists() {
@@ -71,6 +69,22 @@ public class Event implements Serializable {
 
     public void setPopularity(double popularity) {
         this.popularity = popularity;
+    }
+
+    public boolean isFree(Event event) {
+        for (Event eventFromAll : Festival.getInstance().getEventList()) {
+            if (event.getStartTime().isBefore(eventFromAll.getEndTime()) && event.getEndTime().isAfter(eventFromAll.getStartTime()) && event.getPodium().getID() == eventFromAll.getPodium().getID() && !event.equals(eventFromAll)) {
+                new Alert(Alert.AlertType.ERROR, "Event is overlapping with another event").show();
+                return false;
+            }
+        }
+        for (Artist artist : event.getArtists()) {
+            if (!artist.isFree(event)) {
+                new Alert(Alert.AlertType.ERROR, "Artist has another event planned at this time.");
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

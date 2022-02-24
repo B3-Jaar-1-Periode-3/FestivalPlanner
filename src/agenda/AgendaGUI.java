@@ -10,12 +10,18 @@ import org.jfree.fx.ResizableCanvas;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.RoundRectangle2D;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class AgendaGUI extends Application {
 
     private final double screenWidth = 1920;
     private final double screenHeight = 2600;
-    private ResizableCanvas canvas;
+    public static ResizableCanvas canvas;
 
     @Override
     public void start(Stage stage) {
@@ -36,10 +42,10 @@ public class AgendaGUI extends Application {
         stage.setScene(new Scene(mainPane, 1920, 1080));
         stage.setTitle("Agenda");
         stage.show();
-        draw(g2d);
+
     }
 
-    private void draw(FXGraphics2D graphics) {
+    public void draw(FXGraphics2D graphics) {
         canvas.setWidth(this.screenWidth);
         canvas.setHeight(this.screenHeight);
 
@@ -51,6 +57,7 @@ public class AgendaGUI extends Application {
         drawText(graphics);
         drawTime(graphics);
         drawHourLine(graphics);
+        DrawEventBox.drawAllBoxes();
     }
 
     private Stroke drawLine(float width) {
@@ -114,8 +121,7 @@ public class AgendaGUI extends Application {
         }
     }
 
-    public void drawRectangle(FXGraphics2D graphics2D, int width, int height) {
-        graphics2D.drawRect(500, 200, width, height);
+    public static ResizableCanvas getCanvas(){
+        return canvas;
     }
-
 }

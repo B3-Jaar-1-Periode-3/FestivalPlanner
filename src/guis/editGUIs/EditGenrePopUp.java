@@ -1,5 +1,6 @@
 package guis.editGUIs;
 
+import agenda.DrawEventBox;
 import data.Genre;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -32,6 +33,7 @@ public class EditGenrePopUp extends Stage {
 
         save.setOnAction(event -> {
             genre.setGenre(genreField.getText());
+            DrawEventBox.drawAllBoxes();
             close();
             new EditGenreGUI().show();
         });

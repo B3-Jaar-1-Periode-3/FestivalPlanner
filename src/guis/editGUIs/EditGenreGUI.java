@@ -1,5 +1,6 @@
 package guis.editGUIs;
 
+import agenda.DrawEventBox;
 import data.Festival;
 import data.Genre;
 import javafx.scene.Scene;
@@ -30,6 +31,7 @@ public class EditGenreGUI extends Stage {
 
         editGenre.setOnAction(event -> {
             new EditGenrePopUp(genreListView.getSelectionModel().getSelectedItem()).show();
+            DrawEventBox.drawAllBoxes();
             close();
         });
 
@@ -37,6 +39,7 @@ public class EditGenreGUI extends Stage {
             if (!genreListView.getSelectionModel().isEmpty()) {
                 Festival.getInstance().getGenreList().remove(genreListView.getSelectionModel().getSelectedItem());
                 genreListView.getItems().remove(genreListView.getSelectionModel().getSelectedItem());
+                DrawEventBox.drawAllBoxes();
             }
         });
 

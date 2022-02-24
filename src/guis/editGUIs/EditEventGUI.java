@@ -1,5 +1,7 @@
 package guis.editGUIs;
 
+import agenda.AgendaGUI;
+import agenda.DrawEventBox;
 import data.Event;
 import data.Festival;
 import javafx.scene.Scene;
@@ -43,6 +45,8 @@ public class EditEventGUI extends Stage {
         deleteEvent.setOnAction(event -> {
             if (!events.getSelectionModel().isEmpty()) {
                 Festival.getInstance().getEventList().remove(events.getSelectionModel().getSelectedItem());
+                DrawEventBox.clearALlBoxes(events.getSelectionModel().getSelectedItem());
+
                 events.getItems().remove(events.getSelectionModel().getSelectedItem());
             }
         });

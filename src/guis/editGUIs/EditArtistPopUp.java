@@ -1,5 +1,6 @@
 package guis.editGUIs;
 
+import agenda.DrawEventBox;
 import data.Artist;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -32,6 +33,7 @@ public class EditArtistPopUp extends Stage {
 
         save.setOnAction(event -> {
             artist.setName(artistNameField.getText());
+            DrawEventBox.drawAllBoxes();
             close();
             new EditArtistGUI().show();
         });

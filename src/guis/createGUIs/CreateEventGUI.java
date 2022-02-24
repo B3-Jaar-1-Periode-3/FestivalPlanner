@@ -1,5 +1,6 @@
 package guis.createGUIs;
 
+import agenda.DrawEventBox;
 import data.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -27,6 +28,7 @@ public class CreateEventGUI extends Stage {
         HBox hBox = new HBox();
         VBox vBoxLabels = new VBox();
         VBox vBoxBoxes = new VBox();
+        VBox vBoxRight = new VBox();
 
         //Creates ComboBoxes
         ComboBox<Genre> genreBox = new ComboBox<>();
@@ -50,6 +52,7 @@ public class CreateEventGUI extends Stage {
         labelOutput.setFont(Font.font(15));
 
         //Creates Input buttons and fields
+        Button remove = new Button("Remove");
         Button save = new Button("Save");
         Button add = new Button("Add");
         ListView<Artist> artistsListView = new ListView<>();
@@ -64,6 +67,7 @@ public class CreateEventGUI extends Stage {
         popularity.setSnapToTicks(true);
 
         save.setMinWidth(100);
+        remove.setPrefSize(250, 75);
 
         //Input saved data into lists
         for (Artist artist : artistList) {
@@ -100,9 +104,17 @@ public class CreateEventGUI extends Stage {
                 !endTime.toString().isEmpty() &&
                 !genreBox.getValue().toString().isEmpty() &&
                 !artistsListView.getItems().isEmpty()) { //Checks if any input is empty
-                if (endTime.isAfter(beginTime) && beginTime.equals(endTime)) {
-                    Festival.getInstance().addEvent(new Event(beginTime, endTime, genreBox.getValue(), podiaBox.getValue(), new ArrayList<Artist>(artistsListView.getItems()), popularity.getValue()));
-                    labelOutput.setText("Event saved!");
+                if (endTime.isAfter(beginTime) && !beginTime.equals(endTime)) {
+                    ArrayList<Artist> artistsToAdd = new ArrayList<>(artistsListView.getItems());
+                    Event newEvent = new Event(beginTime, endTime, genreBox.getValue(), podiaBox.getValue(), artistsToAdd, popularity.getValue());
+                    if (newEvent.isFree(newEvent)) {
+                        Festival.getInstance().addEvent(newEvent);
+                        DrawEventBox.drawAllBoxes();
+                        labelOutput.setText("Event saved!");
+                        close();
+                    } else {
+                        new Alert(Alert.AlertType.ERROR, "Can not add event, podium/artist is unavailable").show();
+                    }
                 } else {
                     labelOutput.setText("End time is before begin time");
                 }
@@ -111,11 +123,18 @@ public class CreateEventGUI extends Stage {
             }
         });
 
+        remove.setOnAction(event -> {
+            if (!artistsListView.getSelectionModel().isEmpty()) {
+                artistsListView.getItems().remove(artistsListView.getSelectionModel().getSelectedItem());
+            }
+        });
+
         mainPane.setPrefSize(500, 400);
         mainPane.setLeft(hBox);
-        mainPane.setRight(artistsListView);
+        mainPane.setRight(vBoxRight);
         vBoxBoxes.setSpacing(10);
         vBoxLabels.setSpacing(15);
+        vBoxRight.getChildren().addAll(artistsListView, remove);
         hBox.getChildren().addAll(vBoxLabels, vBoxBoxes, add);
         vBoxLabels.getChildren().addAll(labelArtist, labelPodium, labelBegin, labelEnd, labelGenre, labelPopularity, labelOutput, save);
         vBoxBoxes.getChildren().addAll(artists, podiaBox, enterBegin, enterEnd, genreBox, popularity);

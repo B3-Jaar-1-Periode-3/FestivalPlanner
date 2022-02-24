@@ -52,6 +52,7 @@ public class CreateArtistGUI extends Stage {
 
         vBoxLabels.getChildren().addAll(artistName);
         vBoxFields.getChildren().addAll(this.artistNameField);
+        vBoxFields.getChildren().add(output);
 
         hBox.getChildren().addAll(vBoxLabels, vBoxFields);
 
