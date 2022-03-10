@@ -1,7 +1,7 @@
-package guis.createGUIs;
+package guis.createguis;
 
+import data.Artist;
 import data.Festival;
-import data.Genre;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,28 +11,30 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class CreateGenreGUI extends Stage {
 
-    public CreateGenreGUI() {
+public class CreateArtistGUI extends Stage {
+    private TextField artistNameField;
+
+    public CreateArtistGUI() {
         //Creates window content
         BorderPane mainPane = new BorderPane();
-        HBox hBox = new HBox();
+        HBox hBox = new HBox(20);
         VBox vBoxFields = new VBox();
         VBox vBoxLabels = new VBox();
 
-        //Creates input and labels
+        //Creates Input and Labels
         mainPane.setPrefSize(400,100);
-        Label genre = new Label("Genre: ");
-        TextField genreField = new TextField();
+        Label artistName = new Label("Name:");
+        this.artistNameField = new TextField();
         Button save = new Button("Save");
         save.setPrefSize(400,50);
         Label output = new Label("");
 
-        genreField.setOnAction(actionEvent -> { //Saves and clears input when pressing enter
-            String input = genreField.getText();
+        artistNameField.setOnAction(actionEvent -> { //Saves and clears input when pressing enter
+            String input = artistNameField.getText();
             if (!input.isEmpty()) { //Checks if input contains something before saving
-                Festival.getInstance().addGenre(new Genre(input));
-                genreField.clear();
+                Festival.getInstance().addArtist(new Artist(input));
+                artistNameField.clear();
                 output.setText("Saved " + input);
             } else {
                 output.setText("No input");
@@ -41,24 +43,29 @@ public class CreateGenreGUI extends Stage {
         });
 
         save.setOnAction(event -> { //Saves and closes window
-            String input = genreField.getText();
+            String input = artistNameField.getText();
             if (!input.isEmpty()) { //Checks if input contains something before saving
-                Festival.getInstance().addGenre(new Genre(input));
+                Festival.getInstance().addArtist(new Artist(input));
             }
             close();
         });
 
-        hBox.getChildren().addAll(vBoxLabels, vBoxFields);
-        vBoxLabels.getChildren().add(genre);
-        vBoxFields.getChildren().add(genreField);
+        vBoxLabels.getChildren().addAll(artistName);
+        vBoxFields.getChildren().addAll(this.artistNameField);
         vBoxFields.getChildren().add(output);
+
+        hBox.getChildren().addAll(vBoxLabels, vBoxFields);
 
         mainPane.setTop(hBox);
         mainPane.setBottom(save);
 
         Scene scene = new Scene(mainPane);
 
-        setTitle("Create Genre");
+        setTitle("Save Artist");
         setScene(scene);
+    }
+
+    public void setTextField(String name) {
+        artistNameField.setText(name);
     }
 }

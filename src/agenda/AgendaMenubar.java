@@ -2,12 +2,12 @@ package agenda;
 
 import data.Festival;
 import guis.HelpWindowGUI;
-import guis.createGUIs.CreateGenreGUI;
-import guis.editGUIs.EditArtistGUI;
-import guis.editGUIs.EditEventGUI;
-import guis.createGUIs.CreateArtistGUI;
-import guis.createGUIs.CreateEventGUI;
-import guis.editGUIs.EditGenreGUI;
+import guis.createguis.CreateGenreGUI;
+import guis.editguis.EditArtistGUI;
+import guis.editguis.EditEventGUI;
+import guis.createguis.CreateArtistGUI;
+import guis.createguis.CreateEventGUI;
+import guis.editguis.EditGenreGUI;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -79,19 +79,29 @@ public class AgendaMenubar {
             new CreateGenreGUI().show();
         });
 
+        //Views
+        Menu views = new Menu("View");
+        MenuItem simulator = new MenuItem("Simulation");
+        views.getItems().addAll(simulator);
+
+        simulator.setOnAction(event -> {
+            new SimulatorGUI().show();
+        });
+
         // all menu bars together
         MenuBar fileMenuBar = new MenuBar();
         MenuBar editMenuBar = new MenuBar();
         MenuBar saveMenuBar = new MenuBar();
-        MenuBar deleteMenuBar = new MenuBar();
         MenuBar helpMenuBar = new MenuBar();
+        MenuBar viewsMenuBar = new MenuBar();
 
         fileMenuBar.getMenus().add(fileMenu);
         editMenuBar.getMenus().add(editMenu);
         saveMenuBar.getMenus().add(saveMenu);
         helpMenuBar.getMenus().add(help);
+        viewsMenuBar.getMenus().add(views);
 
-        HBox menus = new HBox(fileMenuBar, editMenuBar, saveMenuBar, helpMenuBar);
+        HBox menus = new HBox(fileMenuBar, editMenuBar, saveMenuBar, viewsMenuBar, helpMenuBar);
         agendaMenuBarScene = new HBox(menus);
     }
 

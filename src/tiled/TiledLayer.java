@@ -1,8 +1,12 @@
 package tiled;
 
+import org.jfree.fx.FXGraphics2D;
+
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -57,5 +61,18 @@ public class TiledLayer {
                 "\noffsetX= " + offsetX +
                 "\noffsetY= " + offsetY +
                 "\nValues= " + tileValuesAsString;
+    }
+
+    public void draw(FXGraphics2D graphics2D) {
+        System.out.println("Drawing Layer");
+        for (int i = 0; i < tileValues.length; i++) {
+            for (int j = 0; j < tileValues[i].length; j++) {
+                int data = tileValues[i][j];
+                BufferedImage image = TileSetManager.getInstance().getTile(data);
+                AffineTransform transform = graphics2D.getTransform();
+                transform.translate(i * 32 + offsetX, j * 32 + offsetY);
+                graphics2D.drawImage(image, transform, null);
+            }
+        }
     }
 }
