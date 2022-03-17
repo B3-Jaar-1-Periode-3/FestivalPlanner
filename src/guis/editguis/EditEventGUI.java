@@ -1,6 +1,5 @@
-package guis.editGUIs;
+package guis.editguis;
 
-import agenda.AgendaGUI;
 import agenda.DrawEventBox;
 import data.Event;
 import data.Festival;
