@@ -20,7 +20,7 @@ public class SimulatorGUI extends Stage {
 
         mainPane.setTop(canvas);
 
-        tiledMap = new TiledMap("School_Map.json");
+        tiledMap = new TiledMap("Map.json");
         Scene scene = new Scene(mainPane);
 
         draw(new FXGraphics2D(canvas.getGraphicsContext2D()));

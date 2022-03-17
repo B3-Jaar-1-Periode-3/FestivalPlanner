@@ -18,6 +18,7 @@ public class TiledLayer {
     private int[][] tileValues;
 
     public TiledLayer(JsonObject objectlayer) {
+        System.out.println(objectlayer.getString("name"));
         this.width = objectlayer.getInt("width");
         this.height = objectlayer.getInt("height");
         if (objectlayer.containsKey("offsetx")) {
