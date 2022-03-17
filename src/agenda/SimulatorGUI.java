@@ -15,8 +15,8 @@ public class SimulatorGUI extends Stage {
 
     public SimulatorGUI() {
         BorderPane mainPane = new BorderPane();
-        mainPane.setMinSize(1920, 1080);
-        canvas = new Canvas(1920, 1080);
+        mainPane.setMinSize(1010, 1080);
+        canvas = new Canvas(1010, 1080);
 
         mainPane.setTop(canvas);
 
