@@ -1,5 +1,6 @@
 import com.sun.glass.ui.Screen;
 import javafx.animation.AnimationTimer;
+import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -11,7 +12,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-public class NpcDemo {
+public class NpcDemo extends Application {
 
     private ResizableCanvas canvas;
 
@@ -56,7 +57,7 @@ public class NpcDemo {
     public void init() {
         this.visitors = new ArrayList<>();
         while (this.visitors.size() < 40) {
-            Npc visitor = new Npc(new Point2D.Double(Math.random() * 1000, Math.random() * 1000), 0);
+            Npc visitor = new Npc(new Point2D.Double(Math.random() * 1000, Math.random() * 1000), 0); // starting position
             if (!visitor.checkCollision(this.visitors)) {
                 this.visitors.add(visitor);
             }

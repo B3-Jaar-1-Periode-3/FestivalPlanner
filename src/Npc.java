@@ -21,15 +21,15 @@ public class Npc {
     public Npc(Point2D position, double angle) {
         this.position = position;
         this.angle = angle;
-        this.speed = 1 + 5 * Math.random();
+        this.speed = 3;
         this.target = position;
-        this.frame = Math.random() * 10;
+        this.frame = 10;
 
         this.sprites = new ArrayList<>();
         try {
-            BufferedImage image = ImageIO.read(getClass().getResourceAsStream("/images/npc.png"));
-            int w = image.getWidth() / 2;
-            int h = image.getHeight() / 3;
+            BufferedImage image = ImageIO.read(getClass().getResourceAsStream("betty.png"));
+            int w = image.getWidth() / 4;
+            int h = image.getHeight() / 4;
             for (int y = 0; y < 3; y++) {
                 for (int x = 0; x < 2; x++) {
                     this.sprites.add(image.getSubimage(x * w, y * h, w, h));
