@@ -30,15 +30,14 @@ public class Npc {
             BufferedImage image = ImageIO.read(getClass().getResourceAsStream("betty.png"));
             int w = image.getWidth() / 4;
             int h = image.getHeight() / 4;
-            for (int y = 0; y < 3; y++) {
-                for (int x = 0; x < 2; x++) {
+            for (int y = 0; y < 4; y++) {
+                for (int x = 0; x < 4; x++) {
                     this.sprites.add(image.getSubimage(x * w, y * h, w, h));
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
 
