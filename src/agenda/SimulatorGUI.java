@@ -13,6 +13,7 @@ import org.jfree.fx.Resizable;
 import tiled.Camera;
 import tiled.TiledMap;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
@@ -39,19 +40,6 @@ public class SimulatorGUI extends Stage implements Resizable{
 
         tiledMap = Festival.getInstance().getTiledMap();
         Scene scene = new Scene(mainPane);
-        try {
-            BufferedImage image = ImageIO.read(getClass().getResourceAsStream("betty.png"));
-            int spriteWidth = image.getWidth()/4;
-            int spriteHeight = image.getHeight() / 4;
-            for (int y = 0; y < 4; y++) {
-                for (int x = 0; x < 4; x++) {
-                    npcSprites.add(image.getSubimage(x * spriteHeight, y * spriteHeight, spriteWidth, spriteHeight));
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
 
         setTitle("Simulation");
         setScene(scene);
