@@ -16,12 +16,14 @@ public class Festival implements Serializable {
     private ArrayList<Artist> artistList;
     private ArrayList<Podium> podiumList;
     private ArrayList<Event> eventList;
+    private ArrayList<Visitor> visitors;
 
     public Festival() {
         this.genreList = new ArrayList<>();
         this.artistList = new ArrayList<>();
         this.podiumList = new ArrayList<>();
         this.eventList = new ArrayList<>();
+        this.visitors = new ArrayList<>();
         this.tiledMap = new TiledMap("Map.json");
         ArrayList<TiledObjectLayer> objectLayers = tiledMap.getObjectLayers();
 
@@ -31,6 +33,10 @@ public class Festival implements Serializable {
                 podiumList.add(new Podium(i, object.getName()));
                 i++;
             }
+        }
+
+        for (int i = 0; i < 50; i++) {
+            visitors.add(new Visitor("Richard"));
         }
     }
 
@@ -108,5 +114,13 @@ public class Festival implements Serializable {
             festival = new Festival();
         }
         return festival;
+    }
+
+    public ArrayList<Visitor> getVisitors() {
+        return visitors;
+    }
+
+    public void setVisitors(ArrayList<Visitor> visitors) {
+        this.visitors = visitors;
     }
 }

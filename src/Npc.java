@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+@Deprecated
 public class Npc {
     private Point2D position;
     private double angle;

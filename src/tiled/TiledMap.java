@@ -6,12 +6,14 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.JsonArray;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 public class TiledMap {
     private ArrayList<TiledLayer> layers;
     private ArrayList<TiledObjectLayer> objectLayers;
     private TiledLayer collisionLayer;
+    private Point2D spawn;
 
     public TiledMap(String fileName) {
         layers = new ArrayList<>();
@@ -45,16 +47,37 @@ public class TiledMap {
             }
         });
 
+        init();
+
         root.getJsonArray("tilesets").forEach(tileSet -> {
             TileSetManager.getInstance().addTileSet(new TileSet(tileSet.asJsonObject()));
         });
     }
 
     public void draw(FXGraphics2D graphics2D) {
-        System.out.println("Drawing Map");
         for (TiledLayer layer : layers) {
             layer.draw(graphics2D);
         }
+    }
+
+    public void init() {
+        TiledObject objectSpawn = getObject("Male Spawn");
+        spawn = getCenter(objectSpawn);
+    }
+
+    public Point2D getCenter(TiledObject object) {
+        return new Point2D.Double(object.getX() + (object.getWidth()/2), object.getY() + (object.getHeight()/2));
+    }
+
+    public TiledObject getObject(String object) {
+        for (TiledObjectLayer objectLayer : objectLayers) {
+            for (TiledObject objectLayerObject : objectLayer.getObjects()) {
+                if (objectLayerObject.getName().equals(object)) {
+                    return objectLayerObject;
+                }
+            }
+        }
+        return null;
     }
 
     public ArrayList<TiledLayer> getLayers() {
@@ -63,5 +86,13 @@ public class TiledMap {
 
     public ArrayList<TiledObjectLayer> getObjectLayers() {
         return objectLayers;
+    }
+
+    public Point2D getSpawn() {
+        return spawn;
+    }
+
+    public void setSpawn(Point2D spawn) {
+        this.spawn = spawn;
     }
 }
