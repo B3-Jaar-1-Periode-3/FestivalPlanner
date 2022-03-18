@@ -10,5 +10,4 @@ public class Main {
         Festival festival = Festival.getInstance();
         launch(AgendaGUI.class);
     }
-
 }
