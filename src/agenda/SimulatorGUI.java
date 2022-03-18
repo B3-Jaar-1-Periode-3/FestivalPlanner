@@ -1,5 +1,6 @@
 package agenda;
 
+import data.Festival;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.BorderPane;
@@ -20,7 +21,7 @@ public class SimulatorGUI extends Stage {
 
         mainPane.setTop(canvas);
 
-        tiledMap = new TiledMap("Map.json");
+        tiledMap = Festival.getInstance().getTiledMap();
         Scene scene = new Scene(mainPane);
 
         draw(new FXGraphics2D(canvas.getGraphicsContext2D()));

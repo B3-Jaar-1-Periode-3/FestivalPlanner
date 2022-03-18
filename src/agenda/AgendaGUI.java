@@ -1,5 +1,6 @@
 package agenda;
 
+import data.Festival;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -83,10 +84,10 @@ public class AgendaGUI extends Application {
     //Draws names of Podiums
     private void drawText(FXGraphics2D graphics2D) {
         graphics2D.setFont(new Font("Purisa", Font.PLAIN, 20));
-        graphics2D.drawString("Main Stage", (int) ((screenWidth - 150) / 4) - 150, 50);
-        graphics2D.drawString("Substage 1", (int) (((screenWidth - 150) / 4) * 2) - 150, 50);
-        graphics2D.drawString("Substage 2", (int) (((screenWidth - 150) / 4) * 3) - 150, 50);
-        graphics2D.drawString("Substage 3", (int) (((screenWidth - 150) / 4) * 4) - 150, 50);
+        graphics2D.drawString(Festival.getInstance().getPodiumList().get(0).getName(), (int) ((screenWidth - 150) / 4) - 150, 50);
+        graphics2D.drawString(Festival.getInstance().getPodiumList().get(1).getName(), (int) (((screenWidth - 150) / 4) * 2) - 150, 50);
+        graphics2D.drawString(Festival.getInstance().getPodiumList().get(2).getName(), (int) (((screenWidth - 150) / 4) * 3) - 150, 50);
+        graphics2D.drawString(Festival.getInstance().getPodiumList().get(3).getName(), (int) (((screenWidth - 150) / 4) * 4) - 150, 50);
     }
 
     //Draws the time
