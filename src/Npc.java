@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+@Deprecated
 public class Npc {
     private Point2D position;
     private double angle;
@@ -106,7 +107,7 @@ public class Npc {
 
 
         g2d.setColor(Color.white);
-        g2d.draw(new Ellipse2D.Double(position.getX() - 32, position.getY() - 32, 64, 64));
+        g2d.draw(new Ellipse2D.Double(position.getX() - 32, position.getY() - 32, 32, 32));
         g2d.draw(new Line2D.Double(position, target));
     }
 
