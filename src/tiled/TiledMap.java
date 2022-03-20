@@ -66,7 +66,7 @@ public class TiledMap {
     }
 
     public Point2D getCenter(TiledObject object) {
-        return new Point2D.Double(object.getX() + (object.getWidth()/2), object.getY() + (object.getHeight()/2));
+        return new Point2D.Double(object.getX() + (object.getWidth()/2), object.getY());
     }
 
     public TiledObject getObject(String object) {
