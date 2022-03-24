@@ -1,6 +1,7 @@
 package data;
 
 import org.jfree.fx.FXGraphics2D;
+import tiled.pathfinding.Target;
 
 import javax.imageio.ImageIO;
 import java.awt.geom.AffineTransform;
@@ -14,8 +15,8 @@ public class Visitor extends Npc{
     private ArrayList<BufferedImage> femaleSprites;
     private ArrayList<BufferedImage> maleSprites;
 
-    public Visitor(String name) {
-        super(name);
+    public Visitor(String name, Target target) {
+        super(name, target);
         femaleSprites = new ArrayList<>();
         maleSprites = new ArrayList<>();
 
@@ -45,6 +46,7 @@ public class Visitor extends Npc{
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     @Override
@@ -59,9 +61,14 @@ public class Visitor extends Npc{
     @Override
     public void update(double deltaTime) {
         if (isSpawned()) {
-            setPosition(new Point2D.Double(getPosition().getX() - 32 * deltaTime, getPosition().getY()));
+            int tileX = (int) Math.floor(getPosition().getX()/32);
+            int tileY = (int) Math.floor(getPosition().getY()/32);
+            Point2D direction = target.getDirection(tileX, tileY);
+            setPosition(new Point2D.Double(position.getX() + direction.getX(), position.getY() + direction.getY()));
         }
     }
+
+
 
     public ArrayList<BufferedImage> getFemaleSprites() {
         return femaleSprites;

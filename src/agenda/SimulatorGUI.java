@@ -95,6 +95,8 @@ public class SimulatorGUI extends Stage implements Resizable{
             }
         }
 
+
+
         graphics.setTransform(new AffineTransform());
         graphics.setColor(Color.GREEN);
         graphics.setFont(new Font("Arial", Font.PLAIN, 25));
@@ -108,6 +110,7 @@ public class SimulatorGUI extends Stage implements Resizable{
         graphics.setBackground(new Color(16, 16, 48));
         this.toUpdateBackground = false;
         tiledMap.draw(graphics);
+        Festival.getInstance().getVisitors().get(0).getTarget().draw(graphics);
     }
 
     private Canvas createNewCanvas() {

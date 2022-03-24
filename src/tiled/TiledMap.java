@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class TiledMap {
     private ArrayList<TiledLayer> layers;
     private ArrayList<TiledObjectLayer> objectLayers;
+    private ArrayList<Tile> tiles;
     private TiledLayer collisionLayer;
     private Point2D spawn;
 
@@ -80,6 +81,10 @@ public class TiledMap {
             }
         }
         return null;
+    }
+
+    public TiledLayer getCollisionLayer() {
+        return collisionLayer;
     }
 
     public ArrayList<TiledLayer> getLayers() {

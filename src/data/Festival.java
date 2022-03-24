@@ -3,6 +3,7 @@ package data;
 import tiled.TiledMap;
 import tiled.TiledObject;
 import tiled.TiledObjectLayer;
+import tiled.pathfinding.Target;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
@@ -30,13 +31,15 @@ public class Festival implements Serializable {
         for (TiledObjectLayer objectLayer : objectLayers) {
             int i = 1;
             for (TiledObject object : objectLayer.getObjects()) {
-                podiumList.add(new Podium(i, object.getName()));
+                podiumList.add(new Podium(i, object.getName(), object));
                 i++;
             }
         }
 
+        System.out.println(podiumList.get(1).getName());
+
         for (int i = 0; i < 1; i++) {
-            visitors.add(new Visitor("Richard"));
+            visitors.add(new Visitor("Richard", new Target(tiledMap.getCollisionLayer(), podiumList.get(1).getObject().getCenterTile())));
         }
     }
 

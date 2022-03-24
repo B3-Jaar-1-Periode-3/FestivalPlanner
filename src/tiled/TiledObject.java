@@ -1,13 +1,15 @@
 package tiled;
 
 import javax.json.JsonObject;
+import java.awt.geom.Point2D;
 
 public class TiledObject {
+
     private String name;
-    private double width;
-    private double height;
-    private double x;
-    private double y;
+    private int width;
+    private int height;
+    private int x;
+    private int y;
 
     public TiledObject(JsonObject object) {
         this.name = object.getString("name");
@@ -26,11 +28,15 @@ public class TiledObject {
         this.name = name;
     }
 
+    public Tile getCenterTile() {
+        return new Tile(x + width/2, y + height/2, false);
+    }
+
     public double getWidth() {
         return width;
     }
 
-    public void setWidth(double width) {
+    public void setWidth(int width) {
         this.width = width;
     }
 
@@ -38,7 +44,7 @@ public class TiledObject {
         return height;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 
@@ -46,7 +52,7 @@ public class TiledObject {
         return x;
     }
 
-    public void setX(double x) {
+    public void setX(int x) {
         this.x = x;
     }
 
@@ -54,7 +60,7 @@ public class TiledObject {
         return y;
     }
 
-    public void setY(double y) {
+    public void setY(int y) {
         this.y = y;
     }
 }
