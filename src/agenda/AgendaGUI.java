@@ -20,7 +20,7 @@ import java.time.format.DateTimeFormatter;
 
 public class AgendaGUI extends Application {
 
-    private final double screenWidth = 1920;
+    private final double screenWidth = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     private final double screenHeight = 2600;
     public static ResizableCanvas canvas;
 

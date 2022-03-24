@@ -39,8 +39,8 @@ public class SimulatorGUI extends Stage implements Resizable{
     public SimulatorGUI() {
         BorderPane mainPane = new BorderPane();
         this.toUpdateBackground = true;
-        canvas = new Canvas(Toolkit.getDefaultToolkit().getScreenSize().getWidth(), Toolkit.getDefaultToolkit().getScreenSize().getWidth());
-        backgroundCanvas = new Canvas(Toolkit.getDefaultToolkit().getScreenSize().getWidth(), Toolkit.getDefaultToolkit().getScreenSize().getWidth());
+        canvas = new Canvas(Toolkit.getDefaultToolkit().getScreenSize().getWidth(), Toolkit.getDefaultToolkit().getScreenSize().getHeight());
+        backgroundCanvas = new Canvas(Toolkit.getDefaultToolkit().getScreenSize().getWidth(), Toolkit.getDefaultToolkit().getScreenSize().getHeight());
         this.backgroundGraphics = new FXGraphics2D(backgroundCanvas.getGraphicsContext2D());
         this.graphics2D = new FXGraphics2D(canvas.getGraphicsContext2D());
         this.pane = new Pane();
