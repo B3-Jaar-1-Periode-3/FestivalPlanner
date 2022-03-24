@@ -16,8 +16,10 @@ public class TiledLayer {
     private int offsetX;
     private int offsetY;
     private int[][] tileValues;
+    private ArrayList<Integer> collision;
 
     public TiledLayer(JsonObject objectlayer) {
+        this.collision = new ArrayList<>(Arrays.asList(3294, 3295, 3296));
         System.out.println(objectlayer.getString("name"));
         this.width = objectlayer.getInt("width");
         this.height = objectlayer.getInt("height");
@@ -77,5 +79,13 @@ public class TiledLayer {
                 graphics2D.drawImage(image, transform, null);
             }
         }
+    }
+
+    public int[][] getTileValues() {
+        return tileValues;
+    }
+
+    public ArrayList<Integer> getCollision() {
+        return collision;
     }
 }

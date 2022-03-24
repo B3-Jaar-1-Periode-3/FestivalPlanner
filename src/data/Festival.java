@@ -35,7 +35,7 @@ public class Festival implements Serializable {
             }
         }
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 1; i++) {
             visitors.add(new Visitor("Richard"));
         }
     }
