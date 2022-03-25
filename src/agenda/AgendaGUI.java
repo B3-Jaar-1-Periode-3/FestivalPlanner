@@ -11,16 +11,10 @@ import org.jfree.fx.ResizableCanvas;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Rectangle2D;
-import java.awt.geom.RoundRectangle2D;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 public class AgendaGUI extends Application {
 
-    private final double screenWidth = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+    private final double screenWidth = 1920;
     private final double screenHeight = 2600;
     public static ResizableCanvas canvas;
 
@@ -40,7 +34,7 @@ public class AgendaGUI extends Application {
         mainPane.setTop(AgendaMenubar.getAgendaMenuBarScene());
 
         mainPane.setCenter(scrollPane);
-        stage.setScene(new Scene(mainPane, 1920, 1080));
+        stage.setScene(new Scene(mainPane, screenWidth, 1080));
         stage.setTitle("Agenda");
         stage.show();
 

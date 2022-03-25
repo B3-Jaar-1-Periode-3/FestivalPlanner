@@ -7,20 +7,14 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.transform.Affine;
 import javafx.stage.Stage;
 import org.jfree.fx.FXGraphics2D;
 import org.jfree.fx.Resizable;
 import tiled.Camera;
 import tiled.TiledMap;
 
-import javax.imageio.ImageIO;
-import javax.tools.Tool;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class SimulatorGUI extends Stage implements Resizable{
     private Canvas backgroundCanvas;
@@ -110,7 +104,7 @@ public class SimulatorGUI extends Stage implements Resizable{
         graphics.setBackground(new Color(16, 16, 48));
         this.toUpdateBackground = false;
         tiledMap.draw(graphics);
-        Festival.getInstance().getVisitors().get(0).getTarget().draw(graphics);
+//        Festival.getInstance().getVisitors().get(0).getTarget().draw(graphics);
     }
 
     private Canvas createNewCanvas() {
