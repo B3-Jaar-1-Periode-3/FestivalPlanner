@@ -29,17 +29,15 @@ public class Festival implements Serializable {
         ArrayList<TiledObjectLayer> objectLayers = tiledMap.getObjectLayers();
 
         for (TiledObjectLayer objectLayer : objectLayers) {
-            int i = 1;
-            for (TiledObject object : objectLayer.getObjects()) {
-                podiumList.add(new Podium(i, object.getName(), object));
-                i++;
+            for (int i = 0; i < 4; i++) {
+                podiumList.add(new Podium(i, objectLayer.getObjects().get(i).getName(), objectLayer.getObjects().get(i)));
             }
         }
 
-        System.out.println(podiumList.get(1).getName());
+        System.out.println(podiumList.get(2).getName());
 
         for (int i = 0; i < 1; i++) {
-            visitors.add(new Visitor("Richard", new Target(tiledMap.getCollisionLayer(), podiumList.get(1).getObject().getCenterTile())));
+            visitors.add(new Visitor("Richard", new Target(tiledMap.getCollisionLayer(), podiumList.get(0).getObject().getCenterTile())));
         }
     }
 

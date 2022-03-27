@@ -2,6 +2,8 @@ import agenda.AgendaGUI;
 import data.Festival;
 import tiled.TiledMap;
 
+import java.awt.*;
+
 import static javafx.application.Application.launch;
 
 public class Main {

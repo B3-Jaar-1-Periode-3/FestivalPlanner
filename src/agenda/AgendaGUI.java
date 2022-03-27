@@ -40,7 +40,7 @@ public class AgendaGUI extends Application {
         mainPane.setTop(AgendaMenubar.getAgendaMenuBarScene());
 
         mainPane.setCenter(scrollPane);
-        stage.setScene(new Scene(mainPane, 1920, 1080));
+        stage.setScene(new Scene(mainPane, screenWidth, 1080));
         stage.setTitle("Agenda");
         stage.show();
 
