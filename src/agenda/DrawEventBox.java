@@ -1,14 +1,13 @@
 package agenda;
 
 import data.Artist;
-import data.Festival;
 import data.Event;
+import data.Festival;
 import org.jfree.fx.FXGraphics2D;
 import org.jfree.fx.ResizableCanvas;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
-import java.lang.reflect.Array;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;

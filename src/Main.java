@@ -1,6 +1,5 @@
 import agenda.AgendaGUI;
 import data.Festival;
-import tiled.TiledMap;
 
 import java.awt.*;
 
@@ -11,5 +10,6 @@ public class Main {
     public static void main(String[] args) {
         Festival festival = Festival.getInstance();
         launch(AgendaGUI.class);
+
     }
 }
