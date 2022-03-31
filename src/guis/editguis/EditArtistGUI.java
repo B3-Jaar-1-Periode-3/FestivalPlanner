@@ -2,6 +2,7 @@ package guis.editguis;
 
 import agenda.DrawEventBox;
 import data.Artist;
+import data.Event;
 import data.Festival;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,6 +10,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 public class EditArtistGUI extends Stage {
     private ListView<Artist> artists;
@@ -38,8 +41,17 @@ public class EditArtistGUI extends Stage {
         });
 
         deleteArtist.setOnAction(event -> {
-            Festival.getInstance().getArtistList().remove(artists.getSelectionModel().getSelectedItem());
-            artists.getItems().remove(artists.getSelectionModel().getSelectedItem());
+            Artist selectedArtist = artists.getSelectionModel().getSelectedItem();
+            Festival.getInstance().getArtistList().remove(selectedArtist);
+            artists.getItems().remove(selectedArtist);
+
+            for (Event eventItem : Festival.getInstance().getEventList()){
+                if (eventItem.getArtists().contains(selectedArtist)){
+                    Festival.getInstance().getEventList().remove(eventItem);
+                    DrawEventBox.clearALlBoxes(eventItem);
+                }
+            }
+
             DrawEventBox.drawAllBoxes();
         });
 
