@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class EditArtistGUI extends Stage {
@@ -45,11 +46,16 @@ public class EditArtistGUI extends Stage {
             Festival.getInstance().getArtistList().remove(selectedArtist);
             artists.getItems().remove(selectedArtist);
 
-            for (Event eventItem : Festival.getInstance().getEventList()){
+            ArrayList<Event> deleteList = new ArrayList<>();
+            for (Event eventItem : Festival.getInstance().getEventList()){ //Saves all events with the artist to delete list
                 if (eventItem.getArtists().contains(selectedArtist)){
-                    Festival.getInstance().getEventList().remove(eventItem);
-                    DrawEventBox.clearALlBoxes(eventItem);
+                    deleteList.add(eventItem);
                 }
+            }
+
+            for (Event eventItem : deleteList){ //Deletes all events with the artist
+                Festival.getInstance().getEventList().remove(eventItem);
+                DrawEventBox.clearALlBoxes(eventItem);
             }
 
             DrawEventBox.drawAllBoxes();
