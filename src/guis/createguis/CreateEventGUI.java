@@ -1,4 +1,4 @@
-package guis.createGUIs;
+package guis.createguis;
 
 import agenda.DrawEventBox;
 import data.*;
