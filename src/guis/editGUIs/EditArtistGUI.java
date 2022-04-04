@@ -1,8 +1,7 @@
-package guis.editguis;
+package guis.editGUIs;
 
 import agenda.DrawEventBox;
 import data.Artist;
-import data.Event;
 import data.Festival;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,9 +9,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class EditArtistGUI extends Stage {
     private ListView<Artist> artists;
@@ -42,22 +38,8 @@ public class EditArtistGUI extends Stage {
         });
 
         deleteArtist.setOnAction(event -> {
-            Artist selectedArtist = artists.getSelectionModel().getSelectedItem();
-            Festival.getInstance().getArtistList().remove(selectedArtist);
-            artists.getItems().remove(selectedArtist);
-
-            ArrayList<Event> deleteList = new ArrayList<>();
-            for (Event eventItem : Festival.getInstance().getEventList()){ //Saves all events with the artist to delete list
-                if (eventItem.getArtists().contains(selectedArtist)){
-                    deleteList.add(eventItem);
-                }
-            }
-
-            for (Event eventItem : deleteList){ //Deletes all events with the artist
-                Festival.getInstance().getEventList().remove(eventItem);
-                DrawEventBox.clearALlBoxes(eventItem);
-            }
-
+            Festival.getInstance().getArtistList().remove(artists.getSelectionModel().getSelectedItem());
+            artists.getItems().remove(artists.getSelectionModel().getSelectedItem());
             DrawEventBox.drawAllBoxes();
         });
 
