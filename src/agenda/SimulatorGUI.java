@@ -7,7 +7,9 @@ import data.Visitor;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.jfree.fx.FXGraphics2D;
@@ -35,6 +37,7 @@ public class SimulatorGUI extends Stage implements Resizable{
     private int totalFrames = 0;
     private double timer = 1;
     private  LocalTime time;
+    Label label= new Label();
 
 
     public SimulatorGUI() {
@@ -49,7 +52,7 @@ public class SimulatorGUI extends Stage implements Resizable{
         pane.getChildren().addAll(backgroundCanvas, canvas);
         canvas.toFront();
         camera = new Camera(this);
-
+        mainPane.setTop(new HBox(label));
         mainPane.setCenter(pane);
 
         tiledMap = Festival.getInstance().getTiledMap();
@@ -125,6 +128,7 @@ public class SimulatorGUI extends Stage implements Resizable{
     }
 
     public void update(double deltaTime) {
+        label.setText(time.toString());
         time = time.plusSeconds((int) (1 * deltaTime * 100)); // 1 is speed
         if (timer > -0.1) {
             timer -= deltaTime;
@@ -135,7 +139,7 @@ public class SimulatorGUI extends Stage implements Resizable{
                 if (!event.isEventVisitorsSpawned()) {
                     System.out.println("Event started :)");
                     event.setEventVisitorsSpawned(true);
-                    for (int i = 0; i < event.getPopularity()*3; i++) {
+                    for (int i = 0; i < event.getPopularity()*51; i++) {
                         Festival.getInstance().getVisitors().add(new Visitor(new Target(tiledMap.getCollisionLayer(), selectedPodium.getObject().getCenterTile())));
                         System.out.println("Added Visitor! + ( " + Festival.getInstance().getVisitors().size() + " )");
                     }
