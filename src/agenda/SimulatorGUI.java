@@ -34,11 +34,11 @@ public class SimulatorGUI extends Stage implements Resizable{
     private int currentFPS = 0;
     private int totalFrames = 0;
     private double timer = 1;
-    private  double tijd=00.00;
-    private ArrayList<Visitor> visitors= new ArrayList<>();
-    private ArrayList<Podium> podiums= new ArrayList<>();
+    private  LocalTime time;
+
 
     public SimulatorGUI() {
+        time = LocalTime.of(0,0);
         BorderPane mainPane = new BorderPane();
         this.toUpdateBackground = true;
         canvas = new Canvas(Toolkit.getDefaultToolkit().getScreenSize().getWidth(), Toolkit.getDefaultToolkit().getScreenSize().getHeight());
@@ -90,42 +90,13 @@ public class SimulatorGUI extends Stage implements Resizable{
         canvas = createNewCanvas();
         graphics = graphics2D;
         graphics.setTransform(camera.getTransform());
+
+        for (Visitor v : Festival.getInstance().getVisitors()) {
+            v.draw(graphics);
+        }
 /**
  * TODO hier kan je werken met je timer voor festivals. dan moet je door de evenementen gaan en dan kijken of de tijd van het evenement binnen de tijd van de timer valt en dan moet hij er visitorss naar sturen.
  */
-        ArrayList<Event> eventlist= Festival.getInstance().getEventList();
-        for (Event event : eventlist) {
-            int beginUur= event.getStartTime().getHour();
-            float beginMinut= event.getStartTime().getMinute()/100;
-            float begintime= beginUur+beginMinut;
-
-            int eindUur= event.getEndTime().getHour();
-            float eindMinut= event.getEndTime().getMinute()/100;
-            float eindtijd= eindUur+ eindMinut;
-            if (tijd>begintime){
-                if (tijd<eindtijd){
-                    for (Podium podium :Festival.getInstance().getPodiumList()) {
-                        if (  podium.equals(event.getPodium())){
-                            for (int i = 0; i < event.getPopularity(); i++) {
-
-                                Visitor bezoeker= new Visitor( new Target(tiledMap.getCollisionLayer(), podium.getObject().getCenterTile()));
-                                visitors.add(bezoeker);
-                            }
-                            podiums.add(event.getPodium());
-
-                        }
-                    }
-
-                }
-                for (Visitor visitor : visitors) {
-                    if (!visitor.isSpawned()) {
-                        visitor.setSpawned(true);
-                        visitor.draw(graphics2D);
-                    }
-                }
-            }
-
-        }
 
 
         graphics.setTransform(new AffineTransform());
@@ -154,9 +125,22 @@ public class SimulatorGUI extends Stage implements Resizable{
     }
 
     public void update(double deltaTime) {
-        tijd+=(deltaTime/10);
+        time = time.plusSeconds((int) (1 * deltaTime * 100)); // 1 is speed
         if (timer > -0.1) {
             timer -= deltaTime;
+        }
+        for (Event event : Festival.getInstance().getEventList()) {
+            if (time.isBefore(event.getEndTime()) && time.isAfter(event.getStartTime())) {
+                Podium selectedPodium = event.getPodium();
+                if (!event.isEventVisitorsSpawned()) {
+                    System.out.println("Event started :)");
+                    event.setEventVisitorsSpawned(true);
+                    for (int i = 0; i < event.getPopularity()*3; i++) {
+                        Festival.getInstance().getVisitors().add(new Visitor(new Target(tiledMap.getCollisionLayer(), selectedPodium.getObject().getCenterTile())));
+                        System.out.println("Added Visitor! + ( " + Festival.getInstance().getVisitors().size() + " )");
+                    }
+                }
+            }
         }
         for (Visitor visitor : Festival.getInstance().getVisitors()) {
             if (!visitor.isSpawned()) {
@@ -168,7 +152,6 @@ public class SimulatorGUI extends Stage implements Resizable{
                 visitor.update(deltaTime);
             }
         }
-
 
     }
 

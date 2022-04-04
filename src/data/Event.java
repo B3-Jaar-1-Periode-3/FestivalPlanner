@@ -14,6 +14,8 @@ public class Event implements Serializable {
     private Podium podium;
     private double popularity;
 
+    private boolean eventVisitorsSpawned;
+
     public Event(LocalTime startTime, LocalTime endTime, Genre genre, Podium podium, ArrayList<Artist> artists, double popularity) {
         this.artists = artists;
         this.genre = genre;
@@ -21,6 +23,7 @@ public class Event implements Serializable {
         this.endTime = endTime;
         this.podium = podium;
         this.popularity = popularity;
+        this.eventVisitorsSpawned = false;
     }
 
     public ArrayList<Artist> getArtists() {
@@ -90,5 +93,13 @@ public class Event implements Serializable {
     @Override
     public String toString() {
         return this.artists + " " + this.genre + " " + this.podium + " " + this.popularity + " " + this.startTime + " " + this.endTime;
+    }
+
+    public boolean isEventVisitorsSpawned() {
+        return eventVisitorsSpawned;
+    }
+
+    public void setEventVisitorsSpawned(boolean eventVisitorsSpawned) {
+        this.eventVisitorsSpawned = eventVisitorsSpawned;
     }
 }

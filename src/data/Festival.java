@@ -35,7 +35,7 @@ public class Festival implements Serializable {
         }
 
         System.out.println(podiumList.get(2).getName());
-    // araylist of visitors
+        // araylist of visitors
 //        for (int i = 0; i < 1; i++) {
 //            visitors.add(new Visitor( new Target(tiledMap.getCollisionLayer(), podiumList.get(0).getObject().getCenterTile())));
 //            visitors.add(new Visitor( new Target(tiledMap.getCollisionLayer(),podiumList.get(1).getObject().getCenterTile())));
