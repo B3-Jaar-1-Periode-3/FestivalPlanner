@@ -1,14 +1,13 @@
 package agenda;
 
 import data.Artist;
-import data.Festival;
 import data.Event;
+import data.Festival;
 import org.jfree.fx.FXGraphics2D;
 import org.jfree.fx.ResizableCanvas;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
-import java.lang.reflect.Array;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ public class DrawEventBox {
         LocalTime startTime = event.getStartTime();
         LocalTime endTime = event.getEndTime();
         int podiumID = event.getPodium().getID();
-        double podiumWidth = (double)((1920 - 150)/4); //Screen width - time column / amount of podiums
+        double podiumWidth = ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 150)/4); //Screen width - time column / amount of podiums
         double x = 150 + (podiumWidth * (podiumID - 1));
         double y = 80 + (100 * startTime.getHour());
         long timeLength = Duration.between(startTime, endTime).toMinutes();
