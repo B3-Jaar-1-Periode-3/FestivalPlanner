@@ -4,6 +4,7 @@ import javafx.scene.control.Alert;
 import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Event implements Serializable {
 
@@ -50,8 +51,8 @@ public class Event implements Serializable {
         return popularity;
     }
 
-    public void setArtists(ArrayList<Artist> artists) {
-        this.artists = artists;
+    public void setArtists(ArrayList<Artist> artistss) {
+        this.artists = artistss;
     }
 
     public void setGenre(Genre genre) {
