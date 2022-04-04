@@ -37,7 +37,7 @@ public class AgendaGUI extends Application {
         stage.setScene(new Scene(mainPane, screenWidth, 1080));
         stage.setTitle("Agenda");
         stage.show();
-
+// test
     }
 
     public void draw(FXGraphics2D graphics) {
