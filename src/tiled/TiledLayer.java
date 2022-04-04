@@ -65,10 +65,12 @@ public class TiledLayer {
     }
 
     public void draw(FXGraphics2D graphics2D) {
-        System.out.println("Drawing Layer");
         for (int i = 0; i < tileValues.length; i++) {
             for (int j = 0; j < tileValues[i].length; j++) {
                 int data = tileValues[i][j];
+                if (data == 0) {
+                    continue;
+                }
                 BufferedImage image = TileSetManager.getInstance().getTile(data);
                 AffineTransform transform = graphics2D.getTransform();
                 transform.translate(i * 32 + offsetX, j * 32 + offsetY);

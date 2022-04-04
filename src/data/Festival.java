@@ -1,5 +1,9 @@
 package data;
 
+import tiled.TiledMap;
+import tiled.TiledObject;
+import tiled.TiledObjectLayer;
+
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -7,20 +11,33 @@ import java.util.ArrayList;
 public class Festival implements Serializable {
     private static Festival festival;
 
+    private TiledMap tiledMap;
     private ArrayList<Genre> genreList;
     private ArrayList<Artist> artistList;
     private ArrayList<Podium> podiumList;
     private ArrayList<Event> eventList;
+    private ArrayList<Visitor> visitors;
 
-    public Festival(){
+    public Festival() {
         this.genreList = new ArrayList<>();
         this.artistList = new ArrayList<>();
         this.podiumList = new ArrayList<>();
-        podiumList.add(new Podium(1));
-        podiumList.add(new Podium(2));
-        podiumList.add(new Podium(3));
-        podiumList.add(new Podium(4));
         this.eventList = new ArrayList<>();
+        this.visitors = new ArrayList<>();
+        this.tiledMap = new TiledMap("Map.json");
+        ArrayList<TiledObjectLayer> objectLayers = tiledMap.getObjectLayers();
+
+        for (TiledObjectLayer objectLayer : objectLayers) {
+            int i = 1;
+            for (TiledObject object : objectLayer.getObjects()) {
+                podiumList.add(new Podium(i, object.getName()));
+                i++;
+            }
+        }
+
+        for (int i = 0; i < 50; i++) {
+            visitors.add(new Visitor("Richard"));
+        }
     }
 
     public Festival(ArrayList<Genre> genreList, ArrayList<Artist> artistList, ArrayList<Podium> podiumList, ArrayList<Event> eventList) {
@@ -70,7 +87,7 @@ public class Festival implements Serializable {
         this.eventList.addAll(input.getEventList());
     }
 
-    public void clearAll(){ //Deletes all info of Festival instance
+    public void clearAll() { //Deletes all info of Festival instance
         this.genreList.clear();
         this.artistList.clear();
         this.podiumList.clear();
@@ -88,10 +105,22 @@ public class Festival implements Serializable {
         return eventsForArtist;
     }
 
+    public TiledMap getTiledMap() {
+        return this.tiledMap;
+    }
+
     public static Festival getInstance() {
         if (festival == null) {
             festival = new Festival();
         }
         return festival;
+    }
+
+    public ArrayList<Visitor> getVisitors() {
+        return visitors;
+    }
+
+    public void setVisitors(ArrayList<Visitor> visitors) {
+        this.visitors = visitors;
     }
 }
