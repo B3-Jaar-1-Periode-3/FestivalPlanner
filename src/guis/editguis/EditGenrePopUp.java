@@ -1,7 +1,7 @@
-package guis.editGUIs;
+package guis.editguis;
 
 import agenda.DrawEventBox;
-import data.Artist;
+import data.Genre;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,44 +11,44 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class EditArtistPopUp extends Stage {
+public class EditGenrePopUp extends Stage {
+
     private BorderPane mainPane;
     private HBox hBox;
     private VBox vBoxLabels;
     private VBox vBoxFields;
-    private TextField artistNameField;
+    private TextField genreField;
 
-
-    public EditArtistPopUp(Artist artist) {
+    public EditGenrePopUp(Genre genre) {
         mainPane = new BorderPane();
-        hBox = new HBox(20);
+        hBox = new HBox();
         vBoxFields = new VBox();
         vBoxLabels = new VBox();
 
         mainPane.setPrefSize(400,100);
-        Label artistName = new Label("Name:");
-        artistNameField = new TextField(artist.getName());
+        Label genreLabel = new Label("Genre: ");
+        genreField = new TextField();
         Button save = new Button("Save");
         save.setPrefSize(400,50);
 
         save.setOnAction(event -> {
-            artist.setName(artistNameField.getText());
+            genre.setGenre(genreField.getText());
             DrawEventBox.drawAllBoxes();
             close();
-            new EditArtistGUI().show();
+            new EditGenreGUI().show();
         });
 
-        vBoxLabels.getChildren().addAll(artistName);
-        vBoxFields.getChildren().addAll(artistNameField);
 
         hBox.getChildren().addAll(vBoxLabels,vBoxFields);
+        vBoxLabels.getChildren().add(genreLabel);
+        vBoxFields.getChildren().add(genreField);
 
         mainPane.setTop(hBox);
         mainPane.setBottom(save);
 
         Scene scene = new Scene(mainPane);
 
-        setTitle("Edit Artist");
+        setTitle("Edit Genre");
         setScene(scene);
     }
 }
