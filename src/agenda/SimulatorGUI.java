@@ -42,7 +42,7 @@ public class SimulatorGUI extends Stage implements Resizable{
         canvas.toFront();
         camera = new Camera(this);
 
-        mainPane.setTop(pane);
+        mainPane.setCenter(pane);
 
         tiledMap = Festival.getInstance().getTiledMap();
         Scene scene = new Scene(mainPane);
@@ -82,7 +82,9 @@ public class SimulatorGUI extends Stage implements Resizable{
         canvas = createNewCanvas();
         graphics = graphics2D;
         graphics.setTransform(camera.getTransform());
-
+/**
+ * TODO hier kan je werken met je timer voor festivals. dan moet je door de evenementen gaan en dan kijken of de tijd van het evenement binnen de tijd van de timer valt en dan moet hij er visitorss naar sturen.
+ */
         for (Visitor visitor : Festival.getInstance().getVisitors()) {
             if (visitor.isSpawned()) {
                 visitor.draw(graphics);

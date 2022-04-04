@@ -73,9 +73,6 @@ public class Festival implements Serializable {
         this.artistList.add(artist);
     }
 
-    public void addPodium(Podium podium) {
-        this.podiumList.add(podium);
-    }
 
     public void addEvent(Event event) {
         this.eventList.add(event);
@@ -121,7 +118,5 @@ public class Festival implements Serializable {
         return visitors;
     }
 
-    public void setVisitors(ArrayList<Visitor> visitors) {
-        this.visitors = visitors;
-    }
+
 }
