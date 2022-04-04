@@ -53,7 +53,7 @@ public class DrawEventBox {
         LocalTime endTime = event.getEndTime();
         int podiumID = event.getPodium().getID();
         double podiumWidth = (double)((1920 - 150)/4); //Screen width - time column / amount of podiums
-        double x = 150 + (podiumWidth * (podiumID - 1));
+        double x = 150 + (podiumWidth * (podiumID ));
         double y = 80 + (100 * startTime.getHour()) + (int)(100 * (startTime.getMinute()) / 60);
         long timeLength = Duration.between(startTime, endTime).toMinutes();
         double height = (100 * (timeLength / 60.0));
