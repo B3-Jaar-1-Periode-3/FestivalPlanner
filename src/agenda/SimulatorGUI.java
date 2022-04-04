@@ -1,6 +1,8 @@
 package agenda;
 
+import data.Event;
 import data.Festival;
+import data.Podium;
 import data.Visitor;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
@@ -12,9 +14,12 @@ import org.jfree.fx.FXGraphics2D;
 import org.jfree.fx.Resizable;
 import tiled.Camera;
 import tiled.TiledMap;
+import tiled.pathfinding.Target;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.time.LocalTime;
+import java.util.ArrayList;
 
 public class SimulatorGUI extends Stage implements Resizable{
     private Canvas backgroundCanvas;
@@ -29,6 +34,9 @@ public class SimulatorGUI extends Stage implements Resizable{
     private int currentFPS = 0;
     private int totalFrames = 0;
     private double timer = 1;
+    private  double tijd=00.00;
+    private ArrayList<Visitor> visitors= new ArrayList<>();
+    private ArrayList<Podium> podiums= new ArrayList<>();
 
     public SimulatorGUI() {
         BorderPane mainPane = new BorderPane();
@@ -85,11 +93,40 @@ public class SimulatorGUI extends Stage implements Resizable{
 /**
  * TODO hier kan je werken met je timer voor festivals. dan moet je door de evenementen gaan en dan kijken of de tijd van het evenement binnen de tijd van de timer valt en dan moet hij er visitorss naar sturen.
  */
-        for (Visitor visitor : Festival.getInstance().getVisitors()) {
-            if (visitor.isSpawned()) {
-                visitor.draw(graphics);
+        ArrayList<Event> eventlist= Festival.getInstance().getEventList();
+        for (Event event : eventlist) {
+            int beginUur= event.getStartTime().getHour();
+            float beginMinut= event.getStartTime().getMinute()/100;
+            float begintime= beginUur+beginMinut;
+
+            int eindUur= event.getEndTime().getHour();
+            float eindMinut= event.getEndTime().getMinute()/100;
+            float eindtijd= eindUur+ eindMinut;
+            if (tijd>begintime){
+                if (tijd<eindtijd){
+                    for (Podium podium :Festival.getInstance().getPodiumList()) {
+                        if (  podium.equals(event.getPodium())){
+                            for (int i = 0; i < event.getPopularity(); i++) {
+
+                                Visitor bezoeker= new Visitor( new Target(tiledMap.getCollisionLayer(), podium.getObject().getCenterTile()));
+                                visitors.add(bezoeker);
+                            }
+                            podiums.add(event.getPodium());
+
+                        }
+                    }
+
+                }
+                for (Visitor visitor : visitors) {
+                    if (!visitor.isSpawned()) {
+                        visitor.setSpawned(true);
+                        visitor.draw(graphics2D);
+                    }
+                }
             }
+
         }
+
 
         graphics.setTransform(new AffineTransform());
         graphics.setColor(Color.GREEN);
@@ -117,6 +154,7 @@ public class SimulatorGUI extends Stage implements Resizable{
     }
 
     public void update(double deltaTime) {
+        tijd+=(deltaTime/10);
         if (timer > -0.1) {
             timer -= deltaTime;
         }
@@ -130,6 +168,8 @@ public class SimulatorGUI extends Stage implements Resizable{
                 visitor.update(deltaTime);
             }
         }
+
+
     }
 
     public Canvas getBackgroundCanvas() {

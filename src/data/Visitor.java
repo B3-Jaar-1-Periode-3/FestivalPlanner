@@ -18,8 +18,8 @@ public class Visitor extends Npc {
     private ArrayList<BufferedImage> femaleSprites;
     private ArrayList<BufferedImage> maleSprites;
 
-    public Visitor(String name, Target target) {
-        super(name, target);
+    public Visitor( Target target) {
+        super( target);
         femaleSprites = new ArrayList<>();
         maleSprites = new ArrayList<>();
 

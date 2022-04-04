@@ -15,9 +15,9 @@ public abstract class Npc {
     public abstract void draw(FXGraphics2D graphics);
     public abstract void update(double deltaTime);
 
-    public Npc(String name, Target target) {
+    public Npc( Target target) {
         this.spawned = false;
-        this.name = name;
+
         this.target = target;
     }
 
