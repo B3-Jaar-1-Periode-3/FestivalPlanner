@@ -2,13 +2,17 @@ package io;
 
 import agenda.DrawEventBox;
 import data.Festival;
+import javafx.event.ActionEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
+
+import javax.swing.*;
 import java.io.*;
 
 public class FileHandler {
 
-    public static void saveToFile(Festival data){
-
-        try (FileOutputStream fileOutput = new FileOutputStream("Save")) { //Creates path for saving
+    public static void saveToFile(File location, Festival data){
+        try (FileOutputStream fileOutput = new FileOutputStream(location)) { //Creates path for saving
             ObjectOutputStream output = new ObjectOutputStream(fileOutput);
             output.writeObject(data);
             output.close();
@@ -18,10 +22,10 @@ public class FileHandler {
         }
     }
 
-    public static void readFromFile(){
+    public static void readFromFile(File location){
 
         Festival data = null;
-        try(FileInputStream fileInput = new FileInputStream("Save")){ //Selects path for loading
+        try(FileInputStream fileInput = new FileInputStream(location)){ //Selects path for loading
             ObjectInputStream input = new ObjectInputStream(fileInput);
             data = (Festival) input.readObject();
             input.close();
@@ -44,5 +48,25 @@ public class FileHandler {
         System.out.println(data.getGenreList());
         System.out.println(data.getPodiumList());
         System.out.println(data.getEventList());
+    }
+
+    public static void fileSaver(Window window){
+        try {
+
+            FileChooser fileSaver = new FileChooser();
+            fileSaver.setTitle("Save File");
+            File file = fileSaver.showSaveDialog(window);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void fileOpener(ActionEvent e) {
+
+        final JFileChooser fileOpener = new JFileChooser();
+        fileOpener.setDialogTitle("Open File");
+
+
+
     }
 }
