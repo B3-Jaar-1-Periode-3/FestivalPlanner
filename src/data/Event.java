@@ -4,6 +4,7 @@ import javafx.scene.control.Alert;
 import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Event implements Serializable {
 
@@ -14,6 +15,8 @@ public class Event implements Serializable {
     private Podium podium;
     private double popularity;
 
+    private boolean eventVisitorsSpawned;
+
     public Event(LocalTime startTime, LocalTime endTime, Genre genre, Podium podium, ArrayList<Artist> artists, double popularity) {
         this.artists = artists;
         this.genre = genre;
@@ -21,6 +24,7 @@ public class Event implements Serializable {
         this.endTime = endTime;
         this.podium = podium;
         this.popularity = popularity;
+        this.eventVisitorsSpawned = false;
     }
 
     public ArrayList<Artist> getArtists() {
@@ -47,8 +51,8 @@ public class Event implements Serializable {
         return popularity;
     }
 
-    public void setArtists(ArrayList<Artist> artists) {
-        this.artists = artists;
+    public void setArtists(ArrayList<Artist> artistss) {
+        this.artists = artistss;
     }
 
     public void setGenre(Genre genre) {
@@ -90,5 +94,13 @@ public class Event implements Serializable {
     @Override
     public String toString() {
         return this.artists + " " + this.genre + " " + this.podium + " " + this.popularity + " " + this.startTime + " " + this.endTime;
+    }
+
+    public boolean isEventVisitorsSpawned() {
+        return eventVisitorsSpawned;
+    }
+
+    public void setEventVisitorsSpawned(boolean eventVisitorsSpawned) {
+        this.eventVisitorsSpawned = eventVisitorsSpawned;
     }
 }

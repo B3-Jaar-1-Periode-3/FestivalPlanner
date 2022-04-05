@@ -16,8 +16,10 @@ public class TiledLayer {
     private int offsetX;
     private int offsetY;
     private int[][] tileValues;
+    private ArrayList<Integer> collision;
 
     public TiledLayer(JsonObject objectlayer) {
+        this.collision = new ArrayList<>(Arrays.asList(3293, 3294, 3295, 3296));
         System.out.println(objectlayer.getString("name"));
         this.width = objectlayer.getInt("width");
         this.height = objectlayer.getInt("height");
@@ -65,15 +67,26 @@ public class TiledLayer {
     }
 
     public void draw(FXGraphics2D graphics2D) {
-        System.out.println("Drawing Layer");
         for (int i = 0; i < tileValues.length; i++) {
             for (int j = 0; j < tileValues[i].length; j++) {
                 int data = tileValues[i][j];
+                if (data == 0) {
+                    continue;
+                }
                 BufferedImage image = TileSetManager.getInstance().getTile(data);
                 AffineTransform transform = graphics2D.getTransform();
                 transform.translate(i * 32 + offsetX, j * 32 + offsetY);
                 graphics2D.drawImage(image, transform, null);
             }
         }
+    }
+
+    public int[][] getTileValues() {
+        return tileValues;
+    }
+
+
+    public ArrayList<Integer> getCollision() {
+        return collision;
     }
 }
