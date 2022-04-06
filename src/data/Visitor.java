@@ -1,6 +1,9 @@
 package data;
 
 import org.jfree.fx.FXGraphics2D;
+import tiled.Tile;
+import tiled.TiledLayer;
+import tiled.TiledObject;
 import tiled.pathfinding.Target;
 
 import javax.imageio.ImageIO;
@@ -17,9 +20,12 @@ public class Visitor extends Npc {
 
     transient private ArrayList<BufferedImage> femaleSprites;
     transient private ArrayList<BufferedImage> maleSprites;
+    private boolean targetIsSet;
+    private Event event;
 
-    public Visitor(Target target) {
+    public Visitor(Target target, Event event) {
         super(target);
+        this.event = event;
         femaleSprites = new ArrayList<>();
         maleSprites = new ArrayList<>();
 
@@ -61,22 +67,42 @@ public class Visitor extends Npc {
     }
 
     @Override
-    public void update(double deltaTime, Point2D exit) {
+    public void update(double deltaTime, TiledLayer collisionLayer, Tile tile) {
         if (isSpawned()) {
             int tileX = (int) Math.floor(getPosition().getX()/32);
             int tileY = (int) Math.floor(getPosition().getY()/32);
             Point2D direction = target.getDirection(tileX, tileY);
             setPosition(new Point2D.Double(position.getX() + (direction.getX() * (4 * Time.getSpeed())), position.getY() + (direction.getY() * (4 * Time.getSpeed()))));
-
+            if (Time.getTime().isAfter(event.getEndTime())) {
+                if (!targetIsSet) {
+                    setTarget(new Target(collisionLayer, tile));
+                    targetIsSet = true;
+                }
+                Point2D exit = new Point2D.Double(tile.getX(), tile.getY());
+                System.out.println("Exit location is " + exit);
+                if (this.position.getX() / 32 < 110 && this.position.getX() / 32 > 100 && this.position.getY() / 32 < 80 && this.position.getY() / 32 > 70) {
+                    this.target = null;
+                }
+                if (target == null) {
+                    this.spawned = false;
+                    Festival.getInstance().getVisitors().remove(this);
+                }
+            }
         }
     }
 
     @Override
-    public void exit(Point2D exit) {
-        if (this.position == exit) {
-            this.spawned = false;
-            Festival.getInstance().getVisitors().remove(this);
-        }
+    public void exit(Tile tile, TiledLayer collisionLayer) {
+        this.target = new Target(collisionLayer, tile);
+        System.out.println("Exit location" + tile);
+    }
+
+    public void setTargetIsSet(boolean bool) {
+        targetIsSet = bool;
+    }
+
+    public boolean getTargetIsSet() {
+        return this.targetIsSet;
     }
 
     public ArrayList<BufferedImage> getFemaleSprites() {

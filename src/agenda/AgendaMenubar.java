@@ -48,6 +48,7 @@ public class AgendaMenubar {
 
         savePlanning.setOnAction(event -> {
             fileChooser.setTitle("Save as");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Planning", "*.planning"));
             File file = fileChooser.showSaveDialog(stage);
             if (file != null){
                 io.FileHandler.saveToFile(file, Festival.getInstance());

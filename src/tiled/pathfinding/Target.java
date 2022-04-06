@@ -54,7 +54,7 @@ public class Target implements Serializable {
 
         ArrayList<Tile> values = new ArrayList<>(Arrays.asList(new Tile(1,0, true), new Tile(-1,0, true), new Tile(0,1, true), new Tile(0,-1, true)));
         while (!frontier.isEmpty()) {
-            System.out.println("Beginning");
+/*            System.out.println("Beginning");*/
             Tile current = frontier.poll();
             for (Tile value : values) {
                 Tile tileToCheck = new Tile(current.getX() + value.getX(), current.getY() + value.getY(), true);
@@ -62,7 +62,7 @@ public class Target implements Serializable {
                     System.out.println("Returning");
                     continue;
                 }
-                System.out.println("Checking tile");
+/*                System.out.println("Checking tile");*/
                 if (reached[tileToCheck.getY()][tileToCheck.getX()] == Integer.MAX_VALUE) {
                     if (collisionLayer.getTileValues()[tileToCheck.getX()][tileToCheck.getY()] == 0) {
                         reached[tileToCheck.getY()][tileToCheck.getX()] = reached[current.getY()][current.getX()] + 1;
@@ -160,5 +160,9 @@ public class Target implements Serializable {
             }
             System.out.println();
         }
+    }
+
+    public Point2D getTileCenter() {
+        return tileCenter;
     }
 }

@@ -1,6 +1,9 @@
 package data;
 
 import org.jfree.fx.FXGraphics2D;
+import tiled.Tile;
+import tiled.TiledLayer;
+import tiled.TiledObject;
 import tiled.pathfinding.Target;
 
 import java.awt.geom.Point2D;
@@ -14,7 +17,7 @@ public abstract class Npc implements Serializable {
     protected Target target;
 
     public abstract void draw(FXGraphics2D graphics);
-    public abstract void update(double deltaTime, Point2D exit);
+    public abstract void update(double deltaTime, TiledLayer tiledLayer, Tile tile);
 
     public Npc( Target target) {
         this.spawned = false;
@@ -28,7 +31,7 @@ public abstract class Npc implements Serializable {
         }
     }
 
-    public abstract void exit(Point2D exit);
+    public abstract void exit(Tile tile, TiledLayer collisionLayer);
 
     public boolean isSpawned() {
         return spawned;

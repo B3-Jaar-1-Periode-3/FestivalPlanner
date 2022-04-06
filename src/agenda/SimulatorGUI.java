@@ -23,7 +23,7 @@ import java.awt.geom.AffineTransform;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class SimulatorGUI extends Stage implements Resizable{
+public class SimulatorGUI extends Stage implements Resizable {
     private Canvas backgroundCanvas;
     private Canvas canvas;
     private TiledMap tiledMap;
@@ -99,7 +99,7 @@ public class SimulatorGUI extends Stage implements Resizable{
 
     public void draw(FXGraphics2D graphics) {
         totalFrames++;
-        if(System.nanoTime() > lastFPSCheck + 1000000000) {
+        if (System.nanoTime() > lastFPSCheck + 1000000000) {
             lastFPSCheck = System.nanoTime();
             currentFPS = totalFrames;
             totalFrames = 0;
@@ -125,7 +125,7 @@ public class SimulatorGUI extends Stage implements Resizable{
         graphics.setTransform(new AffineTransform());
         graphics.setColor(Color.GREEN);
         graphics.setFont(new Font("Arial", Font.PLAIN, 25));
-        graphics.drawString(currentFPS + "",(int) backgroundCanvas.getWidth()-30, 25);
+        graphics.drawString(currentFPS + "", (int) backgroundCanvas.getWidth() - 30, 25);
     }
 
     public void drawBackground(FXGraphics2D graphics) {
@@ -159,25 +159,37 @@ public class SimulatorGUI extends Stage implements Resizable{
                 if (!event.isEventVisitorsSpawned()) {
                     System.out.println("Event started :)");
                     event.setEventVisitorsSpawned(true);
-                    for (int i = 0; i < event.getPopularity()*5; i++) {
-                        Festival.getInstance().getVisitors().add(new Visitor(new Target(tiledMap.getCollisionLayer(), selectedPodium.getObject().getCenterTile())));
+                    for (int i = 0; i < event.getPopularity() * 5; i++) {
+                        Festival.getInstance().getVisitors().add(new Visitor(new Target(tiledMap.getCollisionLayer(), selectedPodium.getObject().getCenterTile()), event));
+                        event.addVisitor(new Visitor(new Target(tiledMap.getCollisionLayer(), selectedPodium.getObject().getCenterTile()), event));
                         System.out.println("Added Visitor! + ( " + Festival.getInstance().getVisitors().size() + " )");
                     }
                 }
             }
+/*            if (Time.getTime().isAfter(event.getEndTime())) {
+                for (Visitor visitor : event.getVisitors()) {
+                    if (!visitor.getTargetIsSet()) {
+                        System.out.println("Setting target to Exit");
+                        visitor.setTarget(new Target(tiledMap.getCollisionLayer(), tiledMap.getObject("Exit").getCenterTile()));
+                        visitor.setTargetIsSet(true);
+                    }
+                }
+            }*/
         }
-        for (Visitor visitor : Festival.getInstance().getVisitors()) {
-            if (!visitor.isSpawned()) {
+
+        ArrayList<Visitor> visitors = Festival.getInstance().getVisitors();
+        for (int i = 0; i < visitors.size(); i++) {
+            if (!visitors.get(i).isSpawned()) {
                 if (timer <= 0) {
-                    visitor.spawn(tiledMap.getSpawn());
+                    visitors.get(i).spawn(tiledMap.getSpawn());
                     timer = (0.5 / Time.getSpeed());
                 }
-            } else {
-                visitor.update(deltaTime, tiledMap.getExit());
+            } else if (visitors.get(i).getTarget() != null) {
+                visitors.get(i).update(deltaTime, tiledMap.getCollisionLayer(), tiledMap.getObject("Exit").getCenterTile());
             }
         }
-        this.timeBar.setProgress((Time.getTime().getHour() * 60 + Time.getTime().getMinute()) / (double) 1440); //Updates Time bar in sync
 
+        this.timeBar.setProgress((Time.getTime().getHour() * 60 + Time.getTime().getMinute()) / (double) 1440); //Updates Time bar in sync
     }
 
     public Canvas getBackgroundCanvas() {
