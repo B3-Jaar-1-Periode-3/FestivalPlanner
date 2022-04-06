@@ -42,7 +42,7 @@ public class SimulatorGUI extends Stage implements Resizable{
 
 
     public SimulatorGUI() {
-        time = LocalTime.of(0,0);
+        time = Time.getTime();
         BorderPane mainPane = new BorderPane();
         this.toUpdateBackground = true;
         canvas = new Canvas(Toolkit.getDefaultToolkit().getScreenSize().getWidth(), Toolkit.getDefaultToolkit().getScreenSize().getHeight());
