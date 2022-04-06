@@ -36,13 +36,11 @@ public class SimulatorGUI extends Stage implements Resizable{
     private int currentFPS = 0;
     private int totalFrames = 0;
     private double timer = 1;
-    private LocalTime time;
     private Label timeText = new Label();
     private ProgressBar timeBar;
 
 
     public SimulatorGUI() {
-        time = Time.getTime();
         BorderPane mainPane = new BorderPane();
         this.toUpdateBackground = true;
         canvas = new Canvas(Toolkit.getDefaultToolkit().getScreenSize().getWidth(), Toolkit.getDefaultToolkit().getScreenSize().getHeight());
@@ -151,13 +149,13 @@ public class SimulatorGUI extends Stage implements Resizable{
     }
 
     public void update(double deltaTime) {
-        timeText.setText(time.toString());
-        time = time.plusSeconds((int) (Time.getSpeed() * deltaTime * 100)); // 1 is speed
+        timeText.setText(Time.getTime().toString());
+        Time.update(deltaTime);
         if (timer > -0.1) {
             timer -= deltaTime;
         }
         for (Event event : Festival.getInstance().getEventList()) {
-            if (time.isBefore(event.getEndTime()) && time.isAfter(event.getStartTime())) {
+            if (Time.getTime().isBefore(event.getEndTime()) && Time.getTime().isAfter(event.getStartTime())) {
                 Podium selectedPodium = event.getPodium();
                 if (!event.isEventVisitorsSpawned()) {
                     System.out.println("Event started :)");
@@ -179,7 +177,7 @@ public class SimulatorGUI extends Stage implements Resizable{
                 visitor.update(deltaTime);
             }
         }
-        this.timeBar.setProgress((time.getHour() * 60 + time.getMinute()) / (double) 1440); //Updates Time bar in sync
+        this.timeBar.setProgress((Time.getTime().getHour() * 60 + Time.getTime().getMinute()) / (double) 1440); //Updates Time bar in sync
 
     }
 

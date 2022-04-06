@@ -10,17 +10,9 @@ public class Time {
     public Time(){
     }
 
-/*    public static void update(double deltaTime){
-        timer += deltaTime;
-        if (speedup > 0 && timer >= (1.0 / speedup)){
-            time++;
-            timer = 0;
-        }
-
-        if ((time % 100) >= 60){
-            time = time + 40;
-        }
-    }*/
+    public static void update(double deltaTime){
+        time = time.plusSeconds(speedup * (long)(deltaTime * 100));
+    }
 
     public static LocalTime getTime(){
         return time;
