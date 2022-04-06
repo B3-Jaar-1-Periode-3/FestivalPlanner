@@ -15,8 +15,8 @@ import java.util.ArrayList;
 
 public class Visitor extends Npc {
 
-    private ArrayList<BufferedImage> femaleSprites;
-    private ArrayList<BufferedImage> maleSprites;
+    transient private ArrayList<BufferedImage> femaleSprites;
+    transient private ArrayList<BufferedImage> maleSprites;
 
     public Visitor( Target target) {
         super( target);
@@ -67,7 +67,7 @@ public class Visitor extends Npc {
             int tileX = (int) Math.floor(getPosition().getX()/32);
             int tileY = (int) Math.floor(getPosition().getY()/32);
             Point2D direction = target.getDirection(tileX, tileY);
-            setPosition(new Point2D.Double(position.getX() + direction.getX(), position.getY() + direction.getY()));
+            setPosition(new Point2D.Double(position.getX() + (direction.getX() * (4 * Time.getSpeed())), position.getY() + (direction.getY() * (4 * Time.getSpeed()))));
         }
     }
 

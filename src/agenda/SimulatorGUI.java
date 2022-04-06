@@ -1,13 +1,13 @@
 package agenda;
 
+import data.*;
 import data.Event;
-import data.Festival;
-import data.Podium;
-import data.Visitor;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -36,12 +36,11 @@ public class SimulatorGUI extends Stage implements Resizable{
     private int currentFPS = 0;
     private int totalFrames = 0;
     private double timer = 1;
-    private  LocalTime time;
-    Label label= new Label();
+    private Label timeText = new Label();
+    private ProgressBar timeBar;
 
 
     public SimulatorGUI() {
-        time = LocalTime.of(0,0);
         BorderPane mainPane = new BorderPane();
         this.toUpdateBackground = true;
         canvas = new Canvas(Toolkit.getDefaultToolkit().getScreenSize().getWidth(), Toolkit.getDefaultToolkit().getScreenSize().getHeight());
@@ -52,8 +51,30 @@ public class SimulatorGUI extends Stage implements Resizable{
         pane.getChildren().addAll(backgroundCanvas, canvas);
         canvas.toFront();
         camera = new Camera(this);
-        mainPane.setTop(new HBox(label));
         mainPane.setCenter(pane);
+        javafx.scene.text.Font font = new javafx.scene.text.Font(16);
+
+        //Settings bar
+        HBox settingBar = new HBox();
+        mainPane.setTop(settingBar);
+        settingBar.setSpacing(2);
+
+        //Adding Buttons to Setting bar
+        Label timeLabel = new Label("Time: ");
+        timeLabel.setFont(font);
+        timeText.setFont(font);
+        timeBar = new ProgressBar();
+        javafx.scene.control.Button pause = new javafx.scene.control.Button("=");
+        javafx.scene.control.Button fastForwardOne = new javafx.scene.control.Button(">");
+        javafx.scene.control.Button fastForwardTwo = new javafx.scene.control.Button(">>");
+        javafx.scene.control.Button fastForwardThree = new Button(">>>");
+        settingBar.getChildren().addAll(timeLabel, timeText, timeBar, pause, fastForwardOne, fastForwardTwo, fastForwardThree);
+
+        //Actions of Buttons in Setting bar
+        pause.setOnAction(e -> Time.setSpeed(0));
+        fastForwardOne.setOnAction(e -> Time.setSpeed(1));
+        fastForwardTwo.setOnAction(e -> Time.setSpeed(2));
+        fastForwardThree.setOnAction(e -> Time.setSpeed(4));
 
         tiledMap = Festival.getInstance().getTiledMap();
         Scene scene = new Scene(mainPane);
@@ -128,13 +149,13 @@ public class SimulatorGUI extends Stage implements Resizable{
     }
 
     public void update(double deltaTime) {
-        label.setText(time.toString());
-        time = time.plusSeconds((int) (1 * deltaTime * 100)); // 1 is speed
+        timeText.setText(Time.getTime().toString());
+        Time.update(deltaTime);
         if (timer > -0.1) {
             timer -= deltaTime;
         }
         for (Event event : Festival.getInstance().getEventList()) {
-            if (time.isBefore(event.getEndTime()) && time.isAfter(event.getStartTime())) {
+            if (Time.getTime().isBefore(event.getEndTime()) && Time.getTime().isAfter(event.getStartTime())) {
                 Podium selectedPodium = event.getPodium();
                 if (!event.isEventVisitorsSpawned()) {
                     System.out.println("Event started :)");
@@ -150,12 +171,13 @@ public class SimulatorGUI extends Stage implements Resizable{
             if (!visitor.isSpawned()) {
                 if (timer <= 0) {
                     visitor.spawn(tiledMap.getSpawn());
-                    timer = 1;
+                    timer = (0.5 / Time.getSpeed());
                 }
             } else {
                 visitor.update(deltaTime);
             }
         }
+        this.timeBar.setProgress((Time.getTime().getHour() * 60 + Time.getTime().getMinute()) / (double) 1440); //Updates Time bar in sync
 
     }
 

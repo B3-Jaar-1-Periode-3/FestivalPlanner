@@ -10,12 +10,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-public class EditEventPopUp extends Stage {
+public class EditEventPopUp extends Stage implements Serializable {
     private BorderPane mainPane;
     private VBox vBoxLabels;
     private VBox vBoxBoxes;

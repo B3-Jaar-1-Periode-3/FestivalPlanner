@@ -10,7 +10,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class EditGenreGUI extends Stage {
+import java.io.Serializable;
+
+public class EditGenreGUI extends Stage implements Serializable {
     private BorderPane mainPane;
     private ListView<Genre> genreListView;
     private HBox hBox;

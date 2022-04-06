@@ -10,7 +10,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class EditEventGUI extends Stage {
+import java.io.Serializable;
+
+public class EditEventGUI extends Stage implements Serializable {
     private ListView<Event> events;
     private BorderPane mainPane;
     private Button editEvent;

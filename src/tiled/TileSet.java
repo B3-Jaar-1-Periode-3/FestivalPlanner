@@ -4,9 +4,10 @@ import javax.imageio.ImageIO;
 import javax.json.JsonObject;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class TileSet {
+public class TileSet implements Serializable {
     private int columns;
     private int tileWidth;
     private int tileHeight;
