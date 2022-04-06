@@ -1,9 +1,10 @@
 package tiled;
 
 import javax.json.JsonObject;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class TiledObjectLayer {
+public class TiledObjectLayer implements Serializable {
     private ArrayList<TiledObject> objects;
     private int x;
     private int y;

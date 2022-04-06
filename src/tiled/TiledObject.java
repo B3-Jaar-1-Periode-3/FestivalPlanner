@@ -2,8 +2,9 @@ package tiled;
 
 import javax.json.JsonObject;
 import java.awt.geom.Point2D;
+import java.io.Serializable;
 
-public class TiledObject {
+public class TiledObject implements Serializable {
 
     private String name;
     private int width;

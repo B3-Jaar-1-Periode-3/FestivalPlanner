@@ -1,9 +1,10 @@
 package tiled;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class TileSetManager {
+public class TileSetManager implements Serializable {
     private static TileSetManager tileSetManager;
     ArrayList<TileSet> tileSets;
 

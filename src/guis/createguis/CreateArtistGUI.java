@@ -11,8 +11,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.Serializable;
 
-public class CreateArtistGUI extends Stage {
+
+public class CreateArtistGUI extends Stage implements Serializable {
     private TextField artistNameField;
 
     public CreateArtistGUI() {
