@@ -18,8 +18,8 @@ public class Visitor extends Npc {
     transient private ArrayList<BufferedImage> femaleSprites;
     transient private ArrayList<BufferedImage> maleSprites;
 
-    public Visitor( Target target) {
-        super( target);
+    public Visitor(Target target) {
+        super(target);
         femaleSprites = new ArrayList<>();
         maleSprites = new ArrayList<>();
 
@@ -49,7 +49,6 @@ public class Visitor extends Npc {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -62,16 +61,23 @@ public class Visitor extends Npc {
     }
 
     @Override
-    public void update(double deltaTime) {
+    public void update(double deltaTime, Point2D exit) {
         if (isSpawned()) {
             int tileX = (int) Math.floor(getPosition().getX()/32);
             int tileY = (int) Math.floor(getPosition().getY()/32);
             Point2D direction = target.getDirection(tileX, tileY);
             setPosition(new Point2D.Double(position.getX() + (direction.getX() * (4 * Time.getSpeed())), position.getY() + (direction.getY() * (4 * Time.getSpeed()))));
+
         }
     }
 
-
+    @Override
+    public void exit(Point2D exit) {
+        if (this.position == exit) {
+            this.spawned = false;
+            Festival.getInstance().getVisitors().remove(this);
+        }
+    }
 
     public ArrayList<BufferedImage> getFemaleSprites() {
         return femaleSprites;

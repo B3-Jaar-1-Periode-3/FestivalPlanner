@@ -173,7 +173,7 @@ public class SimulatorGUI extends Stage implements Resizable{
                     timer = (0.5 / Time.getSpeed());
                 }
             } else {
-                visitor.update(deltaTime);
+                visitor.update(deltaTime, tiledMap.getExit());
             }
         }
         this.timeBar.setProgress((Time.getTime().getHour() * 60 + Time.getTime().getMinute()) / (double) 1440); //Updates Time bar in sync

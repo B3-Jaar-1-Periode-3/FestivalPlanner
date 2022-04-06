@@ -18,6 +18,7 @@ public class TiledMap implements Serializable {
     private ArrayList<Tile> tiles;
     private TiledLayer collisionLayer;
     private Point2D spawn;
+    private Point2D exit;
 
     public TiledMap(String fileName) {
         layers = new ArrayList<>();
@@ -65,8 +66,10 @@ public class TiledMap implements Serializable {
     }
 
     public void init() {
-        TiledObject objectSpawn = getObject("Male Spawn");
+        TiledObject objectSpawn = getObject("Spawn");
+        TiledObject objectExit = getObject("Exit");
         spawn = getCenter(objectSpawn);
+        exit = getCenter(objectExit);
     }
 
     public Point2D getCenter(TiledObject object) {
@@ -98,6 +101,10 @@ public class TiledMap implements Serializable {
 
     public Point2D getSpawn() {
         return spawn;
+    }
+
+    public Point2D getExit() {
+        return exit;
     }
 
     public void setSpawn(Point2D spawn) {

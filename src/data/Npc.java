@@ -8,17 +8,16 @@ import java.io.Serializable;
 
 public abstract class Npc implements Serializable {
 
-    private boolean spawned;
+    protected boolean spawned;
     private String name;
     protected Point2D position;
     protected Target target;
 
     public abstract void draw(FXGraphics2D graphics);
-    public abstract void update(double deltaTime);
+    public abstract void update(double deltaTime, Point2D exit);
 
     public Npc( Target target) {
         this.spawned = false;
-
         this.target = target;
     }
 
@@ -28,6 +27,8 @@ public abstract class Npc implements Serializable {
             position = spawn;
         }
     }
+
+    public abstract void exit(Point2D exit);
 
     public boolean isSpawned() {
         return spawned;
