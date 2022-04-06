@@ -39,6 +39,7 @@ public class EditEventPopUp extends Stage implements Serializable {
         this.genre = event.getGenre();
         this.formatter = DateTimeFormatter.ofPattern("H:mm");
         VBox vBoxRight = new VBox();
+        Event oldEvent = event;
 
         artistsListView = new ListView<>();
         mainPane = new BorderPane();
@@ -108,6 +109,7 @@ public class EditEventPopUp extends Stage implements Serializable {
             event.setPopularity(popularitySlider.getValue());
             event.setArtists(new ArrayList<>(artistsListView.getItems()));
             if (event.isFree(event)) {
+                DrawEventBox.clearALlBoxes(oldEvent);
                 DrawEventBox.drawAllBoxes();
                 close();
                 new EditEventGUI().show();
