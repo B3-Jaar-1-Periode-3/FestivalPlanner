@@ -1,11 +1,11 @@
 package data;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Time {
     public static LocalTime time = LocalTime.of(0,0);
     private static int speedup = 1;
-    private static double timer = 0;
 
     public Time(){
     }
@@ -18,12 +18,10 @@ public class Time {
         return time;
     }
 
-/*    public static String timeToString(){
-        String timeString = Integer.toString(time);
-        String minute = timeString.substring(timeString.length() - 2);
-        String hour = timeString.substring(0, timeString.length() - 2);
-        return hour + ":" + minute;
-    }*/
+    public static String timeToString(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        return formatter.format(getTime());
+    }
 
     public static void setSpeed(int speed){
         speedup = speed;

@@ -57,7 +57,7 @@ public class SimulatorGUI extends Stage implements Resizable{
         //Settings bar
         HBox settingBar = new HBox();
         mainPane.setTop(settingBar);
-        settingBar.setSpacing(2);
+        settingBar.setSpacing(4);
 
         //Adding Buttons to Setting bar
         Label timeLabel = new Label("Time: ");
@@ -122,7 +122,6 @@ public class SimulatorGUI extends Stage implements Resizable{
  * TODO hier kan je werken met je timer voor festivals. dan moet je door de evenementen gaan en dan kijken of de tijd van het evenement binnen de tijd van de timer valt en dan moet hij er visitorss naar sturen.
  */
 
-
         graphics.setTransform(new AffineTransform());
         graphics.setColor(Color.GREEN);
         graphics.setFont(new Font("Arial", Font.PLAIN, 25));
@@ -149,7 +148,7 @@ public class SimulatorGUI extends Stage implements Resizable{
     }
 
     public void update(double deltaTime) {
-        timeText.setText(Time.getTime().toString());
+        timeText.setText(Time.timeToString());
         Time.update(deltaTime);
         if (timer > -0.1) {
             timer -= deltaTime;
