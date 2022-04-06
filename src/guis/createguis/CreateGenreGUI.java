@@ -11,7 +11,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class CreateGenreGUI extends Stage {
+import javax.sql.rowset.serial.SerialArray;
+import java.io.Serializable;
+
+public class CreateGenreGUI extends Stage implements Serializable {
 
     public CreateGenreGUI() {
         //Creates window content

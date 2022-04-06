@@ -9,7 +9,7 @@ import javafx.stage.Window;
 import javax.swing.*;
 import java.io.*;
 
-public class FileHandler {
+public class FileHandler implements Serializable {
 
     public static void saveToFile(File location, Festival data){
         try (FileOutputStream fileOutput = new FileOutputStream(location)) { //Creates path for saving

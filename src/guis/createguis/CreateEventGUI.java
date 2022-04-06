@@ -10,13 +10,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 
-public class CreateEventGUI extends Stage {
+public class CreateEventGUI extends Stage implements Serializable {
 
     public CreateEventGUI() {
         ArrayList<Artist> artistList = Festival.getInstance().getArtistList();

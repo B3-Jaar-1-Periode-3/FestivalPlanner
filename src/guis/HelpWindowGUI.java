@@ -5,7 +5,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-    public class HelpWindowGUI extends Stage {
+import java.io.Serializable;
+
+public class HelpWindowGUI extends Stage implements Serializable {
 
 
         public HelpWindowGUI() {

@@ -11,10 +11,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class EditArtistGUI extends Stage {
+public class EditArtistGUI extends Stage implements Serializable {
     private ListView<Artist> artists;
     private BorderPane mainPane;
     private HBox hBox;

@@ -11,7 +11,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class EditGenrePopUp extends Stage {
+import java.io.Serializable;
+
+public class EditGenrePopUp extends Stage implements Serializable {
 
     private BorderPane mainPane;
     private HBox hBox;
