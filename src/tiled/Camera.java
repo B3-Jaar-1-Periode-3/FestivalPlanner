@@ -11,8 +11,9 @@ import org.jfree.fx.Resizable;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.io.Serializable;
 
-public class Camera {
+public class Camera implements Serializable {
     private Point2D centerPoint = new Point2D.Double(0, 0);
     private float zoom = 0.75f;
     private double rotation = 0;

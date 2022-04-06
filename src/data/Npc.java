@@ -4,8 +4,9 @@ import org.jfree.fx.FXGraphics2D;
 import tiled.pathfinding.Target;
 
 import java.awt.geom.Point2D;
+import java.io.Serializable;
 
-public abstract class Npc {
+public abstract class Npc implements Serializable {
 
     private boolean spawned;
     private String name;

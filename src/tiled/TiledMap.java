@@ -9,9 +9,10 @@ import javax.json.JsonArray;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class TiledMap {
+public class TiledMap implements Serializable {
     private ArrayList<TiledLayer> layers;
     private ArrayList<TiledObjectLayer> objectLayers;
     private ArrayList<Tile> tiles;

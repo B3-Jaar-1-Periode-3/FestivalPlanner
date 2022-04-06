@@ -1,6 +1,7 @@
 package tiled;
 
 import java.awt.geom.Point2D;
+import java.io.Serializable;
 
 public class Tile {
 

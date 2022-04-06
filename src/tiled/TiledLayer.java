@@ -7,10 +7,11 @@ import javax.json.JsonObject;
 import javax.json.JsonReader;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class TiledLayer {
+public class TiledLayer implements Serializable {
     private int width;
     private int height;
     private int offsetX;
