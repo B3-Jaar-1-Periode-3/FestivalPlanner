@@ -139,7 +139,7 @@ public class SimulatorGUI extends Stage implements Resizable{
                 if (!event.isEventVisitorsSpawned()) {
                     System.out.println("Event started :)");
                     event.setEventVisitorsSpawned(true);
-                    for (int i = 0; i < event.getPopularity()*51; i++) {
+                    for (int i = 0; i < event.getPopularity()*5; i++) {
                         Festival.getInstance().getVisitors().add(new Visitor(new Target(tiledMap.getCollisionLayer(), selectedPodium.getObject().getCenterTile())));
                         System.out.println("Added Visitor! + ( " + Festival.getInstance().getVisitors().size() + " )");
                     }
