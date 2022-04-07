@@ -12,7 +12,10 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 public class AgendaMenubar {
     private static HBox agendaMenuBarScene;
@@ -33,12 +36,23 @@ public class AgendaMenubar {
         MenuItem savePlanning = new MenuItem("Save planning");
         fileMenu.getItems().addAll(loadFile, savePlanning);
 
+        FileChooser fileChooser = new FileChooser();
+
         loadFile.setOnAction(event -> {
-            io.FileHandler.readFromFile();
+            fileChooser.setTitle("Load from");
+            File file = fileChooser.showOpenDialog(stage);
+            if (file != null) {
+                io.FileHandler.readFromFile(file);
+            }
         });
 
         savePlanning.setOnAction(event -> {
-            io.FileHandler.saveToFile(Festival.getInstance());
+            fileChooser.setTitle("Save as");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Planning", "*.planning"));
+            File file = fileChooser.showSaveDialog(stage);
+            if (file != null){
+                io.FileHandler.saveToFile(file, Festival.getInstance());
+            }
         });
 
         // edit menu & sub menu's

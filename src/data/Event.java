@@ -9,6 +9,7 @@ import java.util.Collections;
 public class Event implements Serializable {
 
     private ArrayList<Artist> artists;
+    private ArrayList<Visitor> visitors;
     private Genre genre;
     private LocalTime startTime;
     private LocalTime endTime;
@@ -25,6 +26,7 @@ public class Event implements Serializable {
         this.podium = podium;
         this.popularity = popularity;
         this.eventVisitorsSpawned = false;
+        this.visitors = new ArrayList<>();
     }
 
     public ArrayList<Artist> getArtists() {
@@ -102,5 +104,13 @@ public class Event implements Serializable {
 
     public void setEventVisitorsSpawned(boolean eventVisitorsSpawned) {
         this.eventVisitorsSpawned = eventVisitorsSpawned;
+    }
+
+    public void addVisitor(Visitor visitor) {
+        this.visitors.add(visitor);
+    }
+
+    public ArrayList<Visitor> getVisitors() {
+        return visitors;
     }
 }

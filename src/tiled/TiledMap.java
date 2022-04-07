@@ -9,14 +9,16 @@ import javax.json.JsonArray;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class TiledMap {
+public class TiledMap implements Serializable {
     private ArrayList<TiledLayer> layers;
     private ArrayList<TiledObjectLayer> objectLayers;
     private ArrayList<Tile> tiles;
     private TiledLayer collisionLayer;
     private Point2D spawn;
+    private Point2D exit;
 
     public TiledMap(String fileName) {
         layers = new ArrayList<>();
@@ -64,8 +66,10 @@ public class TiledMap {
     }
 
     public void init() {
-        TiledObject objectSpawn = getObject("Male Spawn");
+        TiledObject objectSpawn = getObject("Spawn");
+        TiledObject objectExit = getObject("Exit");
         spawn = getCenter(objectSpawn);
+        exit = getCenter(objectExit);
     }
 
     public Point2D getCenter(TiledObject object) {
@@ -97,6 +101,10 @@ public class TiledMap {
 
     public Point2D getSpawn() {
         return spawn;
+    }
+
+    public Point2D getExit() {
+        return exit;
     }
 
     public void setSpawn(Point2D spawn) {

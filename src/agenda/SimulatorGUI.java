@@ -1,13 +1,13 @@
 package agenda;
 
+import data.*;
 import data.Event;
-import data.Festival;
-import data.Podium;
-import data.Visitor;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -23,7 +23,7 @@ import java.awt.geom.AffineTransform;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class SimulatorGUI extends Stage implements Resizable{
+public class SimulatorGUI extends Stage implements Resizable {
     private Canvas backgroundCanvas;
     private Canvas canvas;
     private TiledMap tiledMap;
@@ -36,12 +36,11 @@ public class SimulatorGUI extends Stage implements Resizable{
     private int currentFPS = 0;
     private int totalFrames = 0;
     private double timer = 1;
-    private  LocalTime time;
-    Label label= new Label();
+    private Label timeText = new Label();
+    private ProgressBar timeBar;
 
 
     public SimulatorGUI() {
-        time = LocalTime.of(0,0);
         BorderPane mainPane = new BorderPane();
         this.toUpdateBackground = true;
         canvas = new Canvas(Toolkit.getDefaultToolkit().getScreenSize().getWidth(), Toolkit.getDefaultToolkit().getScreenSize().getHeight());
@@ -52,8 +51,30 @@ public class SimulatorGUI extends Stage implements Resizable{
         pane.getChildren().addAll(backgroundCanvas, canvas);
         canvas.toFront();
         camera = new Camera(this);
-        mainPane.setTop(new HBox(label));
         mainPane.setCenter(pane);
+        javafx.scene.text.Font font = new javafx.scene.text.Font(16);
+
+        //Settings bar
+        HBox settingBar = new HBox();
+        mainPane.setTop(settingBar);
+        settingBar.setSpacing(4);
+
+        //Adding Buttons to Setting bar
+        Label timeLabel = new Label("Time: ");
+        timeLabel.setFont(font);
+        timeText.setFont(font);
+        timeBar = new ProgressBar();
+        javafx.scene.control.Button pause = new javafx.scene.control.Button("=");
+        javafx.scene.control.Button fastForwardOne = new javafx.scene.control.Button(">");
+        javafx.scene.control.Button fastForwardTwo = new javafx.scene.control.Button(">>");
+        javafx.scene.control.Button fastForwardThree = new Button(">>>");
+        settingBar.getChildren().addAll(timeLabel, timeText, timeBar, pause, fastForwardOne, fastForwardTwo, fastForwardThree);
+
+        //Actions of Buttons in Setting bar
+        pause.setOnAction(e -> Time.setSpeed(0));
+        fastForwardOne.setOnAction(e -> Time.setSpeed(1));
+        fastForwardTwo.setOnAction(e -> Time.setSpeed(2));
+        fastForwardThree.setOnAction(e -> Time.setSpeed(4));
 
         tiledMap = Festival.getInstance().getTiledMap();
         Scene scene = new Scene(mainPane);
@@ -78,7 +99,7 @@ public class SimulatorGUI extends Stage implements Resizable{
 
     public void draw(FXGraphics2D graphics) {
         totalFrames++;
-        if(System.nanoTime() > lastFPSCheck + 1000000000) {
+        if (System.nanoTime() > lastFPSCheck + 1000000000) {
             lastFPSCheck = System.nanoTime();
             currentFPS = totalFrames;
             totalFrames = 0;
@@ -101,11 +122,10 @@ public class SimulatorGUI extends Stage implements Resizable{
  * TODO hier kan je werken met je timer voor festivals. dan moet je door de evenementen gaan en dan kijken of de tijd van het evenement binnen de tijd van de timer valt en dan moet hij er visitorss naar sturen.
  */
 
-
         graphics.setTransform(new AffineTransform());
         graphics.setColor(Color.GREEN);
         graphics.setFont(new Font("Arial", Font.PLAIN, 25));
-        graphics.drawString(currentFPS + "",(int) backgroundCanvas.getWidth()-30, 25);
+        graphics.drawString(currentFPS + "", (int) backgroundCanvas.getWidth() - 30, 25);
     }
 
     public void drawBackground(FXGraphics2D graphics) {
@@ -128,35 +148,48 @@ public class SimulatorGUI extends Stage implements Resizable{
     }
 
     public void update(double deltaTime) {
-        label.setText(time.toString());
-        time = time.plusSeconds((int) (1 * deltaTime * 100)); // 1 is speed
+        timeText.setText(Time.timeToString());
+        Time.update(deltaTime);
         if (timer > -0.1) {
             timer -= deltaTime;
         }
         for (Event event : Festival.getInstance().getEventList()) {
-            if (time.isBefore(event.getEndTime()) && time.isAfter(event.getStartTime())) {
+            if (Time.getTime().isBefore(event.getEndTime()) && Time.getTime().isAfter(event.getStartTime())) {
                 Podium selectedPodium = event.getPodium();
                 if (!event.isEventVisitorsSpawned()) {
                     System.out.println("Event started :)");
                     event.setEventVisitorsSpawned(true);
-                    for (int i = 0; i < event.getPopularity()*5; i++) {
-                        Festival.getInstance().getVisitors().add(new Visitor(new Target(tiledMap.getCollisionLayer(), selectedPodium.getObject().getCenterTile())));
+                    for (int i = 0; i < event.getPopularity() * 5; i++) {
+                        Festival.getInstance().getVisitors().add(new Visitor(new Target(tiledMap.getCollisionLayer(), selectedPodium.getObject().getCenterTile()), event));
+                        event.addVisitor(new Visitor(new Target(tiledMap.getCollisionLayer(), selectedPodium.getObject().getCenterTile()), event));
                         System.out.println("Added Visitor! + ( " + Festival.getInstance().getVisitors().size() + " )");
                     }
                 }
             }
-        }
-        for (Visitor visitor : Festival.getInstance().getVisitors()) {
-            if (!visitor.isSpawned()) {
-                if (timer <= 0) {
-                    visitor.spawn(tiledMap.getSpawn());
-                    timer = 1;
+/*            if (Time.getTime().isAfter(event.getEndTime())) {
+                for (Visitor visitor : event.getVisitors()) {
+                    if (!visitor.getTargetIsSet()) {
+                        System.out.println("Setting target to Exit");
+                        visitor.setTarget(new Target(tiledMap.getCollisionLayer(), tiledMap.getObject("Exit").getCenterTile()));
+                        visitor.setTargetIsSet(true);
+                    }
                 }
-            } else {
-                visitor.update(deltaTime);
+            }*/
+        }
+
+        ArrayList<Visitor> visitors = Festival.getInstance().getVisitors();
+        for (int i = 0; i < visitors.size(); i++) {
+            if (!visitors.get(i).isSpawned()) {
+                if (timer <= 0) {
+                    visitors.get(i).spawn(tiledMap.getSpawn());
+                    timer = (0.5 / Time.getSpeed());
+                }
+            } else if (visitors.get(i).getTarget() != null) {
+                visitors.get(i).update(deltaTime, tiledMap.getCollisionLayer(), tiledMap.getObject("Exit").getCenterTile());
             }
         }
 
+        this.timeBar.setProgress((Time.getTime().getHour() * 60 + Time.getTime().getMinute()) / (double) 1440); //Updates Time bar in sync
     }
 
     public Canvas getBackgroundCanvas() {

@@ -10,12 +10,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-public class EditEventPopUp extends Stage {
+public class EditEventPopUp extends Stage implements Serializable {
     private BorderPane mainPane;
     private VBox vBoxLabels;
     private VBox vBoxBoxes;
@@ -38,6 +39,7 @@ public class EditEventPopUp extends Stage {
         this.genre = event.getGenre();
         this.formatter = DateTimeFormatter.ofPattern("H:mm");
         VBox vBoxRight = new VBox();
+        Event oldEvent = event;
 
         artistsListView = new ListView<>();
         mainPane = new BorderPane();
@@ -107,6 +109,7 @@ public class EditEventPopUp extends Stage {
             event.setPopularity(popularitySlider.getValue());
             event.setArtists(new ArrayList<>(artistsListView.getItems()));
             if (event.isFree(event)) {
+                DrawEventBox.clearALlBoxes(oldEvent);
                 DrawEventBox.drawAllBoxes();
                 close();
                 new EditEventGUI().show();
